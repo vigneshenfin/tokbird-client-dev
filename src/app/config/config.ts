@@ -16,6 +16,6 @@ export const Config = Object.freeze({
     CONFERENCE_API_URL : 'https://signal-dev.tokbird.com/',
     RECORDINGS_URL : 'https://meet-dev.tokbird.com/player/index.html',
     HOST_URL : 'https://meet-dev.tokbird.com/join.html',
-    CONFERENCE_URL : 'https://meet-dev.tokbird.com/' 
+    CONFERENCE_URL : 'https://meet-dev.tokbird.com/'  
 
 })
