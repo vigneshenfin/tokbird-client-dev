@@ -1,0 +1,6 @@
+.dataTables_wrapper {
+    min-height: 440px !important;
+}
+.edit-delete-wrap .edit{
+    vertical-align: top;
+}

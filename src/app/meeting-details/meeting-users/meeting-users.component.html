@@ -1,0 +1,54 @@
+<app-header *ngIf="roleId == '3'"></app-header>
+<app-admin-header *ngIf="roleId != '3'"></app-admin-header>
+<div class="main-wraper">
+  <div class="left-sidebar-wrap" style="visibility: hidden;"></div>
+  <div class="right-content-wrap right-content-wrap-minHeight">
+    <div class="heading-r-btns-wrap">
+        <h2 class="h2-heading"><span class="first-text-light">{{pageTitle}}</span> </h2>
+        <div class="btn-edits">
+            <a class="btn btn-blue  serch-btn" href="javascript:void(0)" (click)="exportCsv()">EXPORT CSV</a>
+            <a class="btn btn-blue  serch-btn  cancel-meeting" href="javascript:void(0)" (click)="backClicked()">GO BACK</a>
+        </div>
+    </div>
+    <span class="h2-heading-sub">{{meetingTitle}}</span>
+    <div class="row">
+        <div class="col-md-4" *ngIf="(schedules.length > 1)">
+            <div class="form-group">
+                <select [(ngModel)]="scheduleId" (change)="getMeetingUsers($event.target.value)">
+                     <option value="">All Schedules</option> 
+                    <option *ngFor="let schedule of schedules; let i = index;" value="{{schedule.id}}">{{schedule.scheduled_date_utc}}</option>
+                </select>
+                <label class="control-label" for="select">FILTER BY SCHEDULED DATES</label><i class="bar"></i>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive" style="position:relative;">
+      <div [ngBusy]="busy"></div>
+      <table class="table table-striped table-striped-tok table-reg-height">
+          <thead>
+              <tr>
+                  <th *ngFor="let header of tableHeaders">{{header.label}}</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let user of users | paginate: {'id': 'users-list', itemsPerPage: limit, currentPage: p, totalItems: recordDetails.recordsTotal }">
+                <td *ngFor="let header of tableHeaders">{{user[header.value]}}</td>
+              </tr>
+              <tr *ngIf="users.length == 0"><td attr.colspan="{{tableHeaders.length}}">No results found</td></tr>
+          </tbody>
+      </table>
+    </div>
+    <pagination-controls class="my-pagination" id="users-list"
+            (pageChange)="pageChanged($event)"
+            maxSize="5"
+            directionLinks="true"
+            autoHide="true"
+            previousLabel="Previous"
+            nextLabel="Next"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div>
+</div>
+<app-footer></app-footer>

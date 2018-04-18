@@ -1,0 +1,283 @@
+<div *ngIf="accessDenied">
+    <div class="text-center"><img [ngStyle]="{'width': '400px'}" src="assets/images/donthave-permission.svg" /></div>
+</div>
+<a *ngIf="!accessDenied && allDataFetched" class="btn btn-blue btn-full create-btn-alter" (click)="addTemplate()">Create new Pre-registration Template</a>
+<div class="table-responsive">
+    <!-- DATA TABLE  -->
+    <table class="table table-striped table-striped-tok table-reg-height table-responsive-tabled" [mfData]="templates" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+            <tr>
+                <th>
+                    <mfDefaultSorter by="title">Template Title</mfDefaultSorter>
+                </th>
+                <th class="text-right" *ngIf="!accessDenied && allDataFetched">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let template of mf.data">
+                <td>{{template.title}}</td>
+                <td class="pre-reg-width" *ngIf="!accessDenied">
+                    <div class="edit-delete-wrap">
+                        <div class="edit">
+                          <a href="javascript:void(0)" (click)="editTemplate(template.id)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15.571" height="15.5" viewBox="0 0 14.571 14.5">
+                                        <path fill="#B2B2B2" d="M9.06 2.42l2.965 2.964-7.503 7.503L1.56 9.923l7.5-7.503zm5.214-.715L12.952.383c-.51-.51-1.34-.51-1.853 0L9.83 1.65l2.964 2.963 1.477-1.477c.397-.396.397-1.035 0-1.43zM.008 14.09c-.054.242.165.46.408.4l3.303-.8-2.965-2.965-.75 3.364z"></path>
+                                      </svg>
+                          </a>
+                        </div>
+                        <!-- edit -->
+                        <div class="delete">
+                            <a href="javascript:void(0)" (click)="deleteTemplate(template.id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12.641" height="16" viewBox="0 0 11.641 15">
+                                            <path fill="#B2B2B2" d="M2.51 15h6.653c.915 0 1.663-.748 1.663-1.663V3.36H.848v9.977c0 .915.748 1.663 1.663 1.663zM11.64.848H8.73L7.9 0H3.74l-.83.848H0V2.51h11.64V.85z"></path>
+                                        </svg>
+                            </a>
+                        </div>
+                        <!-- delete -->
+                    </div>
+                </td>
+            </tr>
+            <tr *ngIf="((mf.data.length < 1) && (allDataFetched))"><td colspan="2">No results found</td></tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <!-- DATA TABLE ENDS  -->
+</div>
+
+<!-- ADD/EDIT TEMPLATE MODAL  -->
+<div class="modal tokbird-modal fade" data-backdrop="static" id="pre_reg_temp" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading"><span class="first-text-light">Pre-registration&nbsp;</span>Template</h2>
+
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5 col-xs-12 col-xxs">
+                                <div class="form-group" [ngClass]="{'has-error': templateTitleError == 1}">
+                                    <input type="text" name="templateTitle" [(ngModel)]="templateTitle" #newTemplateName="ngModel" (keyup)="checkName()" required="required">
+                                    <label class="control-label" for="input">TEMPLATE NAME</label><i class="bar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12 col-xs-12 notify-block">To add new registration fields, choose the <b>Field Types</b> from the drop down box, then fill in the <b>Field Name</b> and <b>Field Value</b>. In <b>Field Value</b>, multiple choices must be separated by comma. If a text Field Type is used, leave the Field Value blank. click the <b>Add</b> button. 
+                            </div>
+                        </div> 
+                        </div>
+                        <div class="table-responsive table-responsive-scroll">
+                            <form #g="ngForm" ngSubmit="saveField()">
+                            <table class="table table-striped table-striped-tok">
+                                <thead>
+                                    <tr>
+                                        <th class="min-width-100">Required</th>
+                                        <th class="min-width-150">Field Type</th>
+                                        <th class="min-width-150">Field Name</th>
+                                        <th>Field Value</th>
+                                        <th class="min-width-100">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let templateField of fieldsArray; let i=index;">
+                                        <td>
+                                            <div class="checkbox" [ngClass]="{'chk-box-dis': templateField.isEditable == '0'}">
+                                                <label>
+                                                    <input type="checkbox" name="fields[{{i}}]['isRequired']" [disabled]="templateField.isEditable == '0'" [checked]="templateField.isRequired == 1" (change)="toggleRequired(i)"><i class="helper"></i>Required
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="text_value" *ngIf="rowToEdit != i">{{fieldTypes[templateField.fieldType]}}</span>
+                                            <div class="form-group" *ngIf="rowToEdit == i">
+                                                <select class="pre-reg-material-drop form-drop" name="editType" [(ngModel)]="editType" #editFieldType="ngModel" required>
+                                                    <option value="1">Text</option>
+                                                    <option value="2">Radio</option>
+                                                    <option value="3">Checkbox</option>
+                                                    <option value="4">Textarea</option>
+                                                    <option value="8">Dropdown</option>
+                                                </select>
+                                                <label class="control-label" for="select"></label><i class="bar"></i>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="text_value" *ngIf="rowToEdit != i">{{templateField.fieldName}}</span>
+                                            <div class="form-group" [ngClass]="{'has-error': editNameError !=0}" *ngIf="rowToEdit == i">
+                                                <input type="text" name="editName" [(ngModel)]="editName" #editFieldName="ngModel" required="required">
+                                                <label class="control-label" for="input">ENTER FIELD NAME</label><i class="bar"></i>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="text_value" *ngIf="rowToEdit != i" [innerHtml]="templateField.fieldValuesHtml"></span> 
+                                            <div class="form-group" [ngClass]="{'has-error': editValuesError !=0}" *ngIf="rowToEdit == i">
+                                                <input type="text" name="editValues" [(ngModel)]="editValues" #editFieldValues required="required">
+                                                <label class="control-label" for="input">ENTER FIELD VALUE</label><i class="bar"></i>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="edit-delete-wrap" id="edit_del_wrap" *ngIf="(templateField.isEditable == 1) && rowToEdit != i">
+                                                <a class="edit" id="edit" *ngIf="(templateField.fieldType == 1 || templateField.fieldType == 2 || templateField.fieldType == 3 || templateField.fieldType == 4 || templateField.fieldType == 8)" href="javascript:void(0)" (click)="editRow(i)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="15.571" height="15.5" viewBox="0 0 14.571 14.5">
+                                                                    <path fill="#B2B2B2" d="M9.06 2.42l2.965 2.964-7.503 7.503L1.56 9.923l7.5-7.503zm5.214-.715L12.952.383c-.51-.51-1.34-.51-1.853 0L9.83 1.65l2.964 2.963 1.477-1.477c.397-.396.397-1.035 0-1.43zM.008 14.09c-.054.242.165.46.408.4l3.303-.8-2.965-2.965-.75 3.364z"></path>
+                                                                </svg>
+                                                </a>
+                                                <!-- edit -->
+                                                <a class="delete" id="delete" href="javascript:void(0)" (click)="confirmDeleteRow(i)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.641" height="16" viewBox="0 0 11.641 15">
+                                                                    <path fill="#B2B2B2" d="M2.51 15h6.653c.915 0 1.663-.748 1.663-1.663V3.36H.848v9.977c0 .915.748 1.663 1.663 1.663zM11.64.848H8.73L7.9 0H3.74l-.83.848H0V2.51h11.64V.85z"></path>
+                                                                </svg>
+                                                </a>
+                                                <!-- delete -->
+                                            </div>
+                                            <div class="save-cancel-wrap" id="save_cancel_wrap" *ngIf="(templateField.isEditable == 1) && rowToEdit == i">
+                                                <a class="save" id="save_btn" href="javascript:void(0)" (click)="saveChanges(i)">
+                                                    <svg fill="#B2B2B2" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M0 0h24v24H0z" fill="none"/>
+                                                                <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+                                                        </svg>
+                                                </a>
+                                                <a class="cancel" id="cancel_bttn" href="javascript:void(0)" (click)="cancelEdit(i)">
+                                                    <svg fill="#B2B2B2" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                                                <path d="M0 0h24v24H0z" fill="none"/>
+                                                        </svg>
+                                                </a>
+                                            </div>
+                                            <!-- save-cancel-wrap -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </form>
+                        </div>
+                        <form #f="ngForm" (ngSubmit)="addField(f)">
+                            <div class="table-bottom-footer">
+                                <div class="required-label">
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" name="isRequired" [(ngModel)]="isRequired" #newFieldIsRequired="ngModel" checked><i class="helper"></i>Required</label>
+                                    </div>
+                                </div>
+                                <div class="drops-min-width">
+                                    <div class="form-group" [ngClass]="{'has-error': (!newFieldType.valid && f.submitted) || (newFieldTypeError == 1)}">
+                                        <select class="pre-reg-material-drop" name="fieldType" [(ngModel)]="fieldType" #newFieldType="ngModel" (change)="onChange($event.target.value)" required>
+                                            <option value="1">Text</option>
+                                            <option value="2">Radio</option>
+                                            <option value="3">Checkbox</option>
+                                            <option value="4">Textarea</option>
+                                            <option value="8">Dropdown</option>
+                                            <option value="5">Country</option>
+                                            <option value="6">State</option>
+                                            <option value="7">Terms and conditions</option>
+                                        </select>
+                                        <label class="control-label" for="select"></label><i class="bar"></i>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="(fieldType != 5 && fieldType != 6 && fieldType != 7)">
+                                    <div class="search-table search-table-in-preReg">
+                                        <div class="form-group" [ngClass]="{'has-error': (!newFieldName.valid && f.submitted) || (newFieldNameError == 1)}">
+                                            <input type="text" name="fieldName" [(ngModel)]="fieldName" #newFieldName="ngModel" [required]="(fieldType == 1 || fieldType == 2 || fieldType == 3 || fieldType == 4 || fieldType == 8)">
+                                            <label class="control-label" for="input">ENTER FIELD NAME</label><i class="bar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="(fieldType != 5 && fieldType != 6 && fieldType != 7)">
+                                    <div class="search-table search-table-in-preReg">
+                                        <div class="form-group" [ngClass]="{'has-error': (!newFieldValues.valid && f.submitted) || (newFieldValuesError == 1)}">
+                                            <input type="text" name="fieldValues" [(ngModel)]="fieldValues" #newFieldValues="ngModel"  [required]="(fieldType == 2 || fieldType == 3 || fieldType == 8)">
+                                            <label class="control-label" for="input">ENTER FIELD VALUE</label><i class="bar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="(fieldType == 7)">
+                                    <div class="upload-btn-wrapper">
+                                        <button class="btn upload-btn">Upload</button>    
+                                        <input type="file" name="terms_and_conditions" id="terms_and_conditions" class="" accept="application/pdf" (change)="getFiles($event)" />
+                                        <span class="file-upload-name">{{fileName}}</span>
+                                    </div>
+                                </div>
+                                <div class="add-btn-margin-top">
+                                    <button type="submit" class="btn btn-blue-add">
+                                        ADD
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- table-bottom-footer -->
+                        </form>
+                    </div>
+
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a *ngIf="!disableSaveReg" class="btn btn-blue" href="javascript:void(0)" (click)="saveTemplate()">SAVE</a>
+                    <a *ngIf="disableSaveReg" class="btn btn-blue disabled" href="javascript:void(0)">SAVE</a>
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->
+
+<!-- TEMPLATE DELETE CONFIRMATION MODAL  -->
+<div class="modal tokbird-modal fade" id="delete-pop" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading text-center"><span class="first-text-light">Delete</span> Template</h2>
+                        <div class="deletion-msg">
+                            Are you sure you want to delete this Template?<br/> This cannot be undone
+                        </div>
+                        <!-- deletion-msg -->
+                    </div>
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a *ngIf="!disableDeleteReg" class="btn btn-blue" href="javascript:void(0)" (click)="deleteRegTemplate(templateToDelete)">DELETE</a>
+                    <a *ngIf="disableDeleteReg" class="btn btn-blue disabled" href="javascript:void(0)">DELETE</a>
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->
+
+<!-- TEMPLATE FIELD DELETE CONFIRMATION MODAL  -->
+<div class="modal tokbird-modal fade" id="delete-confirmation" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full delete-pop-size" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading text-center"><span class="first-text-light">Delete</span> Confirmation</h2>
+                        <div class="deletion-msg">
+                            Are you sure you want to Delete this Field?
+                        </div>
+                        <!-- deletion-msg -->
+                    </div>
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a class="btn btn-blue" href="javascript:void(0)" (click)="deleteRow(rowToDelete)">YES</a>
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">NO</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->
+

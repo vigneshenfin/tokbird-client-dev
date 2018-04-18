@@ -1,0 +1,121 @@
+<div class="dataTable-wraper">
+  <div id="calender_view">
+    <div id="calendar"></div>
+  </div>
+</div>
+
+<div class="modal tokbird-modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading"><span class="first-text-light">Meeting&nbsp;</span>Info</h2>
+                        <span class="h2-heading-sub">{{event.meeting_title}}</span>
+                        <div class="meeting-sub" [innerHTML]="event.agenda"></div>
+                        <div class="meetind-date-wrap">
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Meeting start time</span>
+                                <span class="meeting-ans-text">{{event.scheduled_date}} {{formatTimezone(event.timezone)}}</span>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Estimated Duration</span>
+                                <span class="meeting-ans-text" *ngIf="(event.duration_hours > 0) || (event.duration_minutes > 0)"><span *ngIf="event.duration_hours > 0">{{event.duration_hours}} hour </span><span *ngIf="event.duration_minutes > 0">{{event.duration_minutes}} minutes</span></span>
+                            </div>
+                        </div>
+                        <!-- meetind-date-wrap -->
+
+                        <div class="meetind-date-wrap meetind-date-wrap-alter">
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Link to Presenters</span>
+                                <div class="infopopup">
+                                    <span class="meeting-ans-text meeting-ans-text-alter"><a class="meet-link" href="{{event.presenters_url}}" target="_blank">{{event.presenters_url}}</a></span>
+                                    <span class="link-cpy"><button class="btn btn-default" id="copy-presenters-url" [attr.data-copy-url]="event.presenters_url" (click)="copyToClipboard('#copy-presenters-url')">Copy link</button></span> 
+                                </div>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Link to Experts</span>
+                                <div class="infopopup">
+                                    <span class="meeting-ans-text meeting-ans-text-alter"><a class="meet-link" href="{{event.experts_url}}" target="_blank">{{event.experts_url}}</a></span>
+                                    <span class="link-cpy"><button class="btn btn-default" id="copy-experts-url" [attr.data-copy-url]="event.experts_url" (click)="copyToClipboard('#copy-experts-url')">Copy link</button></span> 
+                                </div>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Link to Listeners</span>
+                                <div class="infopopup">
+                                    <span class="meeting-ans-text meeting-ans-text-alter"><a class="meet-link" href="{{event.attendees_url}}" target="_blank">{{event.attendees_url}}</a></span>
+                                    <span class="link-cpy"><button class="btn btn-default" id="copy-attendees-url" [attr.data-copy-url]="event.attendees_url" (click)="copyToClipboard('#copy-attendees-url')">Copy link</button></span>
+                                </div>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5 col-xs-6">
+                                    <div class="meet-head-des-wrap">
+                                        <span class="meeting-head-text">Phone number</span>
+                                        <span class="meeting-ans-text"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-6">
+                                    <div class="meet-head-des-wrap">
+                                        <span class="meeting-head-text">Meeting Access Code</span>
+                                        <span class="meeting-ans-text">{{event.access_code}}</span>
+                                    </div>
+                                </div>
+                                <!-- columns -->
+                            </div>
+                            <!-- row -->
+                        </div>
+
+                        
+                        <div class="meetind-date-wrap meetind-date-wrap-alter">
+                          <!-- meet-head-des-wrap -->
+                          <div class="row">
+                              <div class="col-md-5 col-sm-5 col-xs-6">
+                                  <div class="meet-head-des-wrap">
+                                      <span class="meeting-head-text">Event Creator</span>
+                                      <span class="meeting-ans-text">{{event.event_creator}}</span>
+                                  </div>
+                              </div>
+                              <div class="col-md-5 col-sm-5 col-xs-6">
+                                <div class="meet-head-des-wrap">
+                                    <span class="meeting-head-text">Event Creator Email</span>
+                                    <span class="meeting-ans-text medium-text">{{event.event_creator_email}}</span>
+                                </div>
+                              </div>
+                          </div>
+                          <!-- row -->
+                          <div class="row">
+                            <div class="col-md-5 col-sm-5 col-xs-6">
+                              <div class="meet-head-des-wrap">
+                                  <span class="meeting-head-text">No. of users registered</span>
+                                  <span class="meeting-ans-text">{{event.users_registerd}}</span>
+                              </div>
+                            </div>
+                            <!-- columns -->
+                            <div class="col-md-5 col-sm-5 col-xs-6" *ngIf="(event.facilitator_name)">
+                              <div class="meet-head-des-wrap">
+                                  <span class="meeting-head-text">Facilitator</span>
+                                  <span class="meeting-ans-text">{{event.facilitator_name}}</span>
+                              </div>
+                            </div>
+                            <!-- columns -->
+                          </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+

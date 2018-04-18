@@ -1,0 +1,53 @@
+<!-- <app-header></app-header> -->
+<app-header *ngIf="roleId == '3'"></app-header>
+<app-admin-header *ngIf="roleId != '3'"></app-admin-header>
+<div class="main-wraper">
+        <div class="left-sidebar-wrap" style="visibility: hidden;"></div>
+        <!-- left-sidebar-wrap -->
+        <div class="right-content-wrap right-content-wrap-minHeight">
+                   <h2 class="h2-heading"><span class="first-text-light">Domain</span> Settings</h2> 
+        <form (ngSubmit)="saveDomain(f)" #f="ngForm">
+            <div class="row">
+              <div class="form-group col-md-6" [ngClass]="{'has-error': !domainTitle.valid && f.submitted}">
+                  <input type="text" name="domain_name" [ngModel]="domainName" #domainTitle="ngModel" required="required" maxlength="200" />
+                  <label class="control-label" for="input">DOMAIN NAME</label><i class="bar"></i>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6" [ngClass]="{'has-error': !domainETitle.valid && f.submitted}">
+                  <input type="email" name="domain_email" [ngModel]="domainEmail" #domainETitle="ngModel" required="required" maxlength="200" />
+                  <label class="control-label" for="input">ADMIN EMAIL</label><i class="bar"></i>
+                  <span *ngIf="errorMsg" class="text-danger">{{errorMsg}}</span>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <span *ngIf="logo_img"><img class="logo-class" src="{{logo_img}}" alt="upload_pic"/></span>
+                    <span *ngIf="!logo_img"><img class="logo-class" src="/assets/images/logo.png" alt="upload_pic"></span>
+                </div>
+                <div class="nopadding col-md-12 col-sm-12 col-xs-12">
+                    <div class="fake-browse btn btn-blue">
+                        <label for="fake-browse">Upload image</label>
+                        <input class="uploader-avatar" type="file" accept="image/x-png,image/jpeg" name="profile_image" id="#" (change)="getFiles($event)">
+                    </div>
+                </div>
+                <span *ngIf="!prof_pic_error" class="pull-left" style="margin-top: 15px;"> [ Allowed image types are : png,jpg,jpeg ]</span>
+                <span *ngIf="prof_pic_error" class="text-danger image_error  pull-left" style="margin-top: 15px;">{{prof_pic_error}}</span>
+            </div>
+          <div class="row">
+            <div class="sub-can-btn-wrap">
+                <!-- <input type="submit" class="btn btn-blue" name="save" value="SAVE" /> -->
+                <input type="submit" class="btn btn-blue" name="save" value="SAVE" />
+            </div>
+          </div>
+            <!-- sub-can-btn-wrap -->
+        </form>
+
+
+
+
+        </div>
+        <!-- right-content-wrap -->
+    </div>
+    <!-- main-wraper -->
+<app-footer></app-footer>

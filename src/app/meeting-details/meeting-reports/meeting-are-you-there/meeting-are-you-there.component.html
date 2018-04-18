@@ -1,0 +1,33 @@
+<div class="table-responsive table-map-scroll" style="position:relative;">
+  <div [ngBusy]="rYouThereBusy"></div>
+      <table class="table table-striped table-striped-tok table-reg-height">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Date & time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let rYouThereDetail of rYouThereDetails | paginate: {'id': 'are-you-there-list', itemsPerPage: rYouThereLimit, currentPage: p, totalItems: rYouThereRecords.recordsTotal }">
+              <td>{{rYouThereDetail.firstName}}</td>
+              <td>{{rYouThereDetail.lastName}}</td>
+              <td>{{rYouThereDetail.time}}</td>
+            </tr>
+            <tr *ngIf="rYouThereDetails == ''">
+              <td colspan="3" class="table-no-result">No Results Found</td>
+            </tr>
+          </tbody>
+      </table>
+  </div>
+  <pagination-controls class="my-pagination" id="are-you-there-list"
+                    (pageChange)="pageChanged($event)"
+                    maxSize="7"
+                    directionLinks="true"
+                    autoHide="true"
+                    previousLabel="Previous"
+                    nextLabel="Next"
+                    screenReaderPaginationLabel="Pagination"
+                    screenReaderPageLabel="page"
+                    screenReaderCurrentLabel="You're on page">
+  </pagination-controls>

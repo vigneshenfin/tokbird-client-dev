@@ -1,0 +1,16 @@
+#calender_view /deep/ .fc-content .fc-title {
+    font-size: 10px !important;
+    font-weight: 400 !important;
+}
+
+#calender_view /deep/ .fc-day-grid-event  .fc-content {
+    white-space: normal !important;
+}
+
+.medium-text {
+    font-size: 12px;
+}
+
+#calender_view /deep/ .fc-content .fc-time {
+    font-size: 10px;
+}

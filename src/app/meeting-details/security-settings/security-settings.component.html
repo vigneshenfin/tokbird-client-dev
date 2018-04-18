@@ -1,0 +1,85 @@
+<app-header *ngIf="roleId == '3'"></app-header>
+<app-admin-header *ngIf="roleId != '3'"></app-admin-header>
+<div class="main-wraper">
+  <div class="left-sidebar-wrap">
+    <app-sidebar [meetingStatus]="meetingStatus" [isRescheduled]="isRescheduled"></app-sidebar>
+  </div>
+        <div class="right-content-wrap right-content-wrap-minHeight">
+            <h2 class="h2-heading"><span class="first-text-light">Security</span> Settings</h2>
+            <div *ngIf="accessDenied && allDataFetched">
+                <div class="text-center"><img [ngStyle]="{'width': '400px'}" src="assets/images/donthave-permission.svg" /></div>
+            </div>
+            <form *ngIf="allDataFetched" class="form" role="form" method="post" id="meeting-content" (ngSubmit)="onSubmit($event,f)" #f="ngForm">
+                <div class="form-radio form-radio-listed">
+                    <div class="radio">
+                        <label>
+                            <!-- [attr.disabled]="accessDenied" -->
+                            <span *ngIf="accessDenied"><input type="radio" name="security_type" [value]="1" [(ngModel)]="security_type"  [checked]="security_type === 1" disabled><i class="helper"></i><span class="radio-btn-label">No security</span></span>
+                            <span *ngIf="!accessDenied"><input type="radio" name="security_type" [value]="1" [(ngModel)]="security_type"  [checked]="security_type === 1"><i class="helper"></i><span class="radio-btn-label">No security</span></span>
+                        </label>
+                        <span class="radio-sub-head">Users will be able to enter the Meeting by following public link</span>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <!-- [attr.disabled]="accessDenied" -->
+                            <span *ngIf="accessDenied"><input type="radio" name="security_type" [value]="2" [(ngModel)]="security_type" [checked]="security_type === 2" disabled><i class="helper"></i><span class="radio-btn-label">One time use URL</span></span>
+                            <span *ngIf="!accessDenied"><input type="radio" name="security_type" [value]="2" [(ngModel)]="security_type" [checked]="security_type === 2"><i class="helper"></i><span class="radio-btn-label">One time use URL</span></span>
+                        </label>
+                        <span class="radio-sub-head">Link to the meeting becomes expired once some user enter the meeting by that link</span>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <!-- [attr.disabled]="accessDenied" -->
+                            <span *ngIf="accessDenied"><input type="radio" name="security_type" [value]="3" [(ngModel)]="security_type" [checked]="security_type === 3" disabled><i class="helper"></i><span class="radio-btn-label">One time user URL with access code <span *ngIf="accessCode != ''">({{accessCode}})</span></span></span><!-- password -->
+                            <span *ngIf="!accessDenied"><input type="radio" name="security_type" [value]="3" [(ngModel)]="security_type" [checked]="security_type === 3"><i class="helper"></i><span class="radio-btn-label">One time user URL with access code <span *ngIf="accessCode != ''">({{accessCode}})</span></span></span><!-- password -->
+                        </label>
+                    </div>
+                </div>
+                <div class="dashed-seprator"></div>
+                <span class="allow-labeled">Allow or deny attendee by email or domain name</span>
+                <div class="upload-and-text-wrap mb15">
+                    <div class="fke-upload mb15">
+                        <span>import csv</span>
+                        <input id="upload-black" #blackFileImportInput (change)="blackFileChangeListener($event.target.files)" class="upload-drag" name="upload-black" type="file" accept=".csv">
+                    </div>
+                    <a class="download-sample-btn" href="{{uploadPath}}sample_blacklist.csv">Download sample CSV</a>
+                    <!-- fke-upload -->
+                    <span for="uploaddrag" class="upload-text"></span>
+                <!-- upload-and-text-wrap -->
+                </div>
+                <div class="form-group form-group-bttm-margin">
+                    <textarea required="required" [(ngModel)]="blacklist" name="blacklist" [disabled]="accessDenied" rows="3"></textarea>
+                    <label class="control-label" for="textarea">BLACK LIST</label><i class="bar"></i>
+                    <span *ngIf="!errorMsg" class="text-area-subdes">Enter the emails or domains seperated by comma</span>
+                    <span *ngIf="errorblacklist && f.submitted" class="text-danger">Please enter the valid emails or domains seperated by comma !</span>
+                    <span *ngIf="repeated_domain_err && f.submitted && !errorblacklist" class="text-danger">{{repeated_domain_err}}</span>
+                    <span *ngIf="blacklist_duplicate_domain_err && f.submitted && !errorblacklist && !repeated_domain_err " class="text-danger">{{blacklist_duplicate_domain_err}}</span>
+                </div>
+                <div class="upload-and-text-wrap mb15">
+                    <div class="fke-upload mb15">
+                        <span>import csv</span>
+                        <input id="upload-white" #whiteFileImportInput (change)="whiteFileChangeListener($event.target.files)" class="upload-drag" name="upload-white" type="file" accept=".csv">
+                    </div>
+                    <a class="download-sample-btn" href="{{uploadPath}}sample_whitelist.csv">Download sample CSV</a>
+                    <!-- fke-upload -->
+                    <span for="uploaddrag" class="upload-text"></span>
+                <!-- upload-and-text-wrap -->
+                </div>
+                <div class="form-group form-group-bttm-margin">
+                    <textarea required="required" [(ngModel)]="whitelist" name="whitelist" [disabled]="accessDenied" rows="3"></textarea>
+                    <label class="control-label" for="textarea">WHITELIST</label><i class="bar"></i>
+                    <span *ngIf="!errorMsg" class="text-area-subdes">Enter the emails or domains seperated by comma</span>
+                    <span *ngIf="errorwhitelist  && f.submitted" class="text-danger"> Please enter the valid emails or domain names seperated by comma!</span>
+                    <span *ngIf="repeated_domain_err && f.submitted && !errorwhitelist" class="text-danger">{{repeated_domain_err}}</span>
+                    <span *ngIf="whitelist_duplicate_domain_err && f.submitted && !errorwhitelist && !repeated_domain_err " class="text-danger">{{whitelist_duplicate_domain_err}}</span>
+                </div>
+                <div *ngIf="!accessDenied" class="left-bttn-blue text-center">
+                    <button *ngIf="!disableSubmit" class="btn btn-blue btn-full" type="submit">SAVE</button>
+                    <button *ngIf="disableSubmit" class="btn btn-blue btn-full" disabled>SAVE</button>
+                </div>
+            </form>
+            <!-- left-bttn-blue -->
+        </div>
+    </div>
+    <!-- right-content-wrap -->
+<app-footer></app-footer>

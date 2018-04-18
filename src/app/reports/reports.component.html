@@ -1,0 +1,155 @@
+
+<app-header *ngIf="roleId == '3'"></app-header>
+<app-admin-header *ngIf="roleId != '3'"></app-admin-header>
+<div class="main-wraper">
+        <div class="left-sidebar-wrap" style="visibility: hidden;"></div>
+        <!-- left-sidebar-wrap -->
+        <div class="right-content-wrap right-content-wrap-minHeight">
+            <h2 class="h2-heading"><span class="first-text-light">Reports</span></h2>
+            <div *ngIf="accessDenied">
+                <div class="text-center"><img class="nomeeting-svg" [ngStyle]="{'min-width': '500px'}" src="assets/images/noaccess.svg" /></div>
+            </div>
+            
+            <div [hidden] = "!allDataFetched">
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <form (ngSubmit)="searchMeeting($event, f)" #f="ngForm">
+
+                        <div class="form-group">
+                            <input type="search" name="mId" [ngModel]="mId" #meetingMid="ngModel">
+                            <label class="control-label search-weight upper-case" for="input">Filter reports by Event ID</label><i class="bar"></i>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <input type="search" name="title" [ngModel]="title" #meetingTitle="ngModel">
+                            <label class="control-label search-weight upper-case" for="input">Filter reports by Event title</label><i class="bar"></i>
+                        </div>
+
+                        <div class="input-tags-wrap input-tags-wrap-tb-space">
+                            <span class="search-weight">FILTER REPORTS BY CATEGORIES</span>
+                            
+                            <tag-input [clearOnBlur]="true" class="my-tag" name="categories" [ngModel]="categories" #meetingCategories="ngModel" placeholder="" secondaryPlaceholder="Type tag and choose from the list" [onlyFromAutocomplete]="true">
+                              <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="items">
+                              </tag-input-dropdown>
+                            </tag-input>
+                        </div>
+
+                        <div class="from-to-wrap">
+                            <span class="filter-report">Filter Reports by date</span>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-4 col-xs-6 col-xxs ">
+                                    <div class="responsive-calebder">
+                                        <span class="calander-title search-weight">FROM</span>
+                                        
+                                          <div class="date" id="meeting_date">  
+                                             
+                                             <input type="text" name="startDate" [ngModel]="startDate" #meetingStartDate class="calender1" data-date-format="mm/dd/yyyy" (blur)="startDate = meetingStartDate.value"> 
+                                            <div class="input-group-addon">
+                                                <img src="assets/images/calander.svg" alt="Calander">
+                                            </div>
+                                        </div>  
+                                    </div>
+                                    <!-- responsive-calebder -->
+                                </div>
+                                <!-- columns -->
+                                <div class="col-md-3 col-sm-4 col-xs-6 col-xxs ">
+                                    <div class="responsive-calebder">
+                                        <span class="calander-title search-weight">TO</span>
+                                        <div class="date" id="meeting_date_to">
+                                            <input type="text" name="endDate" [(ngModel)]="endDate" #meetingEndDate class="calender1" data-date-format="mm/dd/yyyy" (blur)="endDate = meetingEndDate.value">
+                                            <div class="input-group-addon">
+                                                <img src="assets/images/calander.svg" alt="Calander">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- responsive-calebder -->
+                                </div>
+                            </div>
+                            <!-- row -->
+                        </div>
+                        <!-- from-to-wrap -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="btn btn-blue btn-full btn-blue-tb-align" type="submit" value="SEARCH">
+                                <a class="btn btn-grey btn-full rest-btn-margin-top" href="javascript:void(0)" (click)="resetSearch($event, f)">RESET</a>
+                            </div>
+                            <!-- columns -->
+                        </div>
+                        <!-- row -->
+                    </form>
+                </div>
+                <!-- columns -->
+            </div>
+            <!-- row -->
+            <div class="no-result" *ngIf="noResults == 1">No results found</div>
+            <div class="row" *ngIf="(searchStatus == 1) && (noResults == 0)">
+                <div class="col-md-12">
+                    <div class="table-tab-wrap">
+                        <div class="download-format-wrap">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-6 col-xxs">
+                                    <a class="btn btn-blue btn-blue-small-col" (click)="exportCsv()">Export reports .csv</a>
+                                </div>
+                                <!-- columns -->
+                                <div class="col-md-4 col-sm-4 col-xs-6 col-xxs">
+                                    <a class="btn btn-blue btn-blue-small-col" (click)="exportPdf()">Export reports .PDF</a>
+                                </div>
+                                <!-- columns -->
+                            </div>
+                        </div>
+                        <!-- download-format-wrap -->
+
+                        <div class="tab-pane fade in active">
+                            <ul class="nav nav-tabs nav-tabs-modified-two pre-reg">
+                                <li class="active"><a data-toggle="pill" href="#meeting_tab" (click)="selectTab('meetings')">Meetings</a></li>
+                                <li><a data-toggle="pill" href="#Dashboard_tab" (click)="selectTab('dashboard')">Dashboard</a></li>
+                                <li><a data-toggle="pill" href="#Attendance_tab" (click)="selectTab('attendance')">Attendance</a></li>
+                                <li><a data-toggle="pill" href="#Location_tab" (click)="selectTab('location')">Location</a></li>
+                                <li><a data-toggle="pill" href="#Are_you_tab" (click)="selectTab('areYouThere')">Are You There</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="meeting_tab" class="tab-pane fade in active">
+                                  <app-meetings [meetings] = "meetingDetails" [records] = "recordDetails" [searchParams] = "searchParamsDetails" [emptyMeetingsList] = "emptyMeetings" [routeMeetingId]="routeMeetingId"></app-meetings>
+                                </div>
+                                <!-- future-meeting -->
+                                <div id="Dashboard_tab" class="tab-pane fade">
+                                    
+                                  <app-dashboard [dashboardDetails] = "dashboardDetails" [routeMeetingId]="routeMeetingId" [mIds]="mIds" [dashboardBusy] = "dashboardBusy"></app-dashboard>
+                                </div>
+                                <!-- past-meeting -->
+
+                                <div id="Attendance_tab" class="tab-pane fade">
+                                  <app-attendance (typeChanged)="typeChangedHandler($event)" [attendances] = "attendanceDetails" [headers] = "attendanceHeaders" [attendanceRecords] = "attendanceRecordDetails" [attendanceSearchParams] = "attendanceSearchParamsDetails" [routeMeetingId]="routeMeetingId" [attendanceType]="attendanceType"></app-attendance>
+                                </div>
+                                <!-- #inn-meeting -->
+
+                                <div id="Location_tab" class="tab-pane fade">
+                                  <app-location [locations] = "locationDetails" [locationRecords] = "locationRecordDetails" [locSearchParams] = "locSearchParamsDetails" [selectedTab]="selectedTab" [routeMeetingId]="routeMeetingId"></app-location>
+                                </div>
+                                <!-- #inn-meeting -->
+                                <div id="Are_you_tab" class="tab-pane fade">
+                                    <app-are-you-there [routeMeetingId]="routeMeetingId" [meetingId] = "allMeetingIds" [isAccessEnabled]="isAccessEnabled"></app-are-you-there>
+                                </div>
+                                <!-- #Are_you_tab -->
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- table-tab-wrap -->
+                </div>
+                <!-- columns -->
+            </div>
+            <!-- row -->
+
+
+
+        </div>
+        </div>
+        <!-- right-content-wrap -->
+        
+    </div>
+    <!-- main-wraper -->
+<app-footer></app-footer>

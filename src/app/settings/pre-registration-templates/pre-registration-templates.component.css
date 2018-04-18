@@ -1,0 +1,92 @@
+.form-drop {
+    height: 27px !important;
+}
+
+.checkbox label, .form-radio label {
+    min-width: 85px;
+}
+
+.btn-blue-add {
+    width: 66px;
+    float: right;
+}
+
+
+.table-responsive-scroll {
+    max-height: none !important;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+.upload-btn {
+  color: #2e2e2e;
+  background-color: #e6e9ee;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 15px;
+    cursor: pointer;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: 0.3s all;
+}
+
+.upload-btn:hover{
+    background-color: #03a9f4;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.edit-delete-wrap{
+    width: 58px;
+}
+.table-striped-tok{min-width: 600px;}
+.edit-delete-wrap .edit{width: 28px;}
+.edit-delete-wrap .delete{width: 28px;text-align: right;}
+
+.file-upload-name {
+    width: 100%;
+    text-overflow: ellipsis;
+    float: right;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 10px;
+    /* padding-top: 15px;  */
+     line-height: 40px; 
+     max-width: 100px; 
+    /* max-width: 89px; */
+}
+
+.pre-reg-width {
+    width: 75px;
+}
+
+.min-width-100 {
+    min-width: 100px;
+}
+.min-width-150 {
+    min-width: 150px;
+}
+
+.notify-block{
+    margin: 0px 0px 15px;
+    background: #f7f8fd;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+@media all and (max-width:680px){
+    .file-upload-name {
+        max-width: 85px;
+        }
+}

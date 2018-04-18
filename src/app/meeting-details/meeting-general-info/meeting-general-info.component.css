@@ -1,0 +1,19 @@
+.checkbox-height { margin: 0px !important; }
+.checkbox { margin: 0px !important; }
+.action_items { cursor: pointer; }
+.assignment-wrap .re-assign-label { cursor: default; }
+.assign_cursor { cursor: pointer; }
+.meet-link { text-decoration: none; color: #03a9f4 !important; }
+.rsch-btn {
+    box-shadow: none;
+    text-transform: uppercase;
+    padding: 9px 20px;
+}
+.bottom-margin {
+    margin-bottom: 40px;
+}
+.rejoin_button { margin-top: 20px; }
+.rsch-chkbx {
+    margin-top: 1.68rem !important;
+    margin-bottom: 1.4rem !important;
+} 

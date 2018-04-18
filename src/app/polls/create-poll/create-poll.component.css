@@ -1,0 +1,47 @@
+.options-box {
+    width: calc(100% - 40px);
+    margin-left: 5px;
+}
+.form-radio {
+    width: 25px;
+    margin: 0;
+    display: inline-block;
+}
+.radio, .checkbox {
+    margin-bottom: 0px;
+}
+
+.meetig-headand-save-wrap > .h2-heading {
+    display: inline-block;
+    width: calc(100% - 300px);
+}
+
+.meetig-headand-save-wrap > .create-btn-alter {
+    display: inline-block;
+    float: right;
+}
+
+@media only screen and (max-width: 344px) {
+    .options-box {
+        width: calc(100% - 40px);
+    }
+}
+
+@media only screen and (max-width: 551px) {
+   .meetig-headand-save-wrap > .h2-heading {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .btn-full {
+        display: inline-block;
+        width: 48%;
+        margin-bottom: 15px;
+    }
+
+    .meetig-headand-save-wrap > .create-btn-alter {
+        width: 100%;
+    }
+}
+

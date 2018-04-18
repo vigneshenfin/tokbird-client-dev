@@ -1,0 +1,18 @@
+.bottom-margin {
+    margin-bottom: 34px !important;
+}
+.button-download-sample-wrap {
+    display: table-cell;
+    vertical-align: middle;
+}
+.download-sample-btn {
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: 400;
+    color: #6a6a77;
+    padding-left: 10px;
+}
+.file-browse-btn {
+    display: table-cell;
+    vertical-align: middle;
+}

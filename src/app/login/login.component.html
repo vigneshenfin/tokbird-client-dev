@@ -1,0 +1,40 @@
+    <li>
+					 <div class="row mobrow">
+                         
+							<div class="col-md-12 mobcol">
+                                <div [ngClass]="errorClass" class="error-msg">{{errorMsg}}</div>
+								<h2>Login</h2>
+								 <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav" (ngSubmit)="onSubmit($event,f)" #f="ngForm">
+                                        <div class="form-group mt20" [ngClass]="{'has-error': !email.valid && f.submitted}">
+                                            <input type="text" maxlength="100" name="email" ngModel required="required" #email="ngModel"/>
+                                            <label class="control-label" for="input">EMAIL</label><i class="bar"></i>
+                                        </div>                                     
+                                        <div class="form-group mt20"  [ngClass]="{'has-error': !password.valid && f.submitted}">
+                                            <input type="password" minlength="5" name="password" ngModel required="required" #password="ngModel"/>
+                                            <label class="control-label" for="input">PASSWORD</label><i class="bar"></i>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label>
+                                            <input type="checkbox" ngModel name="rememberMe" #rememberMe="ngModel" /><i class="helper"></i>Remember me
+                                          </label>
+                                        </div>                                   
+                                        <div class="login-buttons">
+                                            <div class="form-group">
+                                                 <button type="submit" class="btn tok-btn btn-block btn300">LOG IN</button>
+                                            </div>
+                                            <div class="form-group text-center info-text">OR</div>
+                                            <div class="form-group">
+                                                <button type="button" class="loginBtn loginBtn--facebook" (click)="signIn('facebook')">Login with Facebook</button>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button" class="loginBtn loginBtn--google" (click)="signIn('google')">Login with Google</button>
+                                            </div> 
+                                        </div>
+                                        
+
+								 </form>
+							</div>
+							<div class="help-block text-center"><a (click)="openForgotModal()" href="#">Forgot password</a></div>
+							 
+					 </div>
+				</li>

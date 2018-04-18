@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="header-log-wrap">
+        <img class="rest-logo" src="assets/images/logo.svg" alt="">
+    </div>
+    <h2 class="h2-heading text-center margin-bottom-reduce"><span class="first-text-light">Reset</span> Password</h2>
+    <div class="mail-texts text-center">you have requested to reset the password for : <span class="mail-bold">{{email}}</span></div>
+    <div class="text-center pwd-msg">[ password must be of minimum 6 characters length ]</div>
+    <div class="rest-box">
+        <div [ngClass]="errorClass" class="error-msg">{{errorMsg}}</div>
+        <div *ngIf="successShow" [ngClass]="successClass" class="success-msg">Password reset succesfully.</div>
+        
+       
+        <!-- mail-texts -->
+       <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" (ngSubmit)="onSubmit($event,f)" #f="ngForm">       
+            <div class="form-group" [ngClass]="{'has-error': !npassword.valid && f.submitted }">
+                <input type="password" minlength="6" required="required" name="npassword" ngModel #npassword="ngModel"/>
+                <label class="control-label" for="input">NEW PASSWORD</label><i class="bar"></i>
+            </div>
+            <div class="form-group" [ngClass]="{'has-error': !cpassword.valid && f.submitted }">
+                <input type="password" minlength="6" required="required" name="cpassword" ngModel #cpassword="ngModel" />
+                <label class="control-label" for="input">CONFIRM NEW PASSWORD</label><i class="bar"></i>
+            </div>
+            <div class="text-center submit-margin">
+                <input class="btn btn-blue" type="submit" value="RESET PASSWORD">
+            </div>
+        </form>
+    </div>
+    <!-- rest-box -->
+</body>
+
+</html>

@@ -1,0 +1,291 @@
+<app-admin-header></app-admin-header> 
+    <div class="main-wraper">
+        <div class="left-sidebar-wrap" style="visibility: hidden;"></div>
+        <!-- left-sidebar-wrap -->
+        <div class="right-content-wrap right-content-wrap-padding">
+            <div class="polls-btn-wrap polls-btn-padding">
+                <div class="polls-head">
+                    <h2 class="h2-heading h2-mobile"><span class="first-text-light">View</span>&nbsp;Account</h2>
+                </div>
+                <!-- polls-head -->
+
+            </div>
+            <!-- polls-btn-wrap -->
+
+            <section>
+                <div class="editable-wrap">
+                    <div class="table-row">
+                        <div class="admin-profile-name">{{userName}}</div>
+                    </div>
+                    <!-- table-row -->
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Country</span>
+                                <span class="meeting-ans-text equalize-font">{{ (country) ? country : "Not available"}}</span>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Average bandwith</span>
+                                <span class="meeting-ans-text equalize-font">{{ (avg_bandwidth) ? avg_bandwidth : "Not available"}}</span>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                        </div>
+                    </div>
+                </div>
+                <!-- editable-wrap -->
+            </section>
+
+            <section>
+                <div class="editable-wrap">
+                    <div class="table-row">
+                        <div class="admin-profile-name admin-profile-name-size">Account Main Info</div>
+                        <div class="admin-profile-edit">
+                            <div *ngIf="!editMainInfo" class="edit-one" (click)="mainInfoEdit()">
+                                EDIT
+                            </div>
+                            <div *ngIf="editMainInfo" class="save-cancel-wrapper">
+                                <span class="save-toggle" (click)="saveMainInfo()">SAVE</span>
+                                <span class="cancel-toggle" (click)="cancelMainInfo()">CANCEL</span> 
+                            </div>
+                            <!-- EDIT -->
+
+                        </div>
+                    </div>
+                    <!-- table-row -->
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="meet-head-des-wrap">
+                                <div *ngIf="!editMainInfo" class="edit-wrap">
+                                    <span class="meeting-head-text">Name</span>
+                                    <span class="meeting-ans-text equalize-font">{{ userName }}</span>
+                                </div>
+                                <div *ngIf="editMainInfo" class="form-group form-group-height-alter" [ngClass]="us_name_error_class">
+                                    <input type="text" required="required" name="user_name" [(ngModel)]="userName">
+                                    <label class="control-label search-weight upper-case" for="input">Name</label><i class="bar"></i>
+                                    <span *ngIf="us_name_err" class="text-danger">{{us_name_err}}</span>
+                                </div>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="meet-head-des-wrap bandwidth_change">
+                                <div *ngIf="!editMainInfo || editMainInfo " class="edit-wrap">
+                                    <span class="meeting-head-text">EMAIL</span>
+                                    <span class="meeting-ans-text equalize-font">{{ userEmail }}</span>
+                                </div>
+                                <!-- edit-wrap -->
+                                <!--<div *ngIf="editMainInfo" class="form-group form-group-height-alter" [ngClass]="us_email_error_class">
+                                    <input type="text" required="required" name="email" [(ngModel)]="userEmail">
+                                    <label class="control-label search-weight upper-case" for="input">Email</label><i class="bar"></i>
+                                    <span *ngIf="us_email_err" class="text-danger">{{us_email_err}}</span>
+                                </div>-->
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                        </div>
+                    </div>
+                </div>
+                <!-- editable-wrap -->
+            </section>
+
+            <section>
+                <div class="editable-wrap editable-wrap-white">
+                    <div class="table-row">
+                        <div class="admin-profile-name admin-profile-name-size">Account Subscription Info</div>
+                        <div class="admin-profile-edit">
+                            <div *ngIf="!editSubscriptionInfo" class="edit-one" (click)="subscriptionInfoEdit()">EDIT</div>
+                            <!-- EDIT -->
+                            <div *ngIf="editSubscriptionInfo" class="save-cancel-wrapper">
+                                <span class="save-toggle" (click)="saveSubscriptionInfo()">SAVE</span>
+                                <span class="cancel-toggle" (click)="cancelSubscriptionInfo()">CANCEL</span> 
+                            </div>
+                        </div>
+                        <div *ngIf="save_error_msg" class="error-msg payment_error" [innerHTML]="save_error_msg"></div>
+                    </div>
+                    <!-- table-row -->
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="meet-head-des-wrap">
+                                <div *ngIf="!editSubscriptionInfo" class="edit-wrap">
+                                    <span class="meeting-head-text">Subscription</span>
+                                    <span class="meeting-ans-text equalize-font">{{currentPlanName}}</span>
+                                </div>
+                                <div *ngIf="editSubscriptionInfo" class="form-group" [ngClass]="subscription_err_class">
+                                    <select name="subscription" [(ngModel)]="subscription" (change)="onPlanChange($event.target.value)" >
+                                        <ng-container *ngFor="let plan of plan_info">
+                                            <option value="{{plan['id']}}">{{plan['plan_name']}}</option>
+                                        <!--<option *ngIf="plan['id'] == main_info.us_subscribed_plan_id" value="{{plan['id']}}">{{plan['plan_name']}}</option>
+                                        <option *ngIf="plan['id'] == 4 && main_info.us_subscribed_plan_id != 4 " value="{{plan['id']}}">{{plan['plan_name']}}</option>-->
+                                        </ng-container>
+                                    </select>
+                                    <label class="control-label time-zone-text" for="ATTENDESS">SUBSCRIPTION</label><i class="bar"></i>
+                                </div>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="meet-head-des-wrap bandwidth_change">
+                                <div *ngIf="!editSubscriptionInfo || (editSubscriptionInfo && currentPlan != 4)" class="edit-wrap">
+                                    <span class="meeting-head-text">Number of attendees</span>
+                                    <span class="meeting-ans-text equalize-font">{{currentPlanAttendees}}</span>
+
+                                </div>
+                                <!-- edit-wrap -->
+                                <div *ngIf="editSubscriptionInfo && currentPlan == 4" class="form-group"  [ngClass]="attendees_count_err_class">
+                                    <input type="text"  required="required" name="currentPlanAttendees" [(ngModel)]="currentPlanAttendees">
+                                    <label class="control-label search-weight upper-case" for="input">NUMBER OF ATTENDEES</label><i class="bar"></i>
+                                </div>
+                                
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="meet-head-des-wrap">
+                                <div *ngIf="!editSubscriptionInfo && currentPlan != 1" class="edit-wrap">
+                                    <span class="meeting-head-text">Payment period</span>
+                                    <span class="meeting-ans-text equalize-font">{{CurrentPlanPeriod}}</span>
+                                </div>
+                                <div *ngIf="editSubscriptionInfo && currentPlan == 4" class="form-group" [ngClass]="payment_period_err_class">
+                                    <select name="payment_period" [(ngModel)]="payment_period" (change)="onPaymentChange($event.target.value)" >
+                                        <!--<ng-container *ngFor="let payment of payment_info">
+                                            <option *ngIf="payment['plan_id'] == currentPlan" value="{{payment['id']}}">{{payment['time_period']}}</option>
+                                        </ng-container> -->
+                                        <option value="">Select</option>             
+                                        <option value="1">Monthly</option>
+                                        <option value="2">Yearly</option>    
+                                    </select>
+                                    <label class="control-label time-zone-text" for="select">PAYMENT PERIOD</label><i class="bar"></i>
+                                </div>
+                                <div *ngIf="editSubscriptionInfo && currentPlan != 4 && currentPlan != 1" class="form-group"  [ngClass]="payment_period_err_class">
+                                    <select name="payment_period" [(ngModel)]="payment_period" (change)="onPaymentChange($event.target.value)">
+                                        <option value="">Select</option>  
+                                       <ng-container *ngFor="let payment of payment_info">
+                                            <option *ngIf="payment['plan_id'] == currentPlan" value="{{payment['id']}}">{{payment['time_period']}}</option>
+                                        </ng-container>   
+                                    </select>
+                                    <label class="control-label time-zone-text" for="select">PAYMENT PERIOD</label><i class="bar"></i>
+                                </div>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="meet-head-des-wrap bandwidth_change">
+                                <div *ngIf="!editSubscriptionInfo && currentPlan != 1 || (editSubscriptionInfo && currentPlan != 4 && currentPlan != 1)" class="edit-wrap">
+                                    <span class="meeting-head-text">Price</span>
+                                    <span class="meeting-ans-text equalize-font">$ {{currentPlanCharge}}</span>
+                                </div>
+                                <div *ngIf="editSubscriptionInfo && currentPlan ==4" class="form-group"  [ngClass]="price_err_class">
+                                    <input type="text"  required="required" name="currentPlanCharge" [(ngModel)]="currentPlanCharge">
+                                    <label class="control-label search-weight upper-case" for="input">PRICE</label><i class="bar"></i>
+                                </div>
+                                <!-- edit-wrap -->
+                                <!--<div *ngIf="editSubscriptionInfo" class="form-group">
+                                    <select name="Price-list">
+                                        <ng-container *ngFor="let payment of payment_info">
+                                            <option value="{{payment['id']}}">{{payment['charge']}}</option>
+                                        </ng-container>
+                                        </select>
+                                    <label class="control-label time-zone-text" for="select">PRICE</label><i class="bar"></i>
+                                </div>-->
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                        </div>
+                    </div>
+                    <!--<div *ngIf="editSubscriptionInfo" class="checkbox">
+                        <label>
+                           <input type="checkbox" name="isFreeGranted" [(ngModel)]="isFreeGranted" [checked]="isFreeGranted === 1" [value]="1"><i class="helper"></i><span class="radio-label-color">Grant free subscription</span>
+                        </label>
+                    </div>-->
+                </div>
+                <!-- editable-wrap -->
+            </section>
+
+            <section>
+                <div class="editable-wrap editable-wrap-bottom">
+                    <form>
+                    <div class="table-row">
+                        <div class="admin-profile-name admin-profile-name-size">Account Available features</div>
+                        <div class="admin-profile-edit">
+                            <div *ngIf="!editFeaturesInfo" class="edit-one" (click)="featuresInfoEdit()">
+                                EDIT
+                            </div>
+                            <!-- EDIT -->
+                            <div *ngIf="editFeaturesInfo" class="save-cancel-wrapper">
+                                <span class="save-toggle" (click)="saveFeaturesInfo()">SAVE</span>
+                                <span class="cancel-toggle" (click)="cancelFeaturesInfo()">CANCEL</span> 
+                            </div>
+                        </div>
+                    </div>
+                    <!-- table-row -->
+                    <div class="user-available-wrap">
+                        <span class="user-available-wrap-head">Meeting Creation</span>
+                        <div class="checkbox checkbox-height">
+                            <label>
+                                   <input type="checkbox" name="preRegistration" [(ngModel)]="preRegistration" [checked]="preRegistration === 1" [value]="1" [disabled]="!editFeaturesInfo"><i class="helper"></i><span class="radio-label-color">Edit pre-registration form</span>
+                                </label>
+                        </div>
+                        <div class="checkbox checkbox-height">
+                            <label>
+                                   <input type="checkbox" name="securitySettings" [(ngModel)]="securitySettings" [checked]="securitySettings === 1" [value]="1" [disabled]="!editFeaturesInfo"><i class="helper"></i><span class="radio-label-color">Edit security settings</span>
+                                </label>
+                        </div>
+                    </div>
+                    <!-- user-available-wrap -->
+                    <div class="user-available-wrap">
+                        <span class="user-available-wrap-head">Meeting History</span>
+                        <div class="checkbox checkbox-height">
+                            <label>
+                                <input type="checkbox" name="MeetingRecordings" [(ngModel)]="MeetingRecordings" [checked]="MeetingRecordings === 1" [value]="1" [disabled]="!editFeaturesInfo" ><i class="helper"></i><span class="radio-label-color">Access to Meeting recordings</span>
+                            </label>
+                        </div>
+                        <div class="checkbox checkbox-height">
+                            <label>
+                                <input type="checkbox" name="questionsAndAnswers" [(ngModel)]="questionsAndAnswers" [checked]="questionsAndAnswers === 1" [value]="1" [disabled]="!editFeaturesInfo"><i class="helper"></i><span class="radio-label-color">Access to Q&A section</span>
+                            </label>
+                        </div>
+                        <div class="checkbox checkbox-height">
+                            <label>
+                               <input type="checkbox" name="meetingReport" [(ngModel)]="meetingReport" [checked]="meetingReport === 1" [value]="1" [disabled]="!editFeaturesInfo"><i class="helper"></i><span class="radio-label-color">Access to Meeting report</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- user-available-wrap -->
+
+                    <div class="user-available-wrap">
+                        <span class="user-available-wrap-head">Meeting reports</span>
+                        <div class="checkbox checkbox-height">
+                            <label>
+                               <input type="checkbox" name="reportsSection" [(ngModel)]="reportsSection" [checked]="reportsSection === 1" [value]="1" [disabled]="!editFeaturesInfo"><i class="helper"></i><span class="radio-label-color">Access to Reports section</span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <!-- user-available-wrap -->
+                    <div class="user-available-wrap">
+                        <span class="user-available-wrap-head">Meeting Layout</span>
+                        <div class="checkbox checkbox-height">
+                            <label>
+                               <input type="checkbox" name="meetingLayout" [(ngModel)]="meetingLayout" [checked]="meetingLayout === 1" [value]="1" [disabled]="!editFeaturesInfo"><i class="helper"></i><span class="radio-label-color">Manage Meeting layout</span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <!-- user-available-wrap -->
+                    </form>
+                </div>
+                <!-- editable-wrap -->
+            </section>
+        </div>
+        <!-- right-content-wrap -->
+    </div>
+
+    <app-admin-footer></app-admin-footer>
+
+    <div [ngClass]="loader_class" class="default-loader">
+        <img src="../assets/static/shpf/gptokenizer01/images/loading.gif" alt="Loading-icon">
+        <span class="processing">Processing</span>
+    </div>

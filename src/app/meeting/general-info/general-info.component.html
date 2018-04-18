@@ -1,0 +1,153 @@
+<app-header></app-header>
+<div class="main-wraper">
+  <app-meeting-sidebar></app-meeting-sidebar>
+  <div class="right-content-wrap">
+      <div class="heading-r-btns-wrap">
+          <h2 class="h2-heading"><span class="first-text-light">General</span> Info</h2>
+          <div class="btn-edits">
+              <a class="btn btn-blue  serch-btn" [routerLink]="['/meeting/edit/', meeting.id]">Edit meeting</a>
+              <a class="btn btn-blue  serch-btn  cancel-meeting" href="javascript:void(0)" data-toggle="modal" data-target="#delete-pop">cancel meeting</a>
+          </div>
+          <!-- btn-edits -->
+      </div>
+      <!-- heading-r-btns-wrap -->
+      <!-- heading-r-btns-wrap -->
+      <span class="h2-heading-sub">{{meeting.title}}</span>
+      <!-- h2-heading-sub -->
+      <div class="meeting-sub meeting-sub-alterd">{{meeting.agenda}}</div>
+      <div class="meetind-date-wrap">
+          <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="meet-head-des-wrap">
+                      <span class="meeting-head-text">Meeting start time</span>
+                      <span class="meeting-ans-text">{{meeting.schDate}} at {{meeting.schTime}} {{meeting.timezone}}</span>
+                  </div>
+                  <!-- meet-head-des-wrap -->
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="meet-head-des-wrap">
+                      <span class="meeting-head-text">Estimated Duration</span>
+                      <span class="meeting-ans-text"><span *ngIf="(meeting.entryHours > 0)">{{meeting.durationHours}} hour </span><span *ngIf="(meeting.durationMinutes > 0)">{{meeting.durationMinutes}} minutes</span></span>
+                  </div>
+                  <!-- meet-head-des-wrap -->
+              </div>
+          </div>
+          <!-- row -->
+
+          <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="meet-head-des-wrap">
+                      <span class="meeting-head-text">Reminders</span>
+                      <!-- <span class="meeting-ans-text">3 hours before Meeting planned time</span> -->
+                      <span class="meeting-ans-text" *ngFor="let reminder of meeting.reminders">{{reminder.duration}} {{reminderTypes[reminder.duration_type]}} before planned time</span>
+                  </div>
+                  <!-- meet-head-des-wrap -->
+              </div>
+              <!-- columns -->
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="meet-head-des-wrap">
+                      <span class="meeting-head-text">Can enter a Meeting:</span>
+                      <span class="meeting-ans-text" *ngIf="((meeting.entryHours > 0) || (meeting.entryMinutes > 0))"><span *ngIf="(meeting.entryHours > 0)">{{meeting.entryHours}} hour </span><span *ngIf="(meeting.entryMinutes > 0)">{{meeting.entryMinutes}} minutes </span>before Meeting planned time</span>
+                  </div>
+                  <!-- meet-head-des-wrap -->
+
+              </div>
+              <!-- columns -->
+          </div>
+          <!-- row -->
+
+
+
+
+      </div>
+      <!-- meetind-date-wrap -->
+
+      <div class="meetind-date-wrap meetind-date-wrap-alter">
+          <div class="meet-head-des-wrap">
+              <span class="meeting-head-text">Link to Presenters</span>
+              <div class="infopopup">
+                  <span class="meeting-ans-text meeting-ans-text-alter">{{meeting.presentersUrl}}</span>
+                  <!-- <span class="link-cpy"><button class="btn btn-default copy-link-btn" [attr.data-clipboard-text]="meeting.presentersUrl">Copy lnk</button></span> -->
+                  <span class="link-cpy"><button class="btn btn-default" id="copy-presenters-url" [attr.data-copy-url]="meeting.presentersUrl" (click)="copyToClipboard('#copy-presenters-url')">Copy lnk</button></span> 
+              </div>
+          </div>
+          <!-- meet-head-des-wrap -->
+          <div class="meet-head-des-wrap">
+              <span class="meeting-head-text">Link to Experts</span>
+              <div class="infopopup">
+                  <span class="meeting-ans-text meeting-ans-text-alter">{{meeting.expertsUrl}}</span>
+                  <!-- <span class="link-cpy"><button class="btn btn-default copy-link-btn" [attr.data-clipboard-text]="meeting.expertsUrl">Copy lnk</button></span> -->
+                  <span class="link-cpy"><button class="btn btn-default" id="copy-experts-url" [attr.data-copy-url]="meeting.expertsUrl" (click)="copyToClipboard('#copy-experts-url')">Copy lnk</button></span> 
+              </div>
+          </div>
+          <!-- meet-head-des-wrap -->
+          <div class="meet-head-des-wrap">
+              <span class="meeting-head-text">Link to Listeners</span>
+              <div class="infopopup">
+                  <span class="meeting-ans-text meeting-ans-text-alter">{{meeting.attendeesUrl}}</span>
+                   <!-- <span class="link-cpy"><button class="btn btn-default copy-link-btn" [attr.data-clipboard-text]="meeting.attendeesUrl">Copy lnk</button></span>  -->
+                  <!-- <span id="copy-meeting-url-msg"></span> -->
+                   <span class="link-cpy"><button class="btn btn-default" id="copy-meeting-url" [attr.data-copy-url]="meeting.attendeesUrl" (click)="copyToClipboard('#copy-meeting-url')">Copy lnk</button></span> 
+                  
+              </div>
+          </div>
+          <!-- meet-head-des-wrap -->
+          <div class="row">
+              <div class="col-md-5 col-sm-5 col-xs-6">
+                  <div class="meet-head-des-wrap">
+                      <span class="meeting-head-text">Phone number</span>
+                      <span class="meeting-ans-text"></span>
+                  </div>
+              </div>
+              <div class="col-md-5 col-sm-5 col-xs-6">
+                  <div class="meet-head-des-wrap">
+                      <span class="meeting-head-text">Meeting Access Code</span>
+                      <span class="meeting-ans-text">{{meeting.accessCode}}</span>
+                  </div>
+              </div>
+              <!-- columns -->
+          </div>
+          <!-- row -->
+      </div>
+      <div class="row">
+          <div class="col-md-5 col-sm-5 col-xs-6">
+              <div class="meet-head-des-wrap">
+                  <span class="meeting-head-text">Facilitator</span>
+                  <span class="meeting-ans-text"></span>
+              </div>
+          </div>
+      </div>
+      <!-- row -->
+
+
+  </div>
+  <!-- right-content-wrap -->
+</div>
+<app-footer></app-footer>
+
+
+<div class="modal tokbird-modal fade" id="delete-pop" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading text-center"><span class="first-text-light">Cancel</span> Meeting</h2>
+                        <div class="deletion-msg">
+                            Are you sure you want to cancel this Meeting?<br/> We send email notifications to all invited users about this.<br/>This cannot be undone
+                        </div>
+                        <!-- deletion-msg -->
+                    </div>
+
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a class="btn btn-blue" href="javascript:void(0)" (click)="cancelMeeting(meeting.id)">YES</a>
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">NO</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->

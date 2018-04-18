@@ -1,0 +1,110 @@
+.table-map-scroll {
+  max-height: none !important;
+}
+
+.my-pagination /deep/ .ngx-pagination{
+        display: flex !important;
+    justify-content: flex-end !important;
+    padding-left: 0;
+    margin: 20px 0;
+
+}
+
+ .my-pagination /deep/ .ngx-pagination>li {
+  margin-left: 0;
+  position: relative;
+    float: left;
+   display: flex;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+
+} 
+  .my-pagination /deep/ .pagination-next.disabled::after{
+    content: "";
+  }
+   .my-pagination /deep/ .ngx-pagination a:hover, .ngx-pagination button:hover{
+background: #fff;
+text-decoration: none;
+  }
+   .my-pagination /deep/ .ngx-pagination>li.pagination-previous,.my-pagination /deep/ .ngx-pagination>li.current{
+    display: flex;
+    align-items: center;
+   }
+ .my-pagination /deep/ .ngx-pagination>li:first-child{
+   border-top-left-radius: 4px;
+   border-bottom-left-radius: 4px;
+ }  
+  .my-pagination /deep/ .ngx-pagination>li:first-child::before{
+    content: "";
+  }
+    .my-pagination /deep/ .ngx-pagination>li >a:after{
+    content: "";
+  }
+   .my-pagination /deep/ .ngx-pagination>li>a::before{
+     content: "";
+   }  
+      .my-pagination /deep/ .ngx-pagination>li>a::after{
+     content: "";
+   } 
+  .my-pagination /deep/ .ngx-pagination>li:last-child{
+   border-top-right-radius: 4px;
+   border-bottom-right-radius: 4px;
+ }  
+ .my-pagination /deep/ .ngx-pagination>li >a, .my-pagination /deep/ .ngx-pagination>li >span{
+     padding: 3px 12px;
+     margin: 0px;
+    min-height: 25px;
+    display: flex;
+    align-items: center;
+    color: #777777;
+}  
+  .my-pagination /deep/.ngx-pagination .current{
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #03a9f4;
+    border-color: #03a9f4;
+     padding: 3px 12px;
+  } 
+
+  .table-striped-tok > thead > tr > th{
+    font-weight: 100 !important;
+  }
+
+  .table-map-scroll{
+    overflow: auto !important;
+    max-width: calc(100vw - 537px);
+  }
+
+  th {
+    white-space: nowrap;
+  }
+  
+@media only screen and (max-width: 1155px) {
+  .table-map-scroll{
+    overflow: auto !important;
+    max-width: calc(100vw - 509px);
+  }
+}
+@media only screen and (max-width: 1130px){
+  .table-map-scroll{
+    overflow: auto !important;
+    max-width: calc(100vw - 458px);
+  }
+}
+@media only screen and (max-width: 991px){
+    .table-map-scroll{
+    overflow: auto !important;
+    max-width: calc(100vw - 147px);
+  }
+}
+@media only screen and (max-width: 767px){
+    .table-map-scroll{
+    overflow: auto !important;
+    max-width: calc(100vw - 87px);
+  }
+}

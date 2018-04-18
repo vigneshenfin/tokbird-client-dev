@@ -1,0 +1,107 @@
+<div id="calendar"></div>
+<div class="modal tokbird-modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+        <div class="modal-dialog register-modal register-modal-alter" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 ptb10">
+                            <h2 class="h2-heading"><span class="first-text-light">Meeting&nbsp;</span>Info</h2>
+                            <span class="h2-heading-sub">{{meeting.meeting_title}}</span>
+                            <div class="meeting-sub" [innerHTML]="meeting.agenda"></div>
+                            <div class="meetind-date-wrap">
+                                <div class="meet-head-des-wrap">
+                                    <span class="meeting-head-text">Meeting start time</span>
+                                    <span class="meeting-ans-text">{{meeting.scheduled_date}} {{formatTimezone(meeting.timezone)}}</span>
+                                </div>
+                                <!-- meet-head-des-wrap -->
+                                <div class="meet-head-des-wrap">
+                                    <span class="meeting-head-text">Estimated Duration</span>
+                                    <span class="meeting-ans-text" *ngIf="(meeting.duration_hours > 0) || (meeting.duration_minutes > 0)"><span *ngIf="meeting.duration_hours > 0">{{meeting.duration_hours}} hour </span><span *ngIf="meeting.duration_minutes > 0">{{meeting.duration_minutes}} minutes</span></span>
+                                </div>
+                                <!-- meet-head-des-wrap -->
+                                <div class="meet-head-des-wrap">
+                                    <span class="meeting-head-text">Reminders</span>
+                                    <span class="meeting-ans-text" *ngFor="let reminder of meeting.reminders">{{reminder.duration}} {{reminder.duration_type}} before Meeting planned time</span>
+                                </div>
+                                <!-- meet-head-des-wrap -->
+                            </div>
+                            <!-- meetind-date-wrap -->
+
+                            <div class="meetind-date-wrap meetind-date-wrap-alter">
+                                <div class="meet-head-des-wrap">
+                                    <span class="meeting-head-text">Link to Presenters</span>
+                                    <div class="infopopup">
+                                        <span class="meeting-ans-text meeting-ans-text-alter"><a class="meet-link" href="{{meeting.presenters_url}}" target="_blank">{{meeting.presenters_url}}</a></span>
+                                        <span class="link-cpy"><button class="btn btn-default" id="copy-presenters-url" [attr.data-copy-url]="meeting.presenters_url" (click)="copyToClipboard('#copy-presenters-url')">Copy link</button></span> 
+                                    </div>
+                                </div>
+                                <!-- meet-head-des-wrap -->
+                                <div class="meet-head-des-wrap">
+                                    <span class="meeting-head-text">Link to Experts</span>
+                                    <div class="infopopup">
+                                        <span class="meeting-ans-text meeting-ans-text-alter"><a class="meet-link" href="{{meeting.experts_url}}" target="_blank">{{meeting.experts_url}}</a></span>
+                                        <span class="link-cpy"><button class="btn btn-default" id="copy-experts-url" [attr.data-copy-url]="meeting.experts_url" (click)="copyToClipboard('#copy-experts-url')">Copy link</button></span> 
+                                    </div>
+                                </div>
+                                <!-- meet-head-des-wrap -->
+                                <div class="meet-head-des-wrap">
+                                    <span class="meeting-head-text">Link to Listeners</span>
+                                    <div class="infopopup">
+                                        <span class="meeting-ans-text meeting-ans-text-alter"><a class="meet-link" href="{{meeting.attendees_url}}" target="_blank">{{meeting.attendees_url}}</a></span>
+                                        <span class="link-cpy"><button class="btn btn-default" id="copy-attendees-url" [attr.data-copy-url]="meeting.attendees_url" (click)="copyToClipboard('#copy-attendees-url')">Copy link</button></span>
+                                    </div>
+                                </div>
+                                <!-- meet-head-des-wrap -->
+                                <div class="row">
+                                    <div class="col-md-5 col-sm-5 col-xs-6">
+                                        <div class="meet-head-des-wrap">
+                                            <span class="meeting-head-text">Phone number</span>
+                                            <span class="meeting-ans-text"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-sm-5 col-xs-6">
+                                        <div class="meet-head-des-wrap">
+                                            <span class="meeting-head-text">Meeting Access Code</span>
+                                            <span class="meeting-ans-text">{{meeting.access_code}}</span>
+                                        </div>
+                                    </div>
+                                    <!-- columns -->
+                                </div>
+                                <!-- row -->
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="sub-can-btn-wrap sub-can-btn-margin">
+                        <div class="dropup">
+                            <button class="btn btn-blue btn-full dropdown-toggle" type="button" data-toggle="dropdown">EDIT</button>
+                            <ul *ngIf="(meeting.meeting_status != 3)" class="dropdown-menu sub-can-btn-ul">
+                                <li *ngIf="(meeting.is_rescheduled == 0)"><a [routerLink]="[urlPrefix + '/meeting/edit', meeting.meeting_id]" (click)="closeModal()">General Info</a></li>
+                                <li><a [routerLink]="[urlPrefix + '/meetings/invite-users/', meeting.meeting_id]" (click)="closeModal()">Invite users</a></li>
+                                <li><a [routerLink]="[urlPrefix + '/meetings/pre-registration-form/', meeting.meeting_id]" (click)="closeModal()">Pre-registration form</a></li>
+                                <li><a [routerLink]="[urlPrefix + '/meetings/security-settings/', meeting.meeting_id]" (click)="closeModal()">Security settings</a></li>
+                                <li><a [routerLink]="[urlPrefix + '/meetings/meeting-content/', meeting.meeting_id]" (click)="closeModal()">Meeting content</a></li>
+                                <li><a [routerLink]="[urlPrefix + '/meetings/assign-polls/', meeting.meeting_id]" (click)="closeModal()">Assign polls</a></li>
+                                <li><a [routerLink]="[urlPrefix + '/meetings/location-settings/', meeting.meeting_id]" (click)="closeModal()"><!-- Location --> Lobby Screen settings</a></li>
+                                <li *ngIf="(meeting.is_rescheduled == 1)"><a [routerLink]="[urlPrefix + '/meetings/recordings/', meeting.meeting_id]" (click)="closeModal()">Meeting Recordings</a></li>
+                                <li *ngIf="(meeting.is_rescheduled == 1)"><a [routerLink]="[urlPrefix + '/meetings/reports/', meeting.meeting_id]" (click)="closeModal()">Reports</a></li>
+                            </ul>
+                            <ul *ngIf="(meeting.meeting_status == 3)" class="dropdown-menu sub-can-btn-ul">
+                                <li><a [routerLink]="[urlPrefix + '/meetings/general-info', meeting.meeting_id]" (click)="closeModal()">General Info</a></li>
+                                <li><a [routerLink]="[urlPrefix + '/meetings/recordings/', meeting.meeting_id]" (click)="closeModal()">Meeting Recordings</a></li>
+                                <li><a [routerLink]="[urlPrefix + '/meetings/reports/', meeting.meeting_id]" (click)="closeModal()">Reports</a></li>
+                                <li><a [routerLink]="[urlPrefix + '/meetings/send-notifications/', meeting.meeting_id]" (click)="closeModal()">Send notifications</a></li>
+                                <li><a [routerLink]="[urlPrefix + '/meetings/location-settings/', meeting.meeting_id]" (click)="closeModal()"><!-- Location --> Lobby Screen settings</a></li>
+                            </ul>
+                        </div>
+                        <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</a>
+                    </div>
+                </div>
+            </div>
+            <!-- modal-content -->
+        </div>
+        <!-- modal-dialog -->
+    </div>
+
+
+    

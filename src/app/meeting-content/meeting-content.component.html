@@ -1,0 +1,158 @@
+    <app-header></app-header> 
+    <div class="main-wraper">
+    <app-meeting-sidebar></app-meeting-sidebar>  
+        <!-- left-sidebar-wrap -->
+        <div class="right-content-wrap">
+            <h2 class="h2-heading"><span class="first-text-light">Meeting</span> Content</h2>
+            <form class="form" role="form" method="post" id="meeting-content" enctype="multipart/form-data" (ngSubmit)="onSubmit($event,f)" #f="ngForm">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-12 col-xxs">
+                    <span class="calander-title">Template</span>
+                    <div class="dropdown">
+                        <button class="btn btn-transperant  dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{selectedOption!='' ? selectedOption : 'Select'}}
+                            <img src="assets/images/arrow-down.svg" alt="Time">
+                    </button>
+                        <ul class="dropdown-menu dropdown-full">
+                            <li *ngFor="let temp of templateLists" (click) ="getSelectedItem(temp,'drop')" value="{{temp.id}}"><a href="javascript:void(0)" >{{temp.title}}</a></li>
+                        </ul>
+                        <div *ngIf="selectedOption == '' && f.submitted" class="text-danger">
+                        Please choose a template.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="dashed-seprator"></div>
+            <!-- dashed-seprator -->
+
+            <div class="log-text-warp">
+                <span class="log-text">Logo</span>
+                <span class="logo-des">(can be shown instead of Presenters' videos)</span>
+            </div>
+            <!-- log-text-warp -->
+            
+            <div class="drag-wrap dropzone drag-wrap" id="my-awesome-dropzone" (click)="ImageClick()">
+                <div *ngIf="noTemplate"><input type="file" name="logo" (change)="getFiles($event,'image')" class="drop_file_element" /></div>
+                <div *ngIf="!noTemplate"> <input disabled type="file" name="logo" (change)="getFiles($event,'image')" class="drop_file_element" /></div>
+                
+                <div *ngIf="logo">
+                <img src="{{logo}}" alt="No Image"  class="drag-wrap-img"/>
+                </div>
+                <span *ngIf="!logo">Drag the file here or click the button below</span>
+            </div>
+            <!-- drag-wrap -->
+            <div *ngIf="noTemplate" class="upload-and-text-wrap">
+                <div class="fke-upload">
+                    <span>upload</span>
+                    <input id="uploaddrag" (change)="getFiles($event,'image')" class="upload-drag" name="logo" type="file" value="UPLOAD">
+                </div>
+                <!-- fke-upload -->
+                <span for="uploaddrag" class="upload-text">{{upload_image_name}}</span>
+            </div>
+            <span *ngIf="logo_error" class="text-danger image_error">{{logo_error}}</span>
+            <!-- upload-and-text-wrap -->
+            <div class="dashed-seprator"></div>
+            <div class="log-text-warp">
+                <span class="log-text">Audio</span>
+                <span class="logo-des">(will be played to attendees before meeting start)</span>
+            </div>
+            <div class="radio-btn-wrap">
+                <div class="radio-wrapper">
+                    <div *ngIf="noTemplate" class="form-radio">
+                        <div class="radio">
+                            <label>
+                                 <input (click)="defaultClick()" type="radio" [checked]="check_audio_type === 1" name="audio_type" [(ngModel)]="check_audio_type" [value]="1" /><i class="helper"></i><span class="radio-btn-label">Default audio</span>
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input (click)="customClick()" type="radio" [checked]="check_audio_type === 2" name="audio_type" [(ngModel)]="check_audio_type" [value]="2"/><i class="helper"></i><span class="radio-btn-label">Custom audio</span>
+                                <span *ngIf="savedCustomAudio" for="uploaddrag" class="upload-text"><a target="_blank" [attr.href]="audio_filepath"><img style="width:5%" src="assets/images/audio-file-icon.png" />{{savedCustomAudio}}</a></span>
+                            </label>
+                            
+                        </div>
+                        
+                    </div>
+
+                    <div *ngIf="!noTemplate" class="form-radio">
+                        <div *ngIf="check_audio_type === 1" class="radio">
+                            <label>
+                                 <input disabled (click)="defaultClick()" type="radio" [checked]="check_audio_type === 1" name="audio_type" [(ngModel)]="check_audio_type" [value]="1" /><i class="helper"></i><span class="radio-btn-label">Default audio</span>
+                            </label>
+                        </div>
+                        <div *ngIf="check_audio_type === 2" class="radio">
+                            <label>
+                                <input disabled (click)="customClick()" type="radio" [checked]="check_audio_type === 2" name="audio_type" [(ngModel)]="check_audio_type" [value]="2"/><i class="helper"></i><span class="radio-btn-label">Custom audio</span>
+                                <span *ngIf="savedCustomAudio" for="uploaddrag" class="upload-text"><a target="_blank" [attr.href]="audio_filepath"><img style="width:5%" src="assets/images/audio-file-icon.png" />{{savedCustomAudio}}</a></span>
+                            </label>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- radio-wrapper -->
+                <div *ngIf="hideCustomAudioSection || check_audio_type === 1" class="dropper-wrapper">
+                    <div *ngIf="noTemplate" class="dropdown">
+                            <button class="btn btn-transperant  dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{selctedAudio!='' ? selctedAudio : 'Select'}}
+                                    <img src="assets/images/arrow-down.svg" alt="Time">
+                            </button>
+                        <ul class="dropdown-menu dropdown-full">
+                           <li *ngFor="let audio of defaultAudios" (click) ="getSelectedAudio(audio)" value="{{audio.id}}"><a href="javascript:void(0)" >{{audio.title}}</a></li>
+                        </ul>
+                        <div *ngIf="check_audio_type === 1 && selctedAudio == '' && f.submitted" class="text-danger">
+                        {{select_audio_error}}
+                      </div>
+                    </div>
+                    <div *ngIf="!noTemplate" class="dropdown">
+                            <button disabled class="btn btn-transperant  dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{selctedAudio!='' ? selctedAudio : 'Select'}}
+                                    <img src="assets/images/arrow-down.svg" alt="Time">
+                            </button>
+                        <ul class="dropdown-menu dropdown-full">
+                           <li *ngFor="let audio of defaultAudios" (click) ="getSelectedAudio(audio)" value="{{audio.id}}"><a href="javascript:void(0)" >{{audio.title}}</a></li>
+                        </ul>
+                        <div *ngIf="check_audio_type === 1 && selctedAudio == '' && f.submitted" class="text-danger">
+                        {{select_audio_error}}
+                      </div>
+                    </div>
+                </div>
+                <!-- dropper-wrapper -->
+            </div>
+            <!-- radio-btn-wrap -->
+            <div *ngIf="(noTemplate && check_audio_type === 2) ||hideDefaultAudioSection ">
+            <div class="drag-wrap dropzone drag-wrap" id="my-awesome-dropzone">
+                <div *ngIf="noTemplate"> <input type="file" name="audio_file" (change)="getFiles($event,'mp3')" class="drop_file_element"/></div>
+                <div *ngIf="!noTemplate"> <input disabled type="file" name="audio_file" (change)="getFiles($event,'mp3')" class="drop_file_element"/></div>
+                
+                <span *ngIf="!customAudio">Drag the file here or click the button below</span>
+                <span *ngIf="customAudio">You have selected one file</span>
+                <span>[Maximum size of 2MB is allowed]</span>
+            </div>
+            <div class="upload-and-text-wrap">
+                <div class="fke-upload">
+                    <span>UPLOAD</span>
+                    <input id="uploadaudio" (change)="getFiles($event,'mp3')" class="upload-drag" type="file" name="audio_file" value="UPLOAD">
+                  
+                </div>
+                <!-- fke-upload -->
+                     
+                    <span for="uploaddrag" class="upload-text">{{customAudio}}</span>
+            </div>
+            <span *ngIf="audio_error" class="text-danger image_error">{{audio_error}}</span>
+            <div *ngIf="!audio_error">
+                <span *ngIf="hideDefaultAudioSection&&!customAudio&& f.submitted && !savedCustomAudio" class="text-danger image_error">{{upload_error_message}}</span>
+            </div>
+            </div>
+            <div class="dashed-seprator"></div>
+
+            <div class="left-bttn-blue">
+                <button *ngIf="noTemplate && !save_template" class="btn btn-blue btn-full" data-toggle="modal" data-target="#meetingSched" type="submit">SAVE</button>
+                <button disabled *ngIf="noTemplate && save_template" class="btn btn-blue btn-full" data-toggle="modal" data-target="#meetingSched" type="submit">SAVING..</button>
+            </div>
+            <!-- left-bttn-blue -->
+            </form>
+        </div>
+        </div>
+    <!-- main-wraper -->
+
+
+<app-footer></app-footer>

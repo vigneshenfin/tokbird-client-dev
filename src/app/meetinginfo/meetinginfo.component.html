@@ -1,0 +1,83 @@
+<!-- register-modal register-modal-alter -->
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12 ptb10">
+                    <h2 class="h2-heading"><span class="first-text-light">Meeting&nbsp;</span>Scheduled</h2>
+                    <div class="meeting-sub">{{title}}</div>
+                    <div class="meeting-sub">{{agenda}}</div>
+                    <div class="meetind-date-wrap">
+                        <div class="meet-head-des-wrap">
+                            <span class="meeting-head-text">Meeting start time</span>
+                            <span class="meeting-ans-text">{{scheduledDate}} {{timezone}}<!--01 July 2017 at 11:00 am EST --></span>
+                        </div>
+                        <!-- meet-head-des-wrap -->
+                        <div class="meet-head-des-wrap">
+                            <span class="meeting-head-text">Estimated Duration</span>
+                            <span class="meeting-ans-text">{{durationHours}} hour {{durationMinutes}} minutes <!--1 hour 00 minutes --></span>
+                        </div>
+                        <!-- meet-head-des-wrap -->
+                        <div class="meet-head-des-wrap">
+                            <span class="meeting-head-text">Reminders</span>
+                            <!-- <span class="meeting-ans-text">3 hours before Meeting planned time</span> -->
+                            <span class="meeting-ans-text" *ngFor="let reminder of reminders"> 
+                                {{reminder.duration}}
+                                <span [ngSwitch]="reminder.duration_type">
+                                    <span *ngSwitchCase="'1'">Minutes</span>
+                                    <span *ngSwitchCase="'2'">Hours</span>
+                                    <span *ngSwitchCase="'3'">Days</span>
+                                    <span *ngSwitchCase="'4'">Weeks</span>
+                                </span> 
+                                before planned time
+                            </span>
+                        </div>
+                        <!-- meet-head-des-wrap -->
+                    </div>
+                    <!-- meetind-date-wrap -->
+
+                    <div class="meetind-date-wrap meetind-date-wrap-alter">
+                        <div class="meet-head-des-wrap">
+                            <span class="meeting-head-text">Link to Presenters</span>
+                            <span class="meeting-ans-text meeting-ans-text-alter">{{presentersUrl}} COPY LINK</span>
+                        </div>
+                        <!-- meet-head-des-wrap -->
+                        <div class="meet-head-des-wrap">
+                            <span class="meeting-head-text">Link to Experts</span>
+                            <span class="meeting-ans-text meeting-ans-text-alter">{{expertsUrl}} COPY LINK</span>
+                        </div>
+                        <!-- meet-head-des-wrap -->
+                        <div class="meet-head-des-wrap">
+                            <span class="meeting-head-text">Link to Listeners</span>
+                            <span class="meeting-ans-text meeting-ans-text-alter">{{attendeesUrl}} COPY LINK</span>
+                        </div>
+                        <!-- meet-head-des-wrap -->
+                    </div>
+                </div>
+
+            </div>
+            <div class="sub-can-btn-wrap sub-can-btn-margin">
+                <a class="btn btn-blue" href="javascript:void(0)">ADVANCED SETTINGS</a>
+                <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)" (click)="close()">CLOSE</a>
+            </div>
+        </div>
+    </div>
+    <!-- modal-content -->
+</div>
+<!-- modal-dialog -->
+
+<!-- <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="close()" >&times;</button>
+        <h4 class="modal-title">{{title || 'Confirm'}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{message || 'Are you sure?'}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="confirm()">OK</button>
+        <button type="button" class="btn btn-default" (click)="close()" >Cancel</button>
+      </div>
+    </div>
+</div> -->

@@ -1,0 +1,103 @@
+<app-header *ngIf="userRoleId == '3'"></app-header>
+<app-admin-header *ngIf="userRoleId != '3'"></app-admin-header>
+<div class="main-wraper">
+    <div class="left-sidebar-wrap">
+      <app-sidebar [meetingStatus]="meetingStatus" [isRescheduled]="isRescheduled"></app-sidebar>
+    </div>
+    <!-- left-sidebar-wrap -->
+    <div class="right-content-wrap right-content-wrap-minHeight">
+        <div class="polls-btn-wrap">
+            <div class="polls-head">
+                <h2 class="h2-heading">Assign <span class="first-text-light">Polls</span></h2>
+            </div>
+            <!-- polls-head -->
+            <div class="btn-right-wrap">
+                <a *ngIf="userRoleId == '3'" class="btn btn-grey create-poll-btn" href="javascript:void(0)" [routerLink]="['/polls/create', meetingId, 1]">CREATE POLL</a>
+                <a *ngIf="userRoleId != '3'" class="btn btn-grey create-poll-btn" href="javascript:void(0)" routerLink="{{urlPrefix}}/meetings/polls/create/{{meetingId}}/1">CREATE POLL</a>
+            </div>
+            <!-- btn-right-wrap -->
+        </div>
+        <!-- polls-btn-wrap -->
+        <div class="row">
+            <div class="col-md-6 col-sm-4 col-xs-12 col-xxs">
+                <div class="form-group">
+                    <select name="timezone" [(ngModel)]="pollId" (change)="selectPoll($event.target.value)">
+                        <option value="" [selected]="true">Choose Poll</option>
+                        <option *ngFor="let poll of polls" value="{{poll.id}}">{{poll.title}}</option>
+                    </select>
+                    <label class="control-label time-zone-text" for="select"></label><i class="bar"></i>
+                    <span *ngIf="pollErrorMsg" class="poll-error text-danger">{{pollErrorMsg}}</span>
+                </div>
+            </div>
+            <button class="btn btn-blue btn-full blubtn-resize" (click)="addPoll()">ASSIGN</button>
+        </div>
+        <div class="table-responsive table-responsive-show" style="position:relative;">
+            <div [ngBusy]="busy"></div>
+            <table class="table table-striped table-striped-tok table-reg-height">
+                <thead>
+                    <tr>
+                        <th>Poll Name</th>
+                        <th>Created</th>
+                        <th class="text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let poll of pollsDetails | paginate: {'id': 'polls-list', itemsPerPage: limit, currentPage: p, totalItems: recordsTotal }" id="row{{poll.id}}">
+                        <td>{{poll.title}}</td>
+                        <td>{{poll.created_at}}</td>
+                        <td class="pre-reg-width">
+                        <div class="edit-delete-wrap">
+                                <a class="delete" (click)="openDeleteModal(poll.id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12.641" height="16" viewBox="0 0 11.641 15">
+                                    <path fill="#B2B2B2" d="M2.51 15h6.653c.915 0 1.663-.748 1.663-1.663V3.36H.848v9.977c0 .915.748 1.663 1.663 1.663zM11.64.848H8.73L7.9 0H3.74l-.83.848H0V2.51h11.64V.85z"></path>
+                                </svg>
+                            </a>
+                            <!-- edit -->
+                        </div>
+                    </td>
+                    </tr>
+                    <tr *ngIf="recordsTotal == 0"><td colspan="5">No results found</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <pagination-controls class="my-pagination" id="polls-list"
+                (pageChange)="pageChanged($event)"
+                maxSize="5"
+                directionLinks="true"
+                autoHide="true"
+                previousLabel="Previous"
+                nextLabel="Next"
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+    </div>
+    <!-- right-content-wrap -->
+</div>
+<app-admin-footer></app-admin-footer>
+
+<div class="modal tokbird-modal fade" id="delete_poll" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal plan-modal-alter" role="document">
+        <div class="modal-content">
+            <div class="change-sub-wrap">
+                <!-- change-sub-wrap -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 ptb10">
+                            <h2 class="h2-heading"><span class="first-text-light">Remove&nbsp;</span>Poll</h2>
+                            <span class="plan_sucess">Are you sure you want to remove this poll?</span>
+                        </div>
+                    </div>
+                    <div class="sub-can-btn-wrap sub-can-btn-margin">
+                        <a class="btn btn-blue" href="javascript:void(0)" (click)="deletePoll()" >REMOVE</a>
+                        <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</a>
+                    </div>
+                </div>
+            </div>
+            <!-- change-sub-wrap -->
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->

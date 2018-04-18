@@ -1,0 +1,115 @@
+ <div id="calender_view" class="tab-pane"> 
+    <div id='calendar'>
+    </div>
+ </div> 
+
+
+ <div class="modal tokbird-modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading"><span class="first-text-light">Meeting&nbsp;</span>Info</h2>
+                        <span class="h2-heading-sub">{{meeting.title}}</span>
+                        <!-- h2-heading-sub -->
+                        <div class="meeting-sub">{{meeting.agenda}}</div>
+                        <div class="meetind-date-wrap">
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Meeting start time</span>
+                                <span class="meeting-ans-text">{{meeting.schDate}} at {{meeting.schTime}} {{meeting.timezone}}</span>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Estimated Duration</span>
+                                <span class="meeting-ans-text"><span *ngIf="meeting.durationHours > 0">{{meeting.durationHours}} hour </span><span *ngIf="meeting.durationMinutes > 0">{{meeting.durationMinutes}} minutes</span></span>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Reminders</span>
+                                <!-- <span class="meeting-ans-text">3 hours before Meeting planned time</span> -->
+                                <span class="meeting-ans-text" *ngFor="let reminder of meeting.remindersArray">{{reminder.duration}} {{reminderTypes[reminder.duration_type]}} before Meeting planned time</span>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Can enter a Meeting:</span>
+                                <span class="meeting-ans-text" *ngIf="((meeting.entryHours > 0) && (meeting.entryMinutes > 0))"><span *ngIf="meeting.entryHours > 0">{{meeting.entryHours}} hour </span><span *ngIf="meeting.entryMinutes > 0">{{meeting.entryMinutes}} minutes </span>before Meeting planned time</span>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                        </div>
+                        <!-- meetind-date-wrap -->
+
+                        <div class="meetind-date-wrap meetind-date-wrap-alter">
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Link to Presenters</span>
+                                <div class="infopopup">
+                                    <span class="meeting-ans-text meeting-ans-text-alter">{{meeting.presentersUrl}}</span>
+                                    <!-- <span class="link-cpy"><button class="btn btn-default" [attr.data-clipboard-text]="meeting.presentersUrl">COPY LINK</button></span> -->
+                                     <span class="link-cpy"><button class="btn btn-default" id="copy-presenters-url" [attr.data-copy-url]="meeting.presentersUrl" (click)="copyToClipboard('#copy-presenters-url')">Copy lnk</button></span> 
+                                    <!-- <p id="p1">Hello, I'm TEXT 1</p> -->
+                                    <!-- <button (click)="copyToClipboard1('#p1')">Copy TEXT 1</button> -->
+                                </div>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Link to Experts</span>
+                                <div class="infopopup">
+                                    <span class="meeting-ans-text meeting-ans-text-alter">{{meeting.expertsUrl}}</span>
+                                    <!-- <span class="link-cpy"><button class="btn btn-default" [attr.data-clipboard-text]="meeting.expertsUrl">COPY LINK</button></span> -->
+                                     <span class="link-cpy"><button class="btn btn-default" id="copy-experts-url" [attr.data-copy-url]="meeting.expertsUrl" (click)="copyToClipboard('#copy-experts-url')">Copy lnk</button></span> 
+                                </div>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                            <div class="meet-head-des-wrap">
+                                <span class="meeting-head-text">Link to Listeners</span>
+                                <div class="infopopup">
+                                    <span class="meeting-ans-text meeting-ans-text-alter">{{meeting.attendeesUrl}}</span>
+                                    <!-- <span class="link-cpy"><button class="btn btn-default" [attr.data-clipboard-text]="meeting.attendeesUrl">COPY LINK</button></span> -->
+                                     <span class="link-cpy"><button class="btn btn-default" id="copy-attendees-url" [attr.data-copy-url]="meeting.attendeesUrl" (click)="copyToClipboard('#copy-attendees-url')">Copy lnk</button></span> 
+                                </div>
+                            </div>
+                            <!-- meet-head-des-wrap -->
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5 col-xs-6">
+                                    <div class="meet-head-des-wrap">
+                                        <span class="meeting-head-text">Phone number</span>
+                                        <span class="meeting-ans-text"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-6">
+                                    <div class="meet-head-des-wrap">
+                                        <span class="meeting-head-text">Meeting Access Code</span>
+                                        <span class="meeting-ans-text">{{meeting.accessCode}}</span>
+                                    </div>
+                                </div>
+                                <!-- columns -->
+                            </div>
+                            <!-- row -->
+                        </div>
+                    </div>
+
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <!--  <a class="btn btn-blue" href="javascript:void(0)">EDIT</a> -->
+                    <div class="dropup">
+                        <button class="btn btn-blue btn-full dropdown-toggle" type="button" data-toggle="dropdown">EDIT</button>
+                        <ul class="dropdown-menu sub-can-btn-ul">
+                            <li><a [routerLink]="['/meetings/general-info', meeting.meetingId]" data-dismiss="modal">General Info</a></li>
+                            <li><a [routerLink]="['/meetings/invite-users/', meeting.meetingId]" data-dismiss="modal">Invite users</a></li>
+                            <li><a [routerLink]="['/meetings/pre-registration-form/', meeting.meetingId]" data-dismiss="modal">Pre-registration form</a></li>
+                            <li><a [routerLink]="['/meetings/security-settings/', meeting.meetingId]" data-dismiss="modal">Security settings</a></li>
+                            <li><a [routerLink]="['/meetings/content/', meeting.meetingId]" data-dismiss="modal">Meeting content</a></li>
+                        </ul>
+                    </div>
+
+
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->

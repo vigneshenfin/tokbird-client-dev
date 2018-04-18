@@ -1,0 +1,160 @@
+<app-header *ngIf="roleId == '3'"></app-header>
+<app-admin-header *ngIf="roleId != '3'"></app-admin-header>
+<div class="main-wraper">
+  <div class="left-sidebar-wrap">
+     <app-sidebar [meetingStatus]="meetingStatus" [isRescheduled]="isRescheduled"></app-sidebar> 
+  </div>
+    <div class="right-content-wrap right-content-wrap-minHeight" *ngIf="accessDenied">
+        <h2 class="h2-heading"><span class="first-text-light">Meeting</span> Recordings</h2>
+        <div class="text-center"><img class="nomeeting-svg" [ngStyle]="{'min-width': '500px'}" src="assets/images/noaccess.svg" /></div>
+    </div>
+    <div class="right-content-wrap right-content-wrap-minHeight" *ngIf="allDataFetched">
+            <h2 class="h2-heading"><span class="first-text-light">Meeting</span> Recordings</h2>
+            <div class="text-center" *ngIf="recordings == ''"><img class="nomeeting-svg" [ngClass]="schedules.length > 1 ? 'svg-top-margin' : ''" src="assets/images/nomeeting.svg" /></div>
+            <div class="row bt-margin">
+                <div class="col-md-4" *ngIf="(schedules.length > 1)">
+                    <div class="form-group">
+                        <select [(ngModel)]="scheduleId" (change)="filterRecordings($event.target.value)">
+                            <option value="">All Schedules</option>
+                            <option *ngFor="let schedule of schedules; let i = index;" value="{{schedule.id}}">{{schedule.scheduled_date_utc}}</option>
+                        </select>
+                        <label class="control-label" for="select">FILTER BY SCHEDULED DATES</label><i class="bar"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngFor="let group of recordingsGroup; let i = index">
+                <div class="col-md-4 col-sm-4 col-xs-6 col-xxs" *ngFor="let recording of recordingsGroup[i]">
+                    <div class="video-bloack-wrap">
+                        <div class="videoholder">
+                            <img src="{{recordingsPath + 'thumbnails/' + recording.thumbnail}}" alt="">
+                            <a (click)="playRecording(recording.id)">
+                            <span class="hover-paly">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26.317" height="26.317" viewBox="0 0 26.317 26.317"><path fill="#FFF" d="M24.552 6.58C20.92.288 12.872-1.868 6.58 1.765c-6.292 3.633-8.448 11.68-4.815 17.97 3.632 6.294 11.68 8.45 17.97 4.817 6.294-3.634 8.45-11.68 4.817-17.972zm-6.13 15.692C13.387 25.18 6.95 23.454 4.043 18.42 1.137 13.387 2.862 6.95 7.896 4.044c5.034-2.907 11.47-1.182 14.377 3.852s1.18 11.47-3.852 14.376zm-.52-9.648l-6.89-4.018c-.627-.367-1.133-.073-1.13.653l.035 7.974c.003.726.516 1.022 1.145.658l6.836-3.947c.63-.364.632-.955.004-1.32z" opacity=".6"/></svg>
+                            </span>
+                            </a>
+                        </div>
+                        <!-- videoholder -->
+                        <div class="video-option-holder">
+                            <span class="video-title">{{recording.meeting_title}} - {{recording.recNumber}}</span>
+                            <span class="video-date-time">{{recording.recTime}}</span>
+                            <div class="dwlnd-and-dele-wrap">
+                                <a *ngIf="1 > 2" [href]="recordingsPath + recording.video_id" download="{{recording.video_id}}" style="display: block; width: 20px;"> 
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.214 14.029">
+                                            <g fill="#B2B2B2">
+                                            <path d="M14.958 9.608c-.17-.17-.378-.256-.622-.256h-4.243L8.85 10.595c-.354.34-.768.51-1.243.51-.475 0-.89-.17-1.243-.51L5.13 9.353H.877c-.244 0-.45.085-.622.256-.17.17-.256.37-.256.62v2.92c0 .24.08.45.25.62.17.17.38.252.62.252h13.46c.243 0 .45-.086.62-.257.172-.17.257-.378.257-.62v-2.92c0-.245-.086-.45-.257-.623zm-3.427 3.09c-.11.116-.25.174-.41.174s-.29-.058-.41-.174c-.11-.116-.17-.253-.17-.41 0-.16.06-.297.176-.412.116-.116.253-.174.41-.174s.297.058.413.174c.116.116.174.253.174.41 0 .16-.057.296-.173.412zm2.35 0c-.116.116-.253.174-.412.174-.157 0-.295-.058-.41-.174-.116-.116-.174-.253-.174-.41 0-.16.058-.297.174-.412.115-.116.252-.174.41-.174s.296.058.412.174c.115.116.173.253.173.41 0 .16-.06.296-.176.412z"/>
+                                            <path d="M7.21 9.764c.11.116.248.173.413.173.165 0 .303-.058.413-.173l4.11-4.092c.19-.177.232-.39.128-.64-.104-.236-.284-.355-.54-.355h-2.35V.585c0-.158-.057-.295-.173-.41C9.1.057 8.96 0 8.8 0H6.45c-.158 0-.296.058-.412.174-.116.115-.175.252-.175.41v4.093h-2.35c-.256 0-.436.12-.54.356-.105.25-.062.462.128.64l4.11 4.09z"/>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </a>
+                                <a href="javascript:void(0)" (click)="confirmDeleteRecording(recording.id)"> 
+                                <span>
+                                    <svg enable-background="new 0 0 11.641 15" version="1.1" viewBox="0 0 11.641 15" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.511,15h6.652c0.915,0,1.663-0.748,1.663-1.663V3.359H0.848v9.978C0.848,14.252,1.596,15,2.511,15z      M11.641,0.848h-2.91L7.899,0H3.742L2.91,0.848H0v1.663h11.641V0.848z" fill="#B2B2B2"/>
+                                    </svg>
+                                </span>
+                                </a> 
+                                <a href="javascript:void(0)" (click)="shareRecording(recording.id)" title="Share">
+                                    <span>
+                                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                            <path fill="#B2B2B2" d="M21,11L14,4V8C7,9 4,14 3,19C5.5,15.5 9,13.9 14,13.9V18L21,11Z" />
+                                        </svg>
+                                    </span>
+                                </a>
+                            </div>
+                            <!-- dwlnd-and-dele-wrap -->
+                        </div>
+                        <!-- video-option-holder -->
+                    </div>
+                    <!-- video-bloack-wrap -->
+                </div>
+            </div>
+        </div>
+        <!-- right-content-wrap -->
+</div>
+<app-footer></app-footer>
+
+<!-- Recording delete confirmation modal  -->
+<div class="modal tokbird-modal fade" id="delete-pop-recordings" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading text-center"><span class="first-text-light">Delete</span> Recording</h2>
+                        <div class="deletion-msg">
+                            Are you sure you want to delete this recording?
+                        </div>
+                        <!-- deletion-msg -->
+                    </div>
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a class="btn btn-blue" href="javascript:void(0)" (click)="deleteRecording(recToDelete)">YES</a>
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">NO</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->
+
+<!-- Play recording  -->
+<div class="modal tokbird-modal fade" id="vid_play" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter play-recording" role="document"  style="padding: 0px;margin: 0px;">
+        <div class="modal-content">
+            <div class="">
+                <a  class="close rec-close" (click)="closeRecording()" data-dismiss="modal">
+                    <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="modal-body modal-black">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading vido-h2"><span class="first-text-light">Meeting&nbsp;</span>{{videoTitle}}</h2>
+                            <div id="video"></div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->
+
+
+<div class="modal tokbird-modal fade" id="share-recording" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading text-center"><span class="first-text-light">Share</span> Recording</h2>
+                        <div class="deletion-msg">
+                        </div>
+                        <!-- deletion-msg -->
+                        <div class="infopopup">
+                            <span class="meeting-ans-text meeting-ans-text-alter"><a class="meet-link" target="_blank" href="{{recLink}}">{{recLink}}</a></span>
+                            <span class="link-cpy"><button class="btn btn-default" id="copy-recording-url" [attr.data-copy-url]="recLink" (click)="copyToClipboard('#copy-recording-url')">Copy link</button></span> 
+                        </div>
+                    </div>
+
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->
+
+

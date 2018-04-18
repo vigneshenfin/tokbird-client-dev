@@ -1,0 +1,48 @@
+<div class="meetind-date-wrap meeting-report-dashbord" [ngClass]="{'div-loading': dashboardBusy}">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="meet-head-des-wrap meeting-report-dshbord-space">
+                <span class="meeting-head-text">Number of users invited directly</span>
+                <span class="meeting-ans-text"><span class="count-list">{{(dashboardData.invited_attendees_count)?dashboardData.invited_attendees_count : '0'}}</span> {{(dashboardData.invited_attendees_count ==1)? 'Attendee':'Attendees'}}, <span class="count-list">{{(dashboardData.invited_experts_count)?dashboardData.invited_experts_count:'0'}}</span> {{(dashboardData.invited_experts_count ==1)? 'Expert':'Experts'}}, <span class="count-list">{{(dashboardData.invited_presenters_count)?dashboardData.invited_presenters_count:'0'}}</span> {{(dashboardData.invited_presenters_count ==1)? 'Presenter':'Presenters'}}</span>
+            </div>
+            <!-- meet-head-des-wrap -->
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="meet-head-des-wrap meeting-report-dshbord-space">
+                <span class="meeting-head-text">Number of users attended</span>
+                <span class="meeting-ans-text"><span class="count-list">{{(dashboardData.attended_attendees_count)?dashboardData.attended_attendees_count:'0'}}</span> {{(dashboardData.attended_attendees_count ==1)? 'Attendee':'Attendees'}}, <span class="count-list">{{(dashboardData.attended_experts_count)?dashboardData.attended_experts_count:'0'}}</span> {{(dashboardData.attended_experts_count ==1)? 'Expert':'Experts'}}, <span class="count-list">{{(dashboardData.attended_presenters_count)?dashboardData.attended_presenters_count:'0'}}</span> {{(dashboardData.attended_presenters_count ==1)? 'Presenter':'Presenters'}}</span>
+            </div>
+            <!-- meet-head-des-wrap -->
+        </div>
+    </div>
+    <!-- row -->
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="meet-head-des-wrap">
+                <span class="meeting-head-text">Number of total questions</span>
+                <span class="meeting-ans-text"><span class="count-list">{{(dashboardData.total_questions)?dashboardData.total_questions:'0'}}</span> Questions</span>
+            </div>
+            <!-- meet-head-des-wrap -->
+        </div>
+        <!-- columns -->
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="meet-head-des-wrap">
+                <span class="meeting-head-text">Number of answered questions</span>
+                <span class="meeting-ans-text"><span class="count-list">{{(dashboardData.answered_questions)?dashboardData.answered_questions:'0'}}</span> Questions</span>
+            </div>
+            <!-- meet-head-des-wrap -->
+
+        </div>
+        <!-- columns -->
+    </div>
+    <!-- row -->
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="meet-head-des-wrap meeting-report-dshbord-space">
+                <span class="meeting-head-text">Number of users registered</span>
+                <span class="meeting-ans-text"><span class="count-list">{{(dashboardData.reg_attendees_count)?dashboardData.reg_attendees_count : '0'}}</span> {{(dashboardData.reg_attendees_count ==1)? 'Attendee':'Attendees'}}, <span class="count-list">{{(dashboardData.reg_experts_count)?dashboardData.reg_experts_count:'0'}}</span> {{(dashboardData.reg_experts_count ==1)? 'Expert':'Experts'}}, <span class="count-list">{{(dashboardData.reg_presenters_count)?dashboardData.reg_presenters_count:'0'}}</span> {{(dashboardData.reg_presenters_count ==1)? 'Presenter':'Presenters'}}</span>
+            </div>
+            <!-- meet-head-des-wrap -->
+        </div>
+    </div>
+  </div>

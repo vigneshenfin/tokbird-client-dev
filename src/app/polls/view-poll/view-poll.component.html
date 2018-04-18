@@ -1,0 +1,105 @@
+<!-- <app-header></app-header> -->
+<app-header *ngIf="roleId == '3'"></app-header>
+<app-admin-header *ngIf="roleId != '3'"></app-admin-header>
+<div class="main-wraper">
+        <div class="left-sidebar-wrap" style="visibility: hidden;"></div>
+        <!-- left-sidebar-wrap -->
+
+        <div class="right-content-wrap" *ngIf="allDataFetched">
+            <div class="polls-btn-wrap">
+                <div class="polls-head">
+                    <h2 class="h2-heading"><span class="first-text-light">View</span>&nbsp;Poll</h2>
+                </div>
+                <!-- polls-head -->
+                <div class="btn-right-wrap">
+                    <a *ngIf="roleId == '3'" class="btn btn-grey create-poll-btn" routerLink="/polls/edit/{{pollId}}">EDIT POLL</a>
+                    <a *ngIf="roleId != '3'" class="btn btn-grey create-poll-btn" routerLink="{{urlPrefix}}/meetings/polls/edit/{{routeMeetingId}}/{{pollId}}">EDIT POLL</a>
+                </div>
+                <!-- btn-right-wrap -->
+
+            </div>
+            <!-- polls-btn-wrap -->
+            <span class="poll-question">{{title}}</span>
+            <ul class="edit-pol-ul">
+                <li *ngFor="let question of pollQuestions; let i=index;">
+                    <div class="view-poll-questions-wrap">
+
+                        <div class="view-poll-answer">
+                            <span class="poll-serial">{{(i+1)}}.</span> {{question.question}}
+                        </div>
+                    </div>
+
+                    <!-- view-poll-answer -->
+                    <div class="edit-poll-elementswrap">
+
+                        <div *ngIf="question.type == 1">
+                            <div class="form-radio" *ngFor="let option of question.options; let j=index;">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" [checked]="option.checked" disabled><i class="helper"></i><span class="radio-btn-label radio-label-color">{{option.label}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="(question.type == 2)">
+                            <div class="form-radio" *ngFor="let option of question.options; let j=index;">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" [checked]="option.checked" disabled><i class="helper"></i><span class="radio-btn-label radio-label-color">{{option.label}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="question.type == 3">
+                            <!-- <div class="form-group">
+                                <input type="text" placeholder="Type your answer here" disabled />
+                                <label class="control-label" for="input"></label><i class="bar"></i>
+                            </div> -->
+                        </div>
+
+                        <div *ngIf="question.type == 4">
+                            <!-- <textarea class="textarea-ans" placeholder="Type your answer here" disabled></textarea>
+                            <label class="control-label" for="textarea"></label><i class="bar"></i> -->
+                        </div>
+
+                        <div *ngIf="question.type == 5">
+                            <!-- <div class="row">
+                                <div class="col-md-3 col-sm-4 col-xs-12 col-xxs">
+                                    <div class="dropdown">
+                                        <button class="btn btn-transperant  dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">Choose
+                                            <img src="assets/images/arrow-down.svg" alt="Time">
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-full">
+                                            <li *ngFor="let option of question.options; let j=index;"><a>{{option.label}}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="form-group common-drops">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 col-xs-6 col-xxs">
+                                        <select>
+                                            <option value="" disabled>Choose</option>  
+                                            <option *ngFor="let option of question.options; let j=index;" value="{{option.value}}" [selected]="option.checked" disabled>{{option.label}}</option> 
+                                        </select>
+                                    <label class="control-label" for="select"></label><i class="bar" style="padding-top: 4px;"></i> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </li>
+
+            </ul>
+        </div>
+        <!-- right-content-wrap -->
+
+
+    </div>
+    <!-- main-wraper -->
+<app-footer></app-footer>

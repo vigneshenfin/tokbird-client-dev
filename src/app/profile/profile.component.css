@@ -1,0 +1,103 @@
+.attendees-wrap{
+    font-weight: 100 !important;
+    font-size: 14px;
+}
+.attendies-wrap{
+   font-weight: 100 !important; 
+}
+.charge_text_class {
+    color: #ee5e95 !important;
+    font-weight: bold !important;
+}
+.subscription-cancelLink {
+    cursor: pointer;
+}
+.card-img-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.card-img-wrap .card-number-head{
+   flex-shrink: 0;
+   margin-right: 15px;
+}
+.card-img-wrap img{
+    flex-shrink: 0;
+    width: 42px;
+    height: auto;
+    object-fit: contain;
+}
+.cards-img{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+.modal-content{
+    width: 125%;
+}
+.cardDigitWrap {
+    margin-top: 10px;
+}
+.card_num_err{
+    border: 1px solid #a94442;
+    background-color: #fff;
+}
+.payment-overly{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.33);
+    z-index: 9999999999999;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    top:0px;
+    left:0px;
+    flex-direction: column;
+}
+.processing{
+    display: block;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+}
+.payment-overly >img{
+    width:65px;
+    height:65px;
+}
+.blue-wrap{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0px;
+}
+.blue-wrap img{
+    height: 25px;
+    width:auto;
+    display: block;
+}
+.default-loader{
+    display: none;
+}
+.pwd-msg{
+    font-size: 11px;
+    margin: -15px 0px 15px 0px;
+    text-align: left;
+    color: #808080;
+}
+.dollar-num img {
+    width: 12%;
+    margin-bottom: 2px;
+}
+.dollar-num .doller-price {
+    font-size: 18px !important;
+}
+.currentpan-wrap .current_plan {
+    min-width: 200px;
+}
+
+@media all and (max-width:600px){
+    .modal-content{width: 100%;}
+
+}

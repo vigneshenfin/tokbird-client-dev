@@ -1,0 +1,10 @@
+.logo-class{
+    /*object-fit: cover;*/
+    width: auto;
+    height: 75px;
+    display: block;
+    margin: 0;
+}
+.sub-can-btn-wrap{
+    margin-top: 10%;
+}

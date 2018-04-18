@@ -1,0 +1,40 @@
+<!-- <app-header></app-header> -->
+<app-header *ngIf="roleId == '3'"></app-header>
+<app-admin-header *ngIf="roleId != '3'"></app-admin-header>
+<div class="main-wraper">
+        <div class="left-sidebar-wrap" style="visibility: hidden;"></div>
+        <!-- left-sidebar-wrap -->
+        <div class="right-content-wrap right-content-wrap-minHeight">
+            <div class="tab-pane fade in active" #myTab>
+                <ul class="nav nav-tabs nav-tabs-modified-two pre-reg">
+                    <li class="active"><a data-toggle="pill" href="#re-registration">Pre-registration Templates</a></li>
+                    <!-- <li><a data-toggle="pill" href="#in-meeting">In-Meeting Templates</a></li> -->
+                    <li><a data-toggle="pill" href="#in-meeting">Registration Page Header and Footer</a></li>
+                    <li><a data-toggle="pill" href="#inn-meeting">In-Meeting Design</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="re-registration" class="tab-pane fade in active">
+                        <app-pre-registration-templates [routeMeetingId]="routeMeetingId"></app-pre-registration-templates>
+                    </div>
+                    <!-- future-meeting -->
+                    <div id="in-meeting" class="tab-pane fade">
+                         <app-in-meeting-templates [routeMeetingId]="routeMeetingId"></app-in-meeting-templates> 
+                    </div>
+                    <!-- past-meeting -->
+
+                    <div id="inn-meeting" class="tab-pane fade">
+                        <app-in-meeting-design [routeMeetingId]="routeMeetingId"></app-in-meeting-design>
+                    </div>
+                    <!-- past-meeting -->
+                </div>
+            </div>
+
+
+
+
+        </div>
+        <!-- right-content-wrap -->
+    </div>
+    <!-- main-wraper -->
+<app-footer></app-footer>

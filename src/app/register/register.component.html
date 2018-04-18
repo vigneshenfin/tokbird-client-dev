@@ -1,0 +1,53 @@
+ 
+<div class="modal tokbird-modal fade" id="basicRegisterModal" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+  <div class="modal-dialog register-modal" role="document">
+   <div class="modal-content">
+    <div class="modal-body">
+     <div class="row">
+            <div class="col-md-12 ptb10">
+                <div [ngClass]="errorClass" class="error-msg">{{errorMsg}}</div>
+                <div [ngClass]="successClass" class="success-msg">{{successMsg}}</div>
+                <h2>Register</h2>
+                 <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav" (ngSubmit)="onSubmit($event,f)" #f="ngForm">
+                        <div class="form-group mt20" [ngClass]="{'has-error': !name.valid && f.submitted }">
+                            <input type="text" maxlength="25" name="name" ngModel #name="ngModel" required="required"/>
+                            <label class="control-label" for="input">NAME</label><i class="bar"></i>
+                        </div>                                       
+                        <div class="form-group mt20" [ngClass]="{'has-error': !email.valid && f.submitted}">
+                            <input autocomplete='off' maxlength="100" type="text" name="email" ngModel #email="ngModel" required="required"/>
+                            <label class="control-label" for="input">EMAIL</label><i class="bar"></i>
+                        </div>                                     
+                        <div class="form-group mt20" [ngClass]="{'has-error': !password.valid && f.submitted}">
+                            <input autocomplete='off'  minlength="5"  type="password" name="password" ngModel #password="ngModel" required="required"/>
+                            <label class="control-label" for="input">PASSWORD</label><i class="bar"></i>
+                        </div>
+                        <div class="form-group mt20" [ngClass]="{'has-error': !cpassword.valid && f.submitted}">
+                            <input autocomplete='off' minlength="5"  type="password" name="cpassword" ngModel #cpassword="ngModel" required="required"/>
+                            <label class="control-label" for="input">CONFIRM PASSWORD</label><i class="bar"></i>
+                        </div>                                     
+                        <div class="register-buttons">
+                            <div class="form-group">
+                                 <button type="submit" class="btn tok-btn btn-block btn300">REGISTER</button>
+                            </div>
+                            <div class="form-group text-center info-text">OR</div>
+                            <div class="form-group">
+                                <button type="button" class="loginBtn loginBtn--facebook" (click)="signIn('facebook')">Login with Facebook</button>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="loginBtn loginBtn--google" (click)="signIn('google')">Login with Google</button>
+                            </div> 
+                            
+                        </div>
+
+
+                 </form>
+            </div>
+
+     </div>
+    </div>
+   </div>
+   <!-- modal-content -->
+  </div>
+  <!-- modal-dialog -->
+ </div>
+ <!-- modal --> 

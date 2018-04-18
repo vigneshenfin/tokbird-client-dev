@@ -1,0 +1,34 @@
+<div class="modal tokbird-modal fade" id="forgetPassword" tabindex="-1" role="dialog" aria-labelledby="forgetPassword">
+  <div class="modal-dialog register-modal" role="document">
+   <div class="modal-content">
+    <div class="modal-body">
+     <div class="row">
+            <div class="col-md-12 ptb10">
+                <div [ngClass]="errorClass" class="error-msg">{{errorMsg}}</div>
+                <div [ngClass]="successClass" class="success-msg">{{successMsg}}</div>
+                <h2>Reset Password</h2>
+                 <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" (ngSubmit)="onSubmit($event,f)" #f="ngForm">
+                        <p>We will send a mail to the following id with a link to reset the password. Please share your email id </p>        
+                        <div class="form-group mt20" [ngClass]="{'has-error': !email.valid && f.submitted }">
+                            <input type="text" required="required" name="email" ngModel #email="ngModel" />
+                            <label class="control-label" for="input">EMAIL</label><i class="bar"></i>
+                        </div>                                     
+                                
+                        <div class="register-buttons">
+                            <div class="form-group">
+                                 <button type="submit" class="btn tok-btn btn-block btn300">RESET PASSWORD</button>
+                            </div>
+                        </div>
+
+
+                 </form>
+            </div>
+
+     </div>
+    </div>
+   </div>
+   <!-- modal-content -->
+  </div>
+  <!-- modal-dialog -->
+ </div>
+ <!-- modal --> 

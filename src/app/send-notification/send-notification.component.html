@@ -1,0 +1,62 @@
+<app-header></app-header>
+    <div class="main-wraper">
+      <app-meeting-sidebar></app-meeting-sidebar>
+        <!-- left-sidebar-wrap -->
+        <div class="right-content-wrap">
+            <h2 class="h2-heading"><span class="first-text-light">Send</span> Notifications</h2>
+            <!--<div *ngIf="errorMsg" [ngClass]="errorClass" class="error-msg">{{errorMsg}}</div>
+            <div *ngIf="successMsg" [ngClass]="successClass" class="success-msg">{{successMsg}}</div>-->
+            <form class="form" role="form" method="post" accept-charset="UTF-8" id="login-nav" (ngSubmit)="onSubmit($event,f)" #f="ngForm">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-xxs">
+                    <span class="calander-title">User role</span>
+                    <div class="radio-btn-wrap">
+                        <div class="radio-wrapper radio-wrapper-alter">
+                            <div class="form-radio">
+                                <div class="radio">
+                                    <label>
+                                                <input type="radio" [checked]="invitee_status === 3" name="invitee_status" [(ngModel)]="invitee_status" [value]="3"><i class="helper"></i><span class="radio-btn-label">Invited</span>
+                                              </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                                <input type="radio"  name="invitee_status" [(ngModel)]="invitee_status" [value]="1"><i class="helper"></i><span class="radio-btn-label">Invited but not registered</span>
+                                              </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                                    <input type="radio"  name="invitee_status" [(ngModel)]="invitee_status" [value]="2"><i class="helper"></i><span class="radio-btn-label">Registered</span>
+                                                  </label>
+                                </div>
+                            </div>
+                            <div *ngIf="status_error" class="text-danger">
+                                Please choose user role.
+                            </div>
+                        </div>
+                        <!-- radio-wrapper -->
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+            <span class="calander-title top-bottom-label-space margin-top-remover">Email content</span>
+            <div class="redactor-wrap">
+                <app-tinymce name="mail_content" [(ngModel)]="mail_content"></app-tinymce>
+                <!--<textarea name="mail_content" ngModel #mail_content="ngModel" required="required"></textarea>-->
+            </div>
+            <div *ngIf="content_error" class="text-danger">
+                Please enter notification content
+            </div>
+            <!-- redactor-wrap -->
+
+            <div class="left-bttn-blue text-center">
+                <button type="submit" class="btn btn-blue btn-full blubtn-resize" data-toggle="modal" data-target="#meetingSched" >SEND EMAIL</button>
+            </div>
+            <!-- left-bttn-blue -->
+            </form>
+        </div>
+        <!-- right-content-wrap -->
+    </div>
+    <!-- main-wraper -->
+
+
+<app-footer></app-footer>

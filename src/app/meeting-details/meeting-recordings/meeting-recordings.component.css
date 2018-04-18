@@ -1,0 +1,15 @@
+.video-bloack-wrap .video-option-holder .dwlnd-and-dele-wrap > a { display: table-cell !important; }
+.nomeeting-svg { position: absolute; top: 50%; width: 230px; transform: translate(-50%, -50%); -ms-transform: translateX(100%); }
+.right-content-wrap-minHeight { position: relative; }
+.video-bloack-wrap .video-option-holder { padding: 17px; }
+.popup-video { border: none !important; }
+.play-recording { min-width: 100% !important; }
+.rec-close { float: right; position: relative; top: 10px; right: 15px; cursor: pointer; z-index: 9999; }
+.meeting-ans-text-alter { white-space: normal; }
+.meet-link { text-decoration: none; word-break: break-all; }
+.video-date-time { text-align: center; }
+.svg-top-margin { top: 62% !important; }
+.bt-margin { margin-bottom: 15px; }
+@media all and (max-width:600px) {
+    .nomeeting-svg { transform: translate(-50%, -50%); -ms-transform: translateX(15%); }
+}

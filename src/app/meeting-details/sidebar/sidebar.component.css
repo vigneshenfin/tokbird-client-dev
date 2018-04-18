@@ -1,0 +1,6 @@
+ .left-il li a:hover svg.poll-svg > path{
+    fill: none !important;
+}
+.left-il li a:hover svg.poll-svg{
+    fill: #f00 !important;
+} 

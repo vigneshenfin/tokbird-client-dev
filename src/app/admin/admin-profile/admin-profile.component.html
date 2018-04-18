@@ -1,0 +1,154 @@
+<app-admin-header></app-admin-header> 
+    <div class="main-wraper">
+        <div class="left-sidebar-wrap" style="visibility: hidden;"></div>
+        <!-- left-sidebar-wrap -->
+        <div class="right-content-wrap">
+            <div id="l_view" class="tab-pane fade in active">
+                <ul class="nav nav-tabs nav-tabs-modified-two">
+                    <li class="active"><a id="future_meeting" data-toggle="pill" href="#future-meeting">My Profile</a></li>
+                </ul>
+
+
+                <div class="search-table-wrapper" id="past_meetings_search">
+                    <form action="#">
+                        <div class="search-table">
+                            <div class="form-group">
+                                <input type="text" required="required" />
+                                <label class="control-label" for="input">SEARCH MEETINGS</label><i class="bar"></i>
+                            </div>
+                        </div>
+                        <!-- search-table -->
+                        <div class="search-btn">
+                            <a class="btn btn-blue serch-btn" href="javascript:void(0)">SEARCH</a>
+                        </div>
+                        <!-- search-btn -->
+                    </form>
+                </div>
+                <!-- search-table-wrapper -->
+
+                <div class="tab-content">
+                    <div id="future-meeting" class="tab-pane fade in active">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <span *ngIf="profile_img"><img class="avatar-upload" src="{{profile_img}}" alt="upload_pic"/></span>
+                                <span *ngIf="!profile_img"><img class="avatar-upload" src="/assets/images/profilepic-upload.svg" alt="upload_pic"></span>
+                            </div>
+                            <div class="nopadding col-md-10 col-sm-9 col-xs-8">
+                                <div class="fake-browse btn btn-blue">
+                                    <label for="fake-browse">Upload image</label>
+                                    <input class="uploader-avatar" accept="image/x-png,image/jpeg" type="file" name="profile_image" id="#" (change)="getFiles($event)">
+                                </div>
+                            </div>
+                            <span *ngIf="!prof_pic_error"> [ Allowed image types are : png,jpg,jpeg ]</span>
+                            <span *ngIf="prof_pic_error" class="text-danger image_error">{{prof_pic_error}}</span>
+                        </div>
+                        <!--<div class="upload-file-wrap">
+                            <span *ngIf="profile_img"><img src="{{profile_img}}" alt="upload_pic"/></span>
+                            <span *ngIf="!profile_img"><img src="/assets/images/profilepic-upload.svg" alt="upload_pic"></span>
+                            <input type="file" name="profile_image" id="#" (change)="getFiles($event)">
+                        </div>
+                        <span *ngIf="prof_pic_error" class="text-danger image_error">{{prof_pic_error}}</span>-->
+                        <!-- upload-file-wrap -->
+                        <div class="row">
+                            <div class="col-md-5 col-sm-6 col-xs-12">
+                                <div class="form-group form-group-height-alter">
+                                    <input maxlength="30" type="text" required="required" name="us_name" [(ngModel)]="us_name">
+                                    <label class="control-label search-weight upper-case" for="input">Name</label><i class="bar"></i>
+                                    <span *ngIf="nameErrorMsg" class="text-danger">{{nameErrorMsg}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-6 col-xs-12">
+                                <!--<div class="form-group form-group-height-alter">
+                                    <input type="email" required="required" readonly name="email" [(ngModel)]="email">
+                                    <label class="control-label search-weight upper-case" for="input">Email</label><i class="bar"></i>
+                                    <span *ngIf="emailErrorMsg" class="text-danger">{{emailErrorMsg}}</span>
+                                </div>-->
+                                <div class="form-group form-group-height-alter">
+                                    <span class="demmy-readonly-mail">Email</span>
+                                    <span class="demmy-readonly-textbox">{{email}}</span>
+                                    <span class="demmy-readonly-border"></span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                       <div class="row">
+                            <div class="col-md-5 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                <select name="timezone" [(ngModel)]="timezone" (change)="changeTimezone($event.target.value)">
+                                    <option value="">Choose timezone</option>
+                                    <option *ngFor="let tz of timeZones" value="{{tz.value}}">{{tz.text}}</option>
+                                </select>
+                                <label class="control-label time-zone-text" for="select">TIME ZONE</label><i class="bar"></i>
+                                <span *ngIf="timezoneErrorMsg" class="text-danger">{{timezoneErrorMsg}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!--<div class="col-md-5 col-sm-6 col-xs-12">
+                                <div class="form-group form-group-height-alter">
+                                    <input type="password" required="required">
+                                    <label class="control-label search-weight upper-case" for="input">PASSWORD</label><i class="bar"></i>
+                                </div>
+                            </div>-->
+                            <div class="col-md-3 col-md-4 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <button (click)="changePassword()" data-toggle="modal" data-target="#chng_pwd" class="btn btn-grey change-passord-alter  btn-full" type="button">CHANGE PASSWORD</button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="left-bttn-blue text-center">
+                            <a class="btn btn-blue btn-full" (click)="saveProfile()">SAVE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- right-content-wrap -->
+    </div>
+<div class="modal tokbird-modal fade" id="chng_pwd" tabindex="-1" role="dialog" aria-labelledby="ChangePassword">
+  <div class="modal-dialog register-modal plan-modal-alter" role="document">
+   <div class="modal-content">
+    <div class="modal-body">
+     <div class="row">
+            <div class="col-md-12 ptb10">
+                <h2 class="h2-heading"><span class="first-text-light">Change&nbsp;</span>Password</h2>
+                 <form class="form" role="form" method="post" action="change_pwd" accept-charset="UTF-8" (ngSubmit)="updatePassword($event,j)" #j="ngForm">
+                        <div class="text-center pwd-msg">[ password must be of minimum 6 characters length ]</div>
+                        <div *ngIf="errorMsg" class="error-msg">{{errorMsg}}</div>
+                        <div *ngIf="SuccessMsg" class="success-msg">{{SuccessMsg}}</div>
+                        <div class="form-group mt20 " [ngClass]="{'has-error': !current_pwd.valid && j.submitted}">
+                            <input type="password" required="required" name="current_pwd" ngModel #current_pwd="ngModel"/>
+                            <label class="control-label" for="input">Current Password</label><i class="bar"></i>
+                        </div>  
+                        <div class="form-group mt20 " [ngClass]="{'has-error': !new_pwd.valid && j.submitted}">
+                            <input type="password" minlength="6" required="required" name="new_pwd" ngModel #new_pwd="ngModel"/>
+                            <label class="control-label" for="input">New Password</label><i class="bar"></i>
+                        </div> 
+                        <div class="form-group mt20 " [ngClass]="{'has-error': !confirm_pwd.valid && j.submitted}">
+                            <input type="password" minlength="6" required="required" name="confirm_pwd" ngModel #confirm_pwd="ngModel"/>
+                            <label class="control-label" for="input">Confirm Password</label><i class="bar"></i>
+                        </div>                    
+                                
+                        <div class="sub-can-btn-wrap sub-can-btn-margin">
+                            <!--  <a class="btn btn-blue" data-dismiss="modal" href="javascript:void(0)">CLOSE</a> -->
+
+                            <button type="submit" class="btn btn-blue" id="change_password">SAVE</button>
+                            <button class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</button>
+                        </div>
+
+
+                 </form>
+            </div>
+
+     </div>
+    </div>
+   </div>
+   <!-- modal-content -->
+  </div>
+  <!-- modal-dialog -->
+ </div>
+ <!-- modal --> 
+<app-admin-footer></app-admin-footer>

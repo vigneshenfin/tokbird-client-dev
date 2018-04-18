@@ -1,0 +1,29 @@
+<section class="tokbird-footer">
+    <div class="sp60">
+        <div class="inner-row text-center pt30 pb30">
+            <ul class="foot-menu">
+                <li><a routerLink="/licence-agreement">Licence Agreement</a></li>
+                <li><a routerLink="/privacy-policy">Privacy Policy</a></li>
+                <li><a routerLink="/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </div>
+    </div>
+
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./js/bootstrap-datepicker.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".navbar-list-custom li").on("click", function() {
+            $(".navbar-list-custom li").removeClass("active");
+            $(this).addClass("active");
+        });
+    });
+    $('#date').datepicker({
+        orientation: "bottom",
+        autoclose: true
+
+    });
+</script>

@@ -1,0 +1,38 @@
+
+<div id="map">
+</div>
+
+<div class="table-responsive table-map-scroll" style="position:relative;">
+    <div [ngBusy]="locationsBusy"></div>
+    <table class="table table-striped table-striped-tok table-reg-height">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let location of locationDetails | paginate: {'id': 'locations-list', itemsPerPage: 10, currentPage: p, totalItems: locationRecords.recordsTotal }">
+                <td>{{location.firstName}}</td>
+                <td>{{location.lastName}}</td>
+                <td>{{location.label}}</td>
+            </tr>
+            <tr *ngIf="locationDetails == ''">
+                <td colspan="3" class="table-no-result">No Results Found</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<pagination-controls class="my-pagination"  id="locations-list"
+                    (pageChange)="pageChanged($event)"
+                    maxSize="7"
+                    directionLinks="true"
+                    autoHide="true"
+                    previousLabel="Previous"
+                    nextLabel="Next"
+                    screenReaderPaginationLabel="Pagination"
+                    screenReaderPageLabel="page"
+                    screenReaderCurrentLabel="You're on page">
+</pagination-controls>

@@ -1,0 +1,223 @@
+<app-admin-header></app-admin-header>
+
+<div class="dataTable-wraper">
+
+    <div class="dataTable-sub-wrap">
+        <ul *ngIf="roleId == '1'" class="nav nav-tabs nav-tabs-modified">
+            <li class="active">
+                <a class="dataTable-Tabbed" data-toggle="tab" href="#events">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21.697" height="20.402" viewBox="0 0 21.697 20.402">
+                            <g fill="#B2B2B2">
+                                <path d="M18.307 1.358H15.61v-.68c0-.362-.284-.67-.645-.678-.408-.008-.682.265-.682.68v.678h-6.79v-.68c0-.362-.283-.67-.645-.678-.41-.008-.682.265-.682.68v.678h-2.77C1.52 1.358 0 2.878 0 4.754v12.253c0 1.875 1.52 3.395 3.395 3.395h14.907c1.875 0 3.395-1.52 3.395-3.395V4.76c0-1.906-1.49-3.402-3.39-3.402zM1.327 4.792c0-1.082.952-2.03 2.04-2.03h2.8v.68c0 .363.282.672.644.68.41.008.687-.266.687-.68v-.68h6.79v.68c0 .363.284.672.645.68.408.007.68-.266.68-.68v-.68h2.726c1.12 0 2.037.918 2.037 2.038v2.02H1.328V4.793zm17.006 14.205H3.363c-1.12 0-2.036-.917-2.036-2.037V8.148H20.37v8.812c0 1.12-.916 2.037-2.037 2.037z"/>
+                                <path d="M4.762 16.99c.407 0 .68-.137.95-.408.273-.272.408-.68.408-.95 0-.273-.136-.68-.407-.952-.543-.543-1.358-.543-1.9 0-.273.272-.408.543-.408.95 0 .273.136.68.407.952s.543.407.95.407zm0-4.076c.407 0 .68-.136.95-.407.273-.272.408-.68.408-.95 0-.273-.136-.68-.407-.952-.543-.543-1.358-.543-1.9 0-.273.272-.408.543-.408.95s.136.68.407.952c.27.272.543.407.95.407zm4.075 4.076c.407 0 .68-.137.95-.408.273-.272.408-.68.408-.95 0-.273-.136-.68-.407-.952-.543-.543-1.358-.543-1.9 0-.273.272-.408.68-.408.95 0 .273.136.68.407.952.27.27.542.407.95.407zm0-4.076c.407 0 .68-.136.95-.407.273-.272.408-.68.408-.95 0-.273-.136-.68-.407-.952-.543-.543-1.358-.543-1.9 0-.273.272-.408.68-.408.95 0 .273.136.68.407.952.27.272.542.407.95.407zm4.073 4.076c.408 0 .68-.137.952-.408.272-.272.407-.543.407-.95s-.14-.68-.41-.952c-.545-.543-1.36-.543-1.9 0-.275.272-.41.68-.41.95 0 .273.136.68.407.952.27.27.543.407.95.407zm0-4.076c.408 0 .68-.136.952-.407.272-.272.407-.543.407-.95 0-.273-.14-.68-.41-.952-.545-.543-1.36-.543-1.9 0-.275.272-.41.68-.41.95 0 .273.136.68.407.952.27.272.543.407.95.407zm4.075 4.076c.407 0 .68-.137.95-.408.273-.272.408-.68.408-.95 0-.273-.136-.68-.407-.952-.543-.543-1.358-.543-1.9 0-.273.272-.408.543-.408.95 0 .273.136.68.407.952.27.27.543.407.95.407zm0-4.076c.407 0 .68-.136.95-.407.273-.272.408-.543.408-.95 0-.273-.136-.68-.407-.952-.543-.543-1.358-.543-1.9 0-.273.272-.408.68-.408.95 0 .273.136.68.407.952.27.272.543.407.95.407z"/>
+                            </g>
+                            </svg>
+                    <span class="calander-text">Events</span>
+                </a>
+            </li>
+            <li>
+                <a class="dataTable-Tabbed" data-toggle="tab" href="#facilitator-requests">
+                    <span *ngIf="requestsCount" class="facilitator-bubble">{{requestsCount}}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#B2B2B2" width="16" height="16" viewBox="0 0 481.291 481.291"><path d="M138.814 146.22c3.12 40.976 19.417 23.314 22.78 41.27 5.59 29.848 32.015 51.436 48.465 58.893 9.596 4.348 19.48 6.53 29.87 6.704v.01c.036 0 .072-.005.108-.005s.072.004.108.004v-.01c10.39-.173 20.272-2.354 29.87-6.703 16.45-7.457 42.877-29.045 48.467-58.893 3.362-17.955 19.66-.294 22.78-41.27 0-16.33-8.9-20.394-8.9-20.394s4.524-24.17 6.296-42.77C340.853 59.876 325.13 0 241.25 0c-.367 0-.707.02-1.065.024h-.038V.018h-.218v.004h-.037c-.358-.004-.698-.023-1.065-.023-83.878 0-99.604 59.878-97.41 83.057 1.772 18.6 6.296 42.77 6.296 42.77s-8.9 4.063-8.9 20.393zM430.313 347.37c-42.308-21.522-103.63-48.405-106.573-49.354-.033-.012-.058-.014-.09-.024-1.72-.613-3.57-.953-5.504-.953-7.188 0-13.285 4.603-15.547 11.02l-.037-.02c-10.92 26.314-30.98 73.222-43.434 95.84l-3-63.412s18.704-39.7 20.75-43.336c4.82-8.525.48-15.783-8.556-15.783h-55.36c-9.036 0-13.376 7.257-8.557 15.782 2.048 3.637 20.752 43.336 20.752 43.336l-3 63.413c-12.455-22.618-32.514-69.523-43.434-95.84-.012.007-.024.012-.036.02-2.262-6.414-8.36-11.02-15.547-11.02-1.933 0-3.783.34-5.504.952-.033.012-.058.015-.09.024-2.943.95-64.266 27.832-106.574 49.355-19 9.667-30.467 21.69-30.467 34.34v99.58H460.78v-99.58c0-12.65-11.467-24.673-30.467-34.34z"/></svg>
+                    <span class="list-view-text">Facilitator Requests</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- dataTable-sub-wrap -->
+
+    <div class="tab-content sp60">
+        <div id="events" class="tab-pane fade in active">
+            <h2 class="h2-heading"><span class="first-text-light">Events &nbsp;</span>Calendar</h2>
+            <div id="admin_calender_view" class="make-border table-width-reduce">
+                <angular2-fullcalendar [options]="calendarOptions()"></angular2-fullcalendar>
+            </div>
+
+
+            <h3 class="meeting-events" *ngIf="eventDate != ''">Meetings scheduled on <span class="mail-bold">{{formatEventDate(eventDate)}}</span></h3>
+
+            <div class="table-responsive table-responsive-show" *ngIf="eventDate != ''" style="position:relative;">
+                <div [ngBusy]="busy"></div>
+                <table class="table table-striped table-striped-tok table-reg-height test">
+                    <thead>
+                        <tr>
+                            <th> <span class="meeting-exceed-title">Meeting Title</span></th>
+                            <th>Meeting Creator</th>
+                            <th>Email</th>
+                            <th>Users invited</th>
+                            <th>Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let event of eventList | paginate: {'id': 'events-list', itemsPerPage: limit, currentPage: p, totalItems: recordDetails.recordsTotal}">
+                            <td>
+                                <a [routerLink]="[urlPrefix + '/meetings/general-info', event.id]" target="_blank">
+                                    <span *ngIf="event.invitees_count > 2000; else elseBlock" class="meeting-exceed-2000">{{transform(event.meeting_title)}}</span>
+                                    <ng-template #elseBlock><span class="meeting-exceed-2000 meeting-noExceed">{{transform(event.meeting_title)}}</span></ng-template>
+                                </a> 
+                                
+                                <!-- <a href="javascript:void(0)" (click)="newWindow($event)">
+                                    <span *ngIf="event.invitees_count > 2000; else elseBlock" class="meeting-exceed-2000">{{event.meeting_title}}</span>
+                                    <ng-template #elseBlock><span class="meeting-exceed-2000 meeting-noExceed">{{event.meeting_title}}</span></ng-template>
+                                </a> -->
+                            </td>
+                            <td>{{event.user_name}}</td>
+                            <td>{{event.user_email}}</td>
+                            <td>{{event.invitees_count}}</td>
+                            <td>{{formatTime(event.scheduled_time)}} {{formatTimezone(event.timezone)}}</td>
+                            <td>
+                                <div *ngIf="(roleId == '2')">
+                                    <!-- <span *ngIf="((event.meeting_status == 3) && (event.attendees_count > 0))" class="Meeting_completed">Meeting completed</span>
+                                    <span *ngIf="((event.meeting_status == 3) && (event.attendees_count == 0))" class="Meeting_expired">Meeting expired</span> -->
+                                    <!-- Added - 15/01/2018 Reentry for facilitator  -->
+                                    <a class="emeeting" *ngIf="((event.meeting_status == 3) && (event.attendees_count > 0))" href="javascript:void(0)" (click)="generateHostLink(event?.id)"><span *ngIf="(event.in_progress == 1)" class="meeting-progress-green"></span>Enter the Meeting</a>
+                                    <a class="emeeting" *ngIf="((event.meeting_status == 3) && (event.attendees_count == 0))" href="javascript:void(0)" (click)="generateHostLink(event?.id)"><span *ngIf="(event.in_progress == 1)" class="meeting-progress-green"></span>Enter the Meeting</a>
+                                    <!--Changed - 11/01/2018  -->
+                                    <!-- <a class="emeeting" *ngIf="(event.allow_entry == 1)" href="{{event.host_url}}" target="_blank"><span *ngIf="(event.in_progress == 1)" class="meeting-progress-green"></span>Enter the Meeting</a> -->
+                                    <a class="emeeting" *ngIf="(event.allow_entry == 1)" href="javascript:void(0)" (click)="generateHostLink(event?.id)"><span *ngIf="(event.in_progress == 1)" class="meeting-progress-green"></span>Enter the Meeting</a>
+                                    <div class="edit-delete-wrap" *ngIf="((event.allow_entry != 1) && (event.meeting_status == 1))">
+                                        <div class="edit">
+                                            <div class="dropdown">
+                                                <button class="btn btn-drops-trans dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="15.571" height="15.5" viewBox="0 0 14.571 14.5">
+                                                        <path fill="#B2B2B2" d="M9.06 2.42l2.965 2.964-7.503 7.503L1.56 9.923l7.5-7.503zm5.214-.715L12.952.383c-.51-.51-1.34-.51-1.853 0L9.83 1.65l2.964 2.963 1.477-1.477c.397-.396.397-1.035 0-1.43zM.008 14.09c-.054.242.165.46.408.4l3.303-.8-2.965-2.965-.75 3.364z"/>
+                                                    </svg>
+                                                </button>
+                                                <ul class="dropdown-menu drops-trans pull-right" role="menu" aria-labelledby="menu1">
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meeting/edit', event.id]" target="_blank">General Info</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/invite-users/', event.id]" target="_blank">Invite users</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/send-notifications/', event.id]" target="_blank">Send notifications</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/pre-registration-form/', event.id]" target="_blank">Pre-registration form</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/security-settings/', event.id]" target="_blank">Security settings</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/meeting-content/', event.id]" target="_blank">Meeting content</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="drops-things">
+                                            <div class="dropdown">
+                                                <button class="btn btn-drops-trans dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">                                                       
+                                                    <span class="caret"></span> 
+                                                    </button>
+                                                <ul class="dropdown-menu drops-trans drop-left-aligned" role="menu" aria-labelledby="menu1">
+                                                    <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="{{event.host_url}}" target="_blank">Enter the meeting</a></li> -->
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)" (click)="generateHostLink(event?.id)">Enter the meeting</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="(roleId == '1')">
+                                    <span *ngIf="((event.meeting_status == 3) && (event.attendees_count > 0))" class="Meeting_completed">Meeting completed</span>
+                                    <span *ngIf="((event.meeting_status == 3) && (event.attendees_count == 0))" class="Meeting_expired">Meeting expired</span>
+                                    <span *ngIf="((event.meeting_status == '2'))" class="meeting-progress">Meeting in progress</span>
+                                    <div class="edit-delete-wrap" *ngIf="((event.meeting_status == 1))">
+                                        <div class="edit">
+                                            <div class="dropdown">
+                                                <button class="btn btn-drops-trans dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="15.571" height="15.5" viewBox="0 0 14.571 14.5">
+                                                        <path fill="#B2B2B2" d="M9.06 2.42l2.965 2.964-7.503 7.503L1.56 9.923l7.5-7.503zm5.214-.715L12.952.383c-.51-.51-1.34-.51-1.853 0L9.83 1.65l2.964 2.963 1.477-1.477c.397-.396.397-1.035 0-1.43zM.008 14.09c-.054.242.165.46.408.4l3.303-.8-2.965-2.965-.75 3.364z"/>
+                                                    </svg>
+                                                </button>
+                                                <ul class="dropdown-menu drops-trans pull-right" role="menu" aria-labelledby="menu1">
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meeting/edit', event.id]" target="_blank">General Info</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/invite-users/', event.id]" target="_blank">Invite users</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/send-notifications/', event.id]" target="_blank">Send notifications</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/pre-registration-form/', event.id]" target="_blank">Pre-registration form</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/security-settings/', event.id]" target="_blank">Security settings</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/meeting-content/', event.id]" target="_blank">Meeting content</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <span class="meeting-progress" *ngIf="event.meeting_status == 2">Meeting in progress</span>
+                                <span class="meeting-progress" *ngIf="event.meeting_status == 3">Meeting completed</span>
+                                <div class="edit-delete-wrap" *ngIf="event.meeting_status == 1">
+                                    <div class="edit">
+                                        <div class="dropdown">
+                                            <button class="btn btn-drops-trans dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="15.571" height="15.5" viewBox="0 0 14.571 14.5">
+                                                    <path fill="#B2B2B2" d="M9.06 2.42l2.965 2.964-7.503 7.503L1.56 9.923l7.5-7.503zm5.214-.715L12.952.383c-.51-.51-1.34-.51-1.853 0L9.83 1.65l2.964 2.963 1.477-1.477c.397-.396.397-1.035 0-1.43zM.008 14.09c-.054.242.165.46.408.4l3.303-.8-2.965-2.965-.75 3.364z"/>
+                                                </svg>
+                                            </button>
+                                            <ul class="dropdown-menu drops-trans pull-right" role="menu" aria-labelledby="menu1">
+                                                <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meeting/edit', event.id]" target="_blank">General Info</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/invite-users/', event.id]" target="_blank">Invite users</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/send-notifications/', event.id]" target="_blank">Send notifications</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/pre-registration-form/', event.id]" target="_blank">Pre-registration form</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/security-settings/', event.id]" target="_blank">Security settings</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="[urlPrefix + '/meetings/meeting-content/', event.id]" target="_blank">Meeting content</a></li>
+                                            </ul>
+                                        </div>
+                                    </div> -->
+                                    <!-- edit -->
+                                    <!-- <div class="delete" (click)="cancelMeeting(event.id)">
+                                        <a href="javascript:void(0)" >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12.641" height="16" viewBox="0 0 11.641 15">
+                                                <path fill="#B2B2B2" d="M2.51 15h6.653c.915 0 1.663-.748 1.663-1.663V3.36H.848v9.977c0 .915.748 1.663 1.663 1.663zM11.64.848H8.73L7.9 0H3.74l-.83.848H0V2.51h11.64V.85z"/>
+                                            </svg>
+                                        </a>
+                                    </div> -->
+                                    <!-- delete -->
+                                <!-- </div> -->
+                            </td>
+                        </tr>
+                        <tr *ngIf="loadEvent == '1' && eventList == ''" colspan="6"><span class="meeting-exceed-2000 meeting-noExceed">No meetings found.</span></tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- table-responsive -->
+            <pagination-controls class="my-pagination" id="events-list"
+                    (pageChange)="pageChanged($event)"
+                    maxSize="5"
+                    directionLinks="true"
+                    autoHide="true"
+                    previousLabel="Previous"
+                    nextLabel="Next"
+                    screenReaderPaginationLabel="Pagination"
+                    screenReaderPageLabel="page"
+                    screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+        </div>
+
+        <div *ngIf="roleId == '1'" id="facilitator-requests" class="tab-pane fade">
+            <app-facilitator-requests (countChanged)="countChangedHandler($event)"></app-facilitator-requests>
+        </div>
+    </div>
+
+        
+
+
+    
+</div>
+<!-- dataTable-wraper -->
+
+<app-admin-footer></app-admin-footer>
+
+<div class="modal tokbird-modal fade" id="delete-pop1" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading text-center"><span class="first-text-light">Cancel</span> Meeting</h2>
+                        <div class="deletion-msg">
+                            Are you sure you want to cancel this Meeting?<br/> We send email notifications to all invited users about this.<br/>This cannot be undone
+                        </div>
+                        <!-- deletion-msg -->
+                    </div>
+
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a class="btn btn-blue" href="javascript:void(0)" (click)="cancelScheduledMeeting(cancelMeetingId)">YES</a>
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">NO</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->

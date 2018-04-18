@@ -1,0 +1,11 @@
+.reset-holder{
+    width: 360px;
+    margin: 0 auto;
+    padding: 10px;
+    border: #ccc 1px solid;
+    margin-top: 50px;
+}
+
+.pwd-msg{
+    margin-bottom:15px;
+}

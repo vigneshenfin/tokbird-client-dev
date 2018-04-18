@@ -1,0 +1,222 @@
+<section class="main-slide">
+    <div *ngIf="isActivated || isExpired" class="notification-wrap">
+        <div *ngIf="isActivated" class="notification-wrap-inner">
+            <div class="ticker-wrap">
+                <svg fill="#ffffff" height="34" viewBox="0 0 24 24" width="34" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                    </svg>
+            </div>
+            
+            <div class="sucess-msg">Successfully verified your email. Please Login</div>
+        </div>
+        <!-- notification-wrap-inner -->
+
+        <div *ngIf="isExpired" class="notification-wrap-inner">
+            <div class="ticker-wrap ticker-wrap-red">
+                <svg fill="#ffffff" height="34" viewBox="0 0 24 24" width="34" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                    </svg>
+            </div>
+            <div class="sucess-msg">This link has been expired.</div>
+        </div>
+        <!-- notification-wrap-inner -->
+
+    </div>
+    
+   <div class="home-header">
+      <div class="sp60">
+         <div class="topbar">
+            <div class="logo"><a href=""><img src="../assets/images/home/logo-alt.svg" width="160" height="70"></a></div>
+            <div class="right-top">
+               <div class="home-links">
+                  <ul>
+                     <li class="dropdown dropdown-alted">
+                        <a class="dropdown-toggle tok-btn" data-toggle="dropdown" (click)="onLoginClick()">Log In</a>
+                        <!--<a (click)="onRegisterClick()" class="dropdown-toggle tok-btn"  data-toggle="modal" data-target="#basicRegisterModal">Register</a>-->
+                        <ul class="dropdown-menu home-drop login-card login-padding">
+                           <app-login #logincomponent [socialLoginComponent]="socialLoginComponent"></app-login>
+                        </ul>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="tokbird-slider">
+      <h2 class="text-center">Run custom-branded webinars</h2>
+      <h3>to engage your audience.</h3>
+      <p>Number of flexible plans which satisfy your needs and promote your business</p>
+      <!--<div  class="text-center"><button class="outline-btn">Enter Site</button></div>-->
+   </div>
+</section>
+<!--start of tokbird content section-->
+<section class="tokbird-membership">
+   <div class="sp60">
+      <div class="inner-row text-center pt30 pb30 membership-text">
+         <h2 class="black-title">Be our prime member</h2>
+         <span class='prime-text'>You can select one of the plan below.All plans available in monthly or yearly basis</span>
+      </div>
+      <div class="text-center center-block">            
+            <ul class="nav nav-pills home-plans text-center">
+                <li class="active"><a data-toggle="pill" href="#monthlyPlans">Monthly Plans</a></li>
+                <li><a data-toggle="pill" href="#annualPlans">Annual Plans</a></li>
+            </ul>
+      </div>
+    <div class="tab-content home-plan-content">
+    <div id="monthlyPlans" class="tab-pane fade in active">
+      <div class="inner-row card-row">
+         <!-- Cards-->
+         <div class="card card-big">
+            <div class="card-info text-center">
+               <h3 class="blue">Free</h3>
+               <span class="card-text big-text">1 Attendee</span>
+            </div>
+            <div class="card-content text-center">
+                        <h3 class="custom-head">$0</h3>
+                        <!-- <p class="text-uppercase">Forever</p> -->
+            </div>
+            <div class="card-footer noborder text-center">
+               <button (click)="onRegister()" class="tok-btn" data-toggle="modal" data-target="#basicRegisterModal">Select</button>
+            </div>
+         </div>
+         <!-- Cards-->
+         <div class="card card-big">
+            <div class="card-info text-center">
+               <h3 class="voilet">Basic</h3>
+               <span class="card-text big-text">25 Attendee</span>
+            </div>
+            <div class="card-content text-center">
+                        <h3 class="custom-head">$29</h3>
+                        <!-- <p class="text-uppercase">Forever</p> -->
+            </div>
+            <div class="card-footer noborder text-center">
+               <button (click)="onRegister()" class="tok-btn" data-toggle="modal" data-target="#basicRegisterModal">Select</button>
+            </div>
+         </div>
+         <!-- Cards-->
+         <div class="card card-big">
+            <div class="card-info text-center">
+               <h3 class="rose">Plus</h3>
+               <span class="card-text big-text">100 Attendee</span>
+            </div>
+            <div class="card-content text-center">
+                        <h3 class="custom-head">$59</h3>
+                        <!-- <p class="text-uppercase">Forever</p> -->
+            </div>
+            <div class="card-footer noborder text-center">
+               <button (click)="onRegister()" class="tok-btn" data-toggle="modal" data-target="#basicRegisterModal">Select</button>
+            </div>
+         </div>
+         <!-- Cards-->
+         <div class="card card-big">
+            <div class="card-info text-center">
+                        <h3 class="green">Corporate</h3>
+                        <span class="corp-text">Up to 3000 Attendees</span>
+                        <ul class="meeting-list">
+                            <li><a href="#">Meeting Customization</a></li>
+                            <li><a href="#">Templates</a></li>
+                            <li><a href="#">Facilitator in Meeting</a></li>
+                            <li><a href="#">Reports</a></li>
+                        </ul>
+            </div>
+            <div class="card-content text-center">
+                        <h3 class="med-head">Contact Us for more info</h3>
+
+
+             </div>
+            <div class="card-footer noborder text-center">
+               <button (click)="onContact()" class="tok-btn" data-toggle="modal" data-target="#contactUs">Contact Us</button>
+            </div>
+         </div>
+         <!-- Cards-->
+      </div>
+    </div>
+    <div id="annualPlans" class="tab-pane fade">
+        <div class="inner-row card-row">
+         <!-- Cards-->
+         <div class="card card-big">
+            <div class="card-info text-center">
+               <h3 class="blue">Free</h3>
+               <span class="card-text big-text">1 Attendee</span>
+            </div>
+            <div class="card-content text-center">
+                        <h3 class="custom-head">$0</h3>
+                        <!-- <p class="text-uppercase">Forever</p> -->
+            </div>
+            <div class="card-footer noborder text-center">
+               <button (click)="onRegister()" class="tok-btn" data-toggle="modal" data-target="#basicRegisterModal">Select</button>
+            </div>
+         </div>
+         <!-- Cards-->
+         <div class="card card-big">
+            <div class="card-info text-center">
+               <h3 class="voilet">Basic</h3>
+               <span class="card-text big-text">25 Attendee</span>
+            </div>
+            <div class="card-content text-center">
+                        <h3 class="custom-head">$228</h3>
+                        <!-- <p class="text-uppercase">Forever</p> -->
+            </div>
+            <div class="card-footer noborder text-center">
+               <button (click)="onRegister()" class="tok-btn" data-toggle="modal" data-target="#basicRegisterModal">Select</button>
+            </div>
+         </div>
+         <!-- Cards-->
+         <div class="card card-big">
+            <div class="card-info text-center">
+               <h3 class="rose">Plus</h3>
+               <span class="card-text big-text">100 Attendee</span>
+            </div>
+            <div class="card-content text-center">
+                        <h3 class="custom-head">$588</h3>
+                        <!-- <p class="text-uppercase">Forever</p> -->
+            </div>
+            <div class="card-footer noborder text-center">
+               <button (click)="onRegister()" class="tok-btn" data-toggle="modal" data-target="#basicRegisterModal">Select</button>
+            </div>
+         </div>
+         <!-- Cards-->
+         <div class="card card-big">
+            <div class="card-info text-center">
+                        <h3 class="green">Corporate</h3>
+                        <span class="corp-text">Up to 3000 Attendees</span>
+                        <ul class="meeting-list">
+                            <li><a href="#">Meeting Customization</a></li>
+                            <li><a href="#">Templates</a></li>
+                            <li><a href="#">Facilitator in Meeting</a></li>
+                            <li><a href="#">Reports</a></li>
+                        </ul>
+            </div>
+            <div class="card-content text-center">
+                        <h3 class="med-head">Contact Us for more info</h3>
+
+
+             </div>
+            <div class="card-footer noborder text-center">
+               <button class="tok-btn" data-toggle="modal" data-target="#contactUs">Contact Us</button>
+            </div>
+         </div>
+         <!-- Cards-->
+      </div>
+    </div>
+   </div>
+   </div>
+</section>
+<!--end of tokbird content section --> 
+<section class="tokbird-footer">
+   <div class="sp60">
+      <div class="inner-row text-center pt30 pb30">
+         <ul class="foot-menu">
+            <li><a routerLink="/licence-agreement">Licence Agreement</a></li>
+            <li><a routerLink="/privacy-policy">Privacy Policy</a></li>
+            <li><a routerLink="/terms-and-conditions">Terms and Conditions</a></li>
+         </ul>
+      </div>
+   </div>
+</section>
+<app-register #registerComponent [socialLoginComponent]="socialLoginComponent"></app-register>
+<app-forgot></app-forgot>
+<app-contact #contactComponent></app-contact>
+<app-social-login #socialLoginComponent></app-social-login>

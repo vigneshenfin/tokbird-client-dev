@@ -1,0 +1,239 @@
+<!-- <app-header></app-header> -->
+<app-header *ngIf="roleId == '3'"></app-header>
+<app-admin-header *ngIf="roleId != '3'"></app-admin-header>
+<div class="main-wraper">
+        <div class="left-sidebar-wrap" style="visibility: hidden;"></div>
+        <!-- left-sidebar-wrap -->
+        <div class="right-content-wrap" *ngIf="allDataFetched">
+            <form (ngSubmit)="savePoll($event, myForm)" #myForm="ngForm">
+            <div class="meetig-headand-save-wrap">
+                <h2 class="h2-heading"><span class="first-text-light"><span *ngIf="pollId==''">Create</span><span *ngIf="pollId != ''">Edit</span></span> Poll</h2>
+                 <div class="create-btn-alter">
+                    <input type="submit" class="btn btn-blue btn-full create-btn-alter" [disabled]="disableButton" value="SAVE">
+                    <a class="btn btn-grey btn-full create-btn-alter" (click)="cancelPoll()">CANCEL</a>
+                </div> 
+            </div>
+            <!-- meetig-headand-save-wrap -->
+              <div class="edit-poll-wrap">
+                  <div class="row">
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                          <div class="form-group" [ngClass]="{'has-error': (g.errors && myForm.submitted) }">
+                              <input type="text" name="title" [(ngModel)]="title" #g="ngModel" required="required" maxlength="80">
+                              <label class="control-label" for="input">TITLE</label><i class="bar"></i>
+                          </div>
+                      </div>
+                      <!-- columns -->
+                  </div>
+                  <!-- row -->
+
+                  <!-- Questions from array  -->
+                  <div *ngFor="let questionDetails of pollQuestions; let i = index;" class="section-question-wrap">
+                    <div class="row">
+                              <div class="col-md-8 col-sm-8 col-xs-11">
+                                  <div class="question-and-number-wrap">
+                                      <div class="question-num">{{(i+1)}}.</div>
+                                      <div class="enter-question-wrap">
+                                          <div class="form-group" [ngClass]="{'has-error': (f.errors && myForm.submitted) }">
+                                              <input type="text" required="required" maxlength="200" name="question{{i}}" [(ngModel)]="pollQuestions[i].question" #f="ngModel">
+                                              <label class="control-label" for="input">QUESTION</label><i class="bar"></i>
+                                          </div>
+                                      </div>
+                                      <!-- enter-question-wrap -->
+                                  </div>
+                                  <!-- question-and-number-wrap -->
+                                  <div class="row">
+                                      <div class="col-md-5 col-sm-7 col-xs-12">
+                                        <div class="form-group" [ngClass]="{'has-error': (p.errors && myForm.submitted) }">
+                                          <select name="type{{i}}" [(ngModel)]="pollQuestions[i].type" #p="ngModel" (change)="changeType($event.target.value, i)" required>
+                                            <option *ngFor="let questionType of questionTypes" value="{{questionType.id}}">{{questionType.value}}</option>
+                                          </select>
+                                          <label class="control-label time-zone-text" for="select"></label><i class="bar"></i>
+                                        </div>
+                                      </div>
+                                      <!-- columns -->
+                                  </div>
+                                  <!-- row -->
+
+
+                                  <div class="row" *ngIf="(pollQuestions[i].type != '3' && pollQuestions[i].type != '4')">
+                                    <div class="col-md-12">
+                                        <div class="options-holder">
+                                            <div class="row" *ngFor="let option of questionDetails.options; let j = index; trackBy:customTrackBy">
+                                                <div class="col-md-11 col-sm-10 col-xs-10">
+                                                    <!-- onblur="this.placeholder='Option'" -->
+                                                    <!-- <input *ngIf="(pollQuestions[i].type == '2' || pollQuestions[i].type == '5')" type="radio" name="pollQuestions[{{i}}].answers[]" [(ngModel)]="pollQuestions[i].answers" #r="ngModel" value="{{pollQuestions[i].options[j].value}}" /> -->
+                                                    <!-- <input *ngIf="(pollQuestions[i].type == '1')" type="checkbox" name="{{pollQuestions[i].answers[]}}" [(ngModel)]="pollQuestions[i].answers" #r="ngModel" value="{{pollQuestions[i].options[j].value}}" /> -->
+                                                    <!-- <input type="checkbox" name="options" [(ngModel)]="pollQuestions[i].options[j].checked" #r="ngModel" value="{{pollQuestions[i].options[j].value}}" /> -->
+                                                    <!-- <input type="radio" name="options" [(ngModel)]="pollQuestions[i].answer" #r="ngModel" value="{{pollQuestions[i].options[j].value}}" /> -->
+                                                    <!-- <input type="checkbox" name="options[]" [(ngModel)]="pollQuestions[i].answers[j]" #r="ngModel" value="{{pollQuestions[i].options[j].value}}" /> -->
+                                                    <!-- <input *ngIf="(pollQuestions[i].type == '1')" type="checkbox" name="ans_options_{{i}}_{{j}}" [(ngModel)]="pollQuestions[i].options[j].checked" #r="ngModel" (change)="onChange(i, option.value, $event.target.checked)" value="{{pollQuestions[i].options[j].value}}" />  -->
+                                                    <!-- <input *ngIf="(pollQuestions[i].type == '2' || pollQuestions[i].type == '5')" type="radio" name="ans_options_{{i}}" [(ngModel)]="pollQuestions[i].options[j].answer" #s="ngModel" (change)="onChange(i, option.value, $event.target.checked)" value="{{pollQuestions[i].options[j].value}}" />  -->
+
+                                                    <!-- <input *ngIf="(pollQuestions[i].type == '1')" type="checkbox" name="ans_options_{{i}}_{{j}}"  [checked] = "pollQuestions[i].options[j].checked" value="{{pollQuestions[i].options[j].value}}" (change)="onChange(i, option.value, $event.target.checked)" />  -->
+                                                    <!-- <input *ngIf="(pollQuestions[i].type == '2' || pollQuestions[i].type == '5')" type="radio" name="test_{{i}}"  [checked] = "pollQuestions[i].options[j].answer === pollQuestions[i].options[j].value.toString()" value="{{pollQuestions[i].options[j].value}}" (change)="onChange(i, option.value, $event.target.checked)" />  -->
+                                                    
+                                                    
+                                                    
+                                                    <div class="form-radio" *ngIf="(pollQuestions[i].type == '1')">
+                                                        <div class="checkbox">
+                                                            <label> 
+                                                                <input  type="checkbox" name="ans_options_{{i}}_{{j}}"  [checked] = "pollQuestions[i].rightAnswers[j].checked" value="{{pollQuestions[i].rightAnswers[j].value}}" (change)="onChange(i, option.value, $event.target.checked)" /> 
+                                                                <i class="helper"></i>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-radio" *ngIf="(pollQuestions[i].type == '2' || pollQuestions[i].type == '5')">
+                                                        <div class="radio">
+                                                            <label> 
+                                                                <input type="radio" name="test_{{i}}"  [checked] = "pollQuestions[i].rightAnswers[j].answer === pollQuestions[i].rightAnswers[j].value.toString()" value="{{pollQuestions[i].rightAnswers[j].value}}" (change)="onChange(i, option.value, $event.target.checked)" />
+                                                                <i class="helper"></i>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    
+
+                                                    <!-- {{ij}}{{pollQuestions[i].options[j].label}}<input class="options-box" type="text" [ngClass]="{'haserror_alt': (q.errors && myForm.submitted) }" name="options{{i}}{{j}}" id="options_{{i}}_{{j}}" [(ngModel)]="pollQuestions[i].options[j].label" #q="ngModel" required="required" maxlength="80" placeholder="Option {{j+1}}" onfocus="this.placeholder=''" (blur)="setPlaceholder(i, j)"> -->
+                                                    <input class="options-box" type="text" [ngClass]="{'haserror_alt': (q.errors && myForm.submitted) }" name="options{{i}}{{j}}" id="options_{{i}}_{{j}}" [(ngModel)]="pollQuestions[i].options[j].label" #q="ngModel" required="required" maxlength="80" placeholder="Option {{j+1}}" onfocus="this.placeholder=''" (blur)="setPlaceholder(i, j)">
+                                                </div>
+                                                <!-- <div class="col-md-1 col-sm-2 col-xs-1" *ngIf="j > 1">
+                                                    <a class="option-delete" (click)="deleteOptionConfirm(i, j)">
+                                                        <svg fill="#b2b2b2" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                                    </svg>
+                                                    </a>
+                                                </div> -->
+                                                <div class="col-md-1 col-sm-2 col-xs-1" *ngIf="questionDetails.options.length > 2">
+                                                    <a class="option-delete" (click)="deleteOptionConfirm(i, j)">
+                                                        <svg fill="#b2b2b2" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+                                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                                    </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            
+
+                                            <div class="row">
+                                                <div class="col-md-11 col-sm-10 col-xs-10">
+                                                    <input class="addOptionbtn" type="button" (click)="addOption(i)" value="Add Option">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- options-holder -->
+                                    </div>
+                                    <!-- columns -->
+                                </div>
+                                <!-- row -->
+                              </div>
+                              <!-- columns -->
+                          </div>
+                          <!-- row -->
+                      <!-- <a (click)="deleteQuestionConfirm(i)" *ngIf="i > 0"> -->
+                      <a (click)="deleteQuestionConfirm(i)" *ngIf="pollQuestions.length > 1">
+                          
+                      <svg class="delete-forever" fill="#b2b2b2" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                          <path d="M0 0h24v24H0z" fill="none"/>
+                      </svg>
+                      </a>
+                  </div>
+                  <!-- Questions from array  -->
+              </div>
+              <!-- edit-poll-wrap -->
+
+            <div class="add-question-wrap" *ngIf="loading == 0">
+                <button type="button" class="add-question-trans" (click)="addQuestion()">
+            <div class="add-img-btn-wrap">
+                    <img src="assets/images/add.svg" alt="add-btn">
+                    <span>Add Question</span>
+            </div><!-- add-img-btn-wrap -->                                            
+        </button>
+            </div>
+            <!-- add-question-wrap -->
+
+            </form>
+        </div>
+        <!-- right-content-wrap -->
+    </div>
+    <!-- main-wraper -->
+<app-footer></app-footer>
+
+<div class="modal tokbird-modal fade" id="delete-question-confirmation" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full delete-pop-size" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading text-center"><span class="first-text-light">Delete</span> Confirmation</h2>
+                        <div class="deletion-msg">
+                            Are you sure you want to Delete this Question?
+                        </div>
+                        <!-- deletion-msg -->
+                    </div>
+
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a class="btn btn-blue" href="javascript:void(0)" (click)="deleteQuestion(questionToDelete)">YES</a>
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">NO</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+
+<div class="modal tokbird-modal fade" id="delete-option-confirmation" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full delete-pop-size" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading text-center"><span class="first-text-light">Delete</span> Confirmation</h2>
+                        <div class="deletion-msg">
+                            Are you sure you want to Delete this Option?
+                        </div>
+                        <!-- deletion-msg -->
+                    </div>
+
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a class="btn btn-blue" href="javascript:void(0)" (click)="deleteOption(optionQuestion, optionToDelete)">YES</a>
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">NO</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+
+<div class="modal tokbird-modal fade" id="cancel-save" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading text-center"><span class="first-text-light">Cancel</span> Poll</h2>
+                        <div class="deletion-msg">
+                            Are you sure you want to cancel this poll?
+                        </div>
+                        <!-- deletion-msg -->
+                    </div>
+
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a *ngIf="roleId == '3'" class="btn btn-blue" data-dismiss="modal" href="javascript:void(0)" routerLink="/polls">YES</a>
+                    <a *ngIf="roleId != '3'" class="btn btn-blue" data-dismiss="modal" href="javascript:void(0)" routerLink="{{urlPrefix}}/meetings/polls/{{routeMeetingId}}">YES</a>
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">NO</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->

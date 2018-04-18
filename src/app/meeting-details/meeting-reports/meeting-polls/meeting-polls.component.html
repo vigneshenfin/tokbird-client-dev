@@ -1,0 +1,170 @@
+<div class="polls-view-wrap">
+    <div class="row">
+        <!-- Changed - 16/04/2018  -->
+        <!-- <div *ngIf="(polls.length < 1)" class="no-poll">No polls used</div> -->
+        <div *ngIf="(polls.length < 1)" class="no-result">No Results Found</div>
+        <div class="col-md-4" *ngIf="(polls.length > 0)">
+            <div class="form-group">
+                <select [(ngModel)]="selectedPoll" (change)="getPollDetails($event.target.value)">
+                    <option *ngFor="let poll of polls; let i = index;" value="{{poll.id}}">{{poll.title}}</option>
+                </select>
+                <label class="control-label" for="select">FILTER BY POLL</label><i class="bar"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- polls-view-wrap -->
+
+ <div *ngFor="let pollDetailArray of pollDetailsArray; let i = index;">
+    <div class="poll-question-details-wrap">
+        <div class="poll-question-slno"><span class="poll-serial">{{(i+1)}}.</span>{{pollDetailArray.question}}</div>
+        <div class="poll-answer-details">
+            <a class="view-answer-details" (click)="viewAnswerDetails(pollDetailArray.questionId)" href="javascript:void(0)" title="view details">
+                <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <div class="poll-progress-wrap">
+        <div class="progress-wrap-and-label" *ngFor="let option of pollDetailArray.options">
+            <span class="text-left">{{option.label}}</span>
+            <div class="table-hack">
+                <div class="progress progress-alter">
+                    <div class="progress-bar" role="progressbar" attr.aria-valuenow="{{option.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': (option.percentage)+'%'}">
+                        <span class="sr-only">{{option.percentage}}% Complete</span>
+                    </div>
+                </div> 
+                <!-- progress-bar -->
+             </div>
+            <span class="text-center">{{option.usersCount}}</span>
+        </div> 
+        <!-- progress-wrap-and-label -->
+     </div>
+</div> 
+
+<div class="modal tokbird-modal fade" id="poll-answer-details-modal" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <div class="row">
+                            <h2 class="h2-heading"><span class="first-text-light">{{pollTitle}}</span> </h2>
+                        </div>
+                        <span class="poll-qname">{{questionDetails?.question}}</span>
+                        <!-- New question options with percentage  -->
+                        <div *ngIf="questionDetails.questionType == 1" class="poll-progress-wrap">
+                            <div class="progress-wrap-and-label" *ngFor="let option of questionDetails.options">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" [checked]="option.checked" disabled><i class="helper"></i><span class="radio-btn-label radio-label-color"></span>
+                                    </label>
+                                </div>
+                                <span class="text-left">{{option.label}}</span>
+                                <div class="table-hack">
+                                    <div class="progress progress-alter">
+                                        <div class="progress-bar" role="progressbar" attr.aria-valuenow="{{option.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': (option.percentage)+'%'}">
+                                            <span class="sr-only">{{option.percentage}}% Complete</span>
+                                        </div>
+                                    </div> 
+                                    <!-- progress-bar -->
+                                </div>
+                                <span class="text-center">{{option.usersCount}}</span>
+                            </div> 
+                            <!-- progress-wrap-and-label -->
+                        </div>
+                        <div *ngIf="questionDetails.questionType == 2" class="poll-progress-wrap">
+                            <div class="progress-wrap-and-label" *ngFor="let option of questionDetails.options">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" [checked]="option.checked" disabled><i class="helper"></i><span class="radio-btn-label radio-label-color"></span>
+                                    </label>
+                                </div>
+                                <span class="text-left">{{option.label}}</span>
+                                <div class="table-hack">
+                                    <div class="progress progress-alter">
+                                        <div class="progress-bar" role="progressbar" attr.aria-valuenow="{{option.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': (option.percentage)+'%'}">
+                                            <span class="sr-only">{{option.percentage}}% Complete</span>
+                                        </div>
+                                    </div> 
+                                    <!-- progress-bar -->
+                                </div>
+                                <span class="text-center">{{option.usersCount}}</span>
+                            </div> 
+                            <!-- progress-wrap-and-label -->
+                        </div>
+
+                        <div *ngIf="questionDetails.questionType == 5" class="poll-progress-wrap">
+                            <div class="progress-wrap-and-label" *ngFor="let option of questionDetails.options">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" [checked]="option.checked" disabled><i class="helper"></i><span class="radio-btn-label radio-label-color"></span>
+                                    </label>
+                                </div>
+                                <span class="text-left">{{option.label}}</span>
+                                <div class="table-hack">
+                                    <div class="progress progress-alter">
+                                        <div class="progress-bar" role="progressbar" attr.aria-valuenow="{{option.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': (option.percentage)+'%'}">
+                                            <span class="sr-only">{{option.percentage}}% Complete</span>
+                                        </div>
+                                    </div> 
+                                    <!-- progress-bar -->
+                                </div>
+                                <span class="text-center">{{option.usersCount}}</span>
+                            </div> 
+                            <!-- progress-wrap-and-label -->
+                        </div>
+                        <!-- New question options ends  -->
+                        <div class="row">
+                            <div class="btn-exports">
+                                <a class="btn btn-blue" (click)="exportCsv()">Export CSV</a> 
+                                <a class="btn btn-blue" (click)="exportPdf()">Export PDF</a> 
+                            </div>
+                        </div>
+                        <div class="meetind-date-wrap meetind-date-wrap-alter">
+                            <div class="table-responsive" style="position:relative;">
+                                <table class="table table-striped table-striped-tok table-reg-height">
+                                    <thead>
+                                        <tr>
+                                            <th class="min-width-td">Answered By</th>
+                                            <th>Answer</th>
+                                            <th *ngIf="(questionDetails.questionType == 1 || questionDetails.questionType == 2 || questionDetails.questionType == 5)">Points</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let pollAnswer of answerDetails | paginate: {'id': 'poll-answers-list', itemsPerPage: limit, currentPage: p, totalItems: recordDetails.recordsTotal}">
+                                            <td>{{pollAnswer.user}}</td>
+                                            <td>{{pollAnswer.userAnswer}}</td>
+                                            <td *ngIf="(questionDetails.questionType == 1 || questionDetails.questionType == 2 || questionDetails.questionType == 5)">{{pollAnswer.userPoints}}</td>
+                                        </tr>
+                                        <tr *ngIf="(answerDetails) == ''"><td [colSpan]="(questionDetails.questionType == 1 || questionDetails.questionType == 2 || questionDetails.questionType == 5) ? 3 : 2">No results found</td></tr> 
+                                    </tbody>
+                                </table>
+                            </div>
+                            <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)" id="poll-answers-list"
+                                        maxSize="5"
+                                        directionLinks="true"
+                                        autoHide="true"
+                                        previousLabel="Previous"
+                                        nextLabel="Next"
+                                        screenReaderPaginationLabel="Pagination"
+                                        screenReaderPageLabel="page"
+                                        screenReaderCurrentLabel="You're on page">
+                            </pagination-controls>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CLOSE</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->

@@ -1,0 +1,33 @@
+<div class="table-responsive table-not-overflow">
+<div [ngBusy]="pastBusy"></div>
+<table id="datatable-responsive2" class="table  dt-responsive nowrap" cellspacing="0" width="100%">
+      <thead>
+          <tr>
+              <th>Meeting Title</th>
+              <th>Meeting Access Code</th>
+              <th>Meeting ID</th>
+              <th>Date & Time</th>
+              <th class="paddigng-l-r-rm text-right">Registered /</th>
+              <th class="paddigng-l-r-rm text-center">Attended /</th>
+              <th class="paddigng-l-r-rm text-left">Watched recordings</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let pastMeeting of pastMeetings | paginate: {'id': 'pastMeetings-list', itemsPerPage: pastLimit, currentPage: pastP, totalItems: pastRecordDetails.recordsTotal }">
+            <td>{{transform(pastMeeting.meeting_title)}}</td>
+            <td>{{pastMeeting.access_code}}</td>
+            <td>{{pastMeeting.meeting_code}}</td>
+            <td>{{formatDate(pastMeeting.meeting_date_time)}}</td>
+            <td>{{pastMeeting.invitees_count}}</td>
+            <td>{{pastMeeting.attendees_count}}</td>
+            <td>0</td>
+            <td>
+                <span class="Meeting_completed">Meeting completed</span>
+                <!-- <span class="Meeting_expired">Meeting expired</span> -->
+            </td>
+          </tr>
+          <tr *ngIf="pastIsDataAvailable && (pastMeetings == '')" colspan="8">No meetings found.</tr>
+      </tbody>
+  </table>
+</div>

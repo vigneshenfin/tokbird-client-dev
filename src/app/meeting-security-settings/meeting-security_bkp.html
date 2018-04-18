@@ -1,0 +1,64 @@
+<app-header></app-header> 
+<div class="main-wraper">
+<app-meeting-sidebar></app-meeting-sidebar>  
+        <div class="right-content-wrap">
+            <h2 class="h2-heading"><span class="first-text-light">Security</span> Settings</h2>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-xxs">
+                    <span class="calander-title">User role</span>
+
+                </div>
+            </div>
+            <!-- row -->
+
+        <form class="form" role="form" method="post" id="meeting-content" (ngSubmit)="onSubmit($event,f)" #f="ngForm">
+            <div class="form-radio form-radio-listed">
+                <div class="radio">
+                    <label>
+                         <input type="radio" name="security_type" [value]="1" [(ngModel)]="security_type"  [checked]="security_type === 1"><i class="helper"></i><span class="radio-btn-label">No security</span>
+                    </label>
+                    <span class="radio-sub-head">Users will be able to enter the Meeting by following public link</span>
+                </div>
+                <div class="radio">
+                    <label>
+                         <input type="radio" name="security_type" [value]="2" [(ngModel)]="security_type" [checked]="security_type === 2"><i class="helper"></i><span class="radio-btn-label">One time use URL</span>
+                    </label>
+                    <span class="radio-sub-head">Link to the meeting becomes expired once some user enter the meeting by that link</span>
+                </div>
+
+                <div class="radio">
+                    <label>
+                          <input type="radio" name="security_type" [value]="3" [(ngModel)]="security_type" [checked]="security_type === 3"><i class="helper"></i><span class="radio-btn-label">One time user URL with password</span>
+                    </label>
+                </div>
+            </div>
+            <div class="dashed-seprator"></div>
+            <span class="allow-labeled">Allow or deny attendee by email domain name</span>
+            
+            <div class="input-tags-wrap">
+                <span class="custom_blackilist_lbl">BLACK LIST</span>
+                <tag-input [(ngModel)]="blacklist" [ngClass]="'tag-label'" name="blacklist">
+                </tag-input>
+                <!--<textarea required="required" [(ngModel)]="blacklist" name="blacklist" ></textarea>-->
+                
+            </div>
+              <!--<span *ngIf="errorblacklist == ''&& f.submitted" class="text-area-subdes">Enter the domains seperated by comma</span>-->
+                <span *ngIf="errorblacklist && f.submitted" class="text-danger">Please enter the valid domains !</span>
+           
+            <div class="input-tags-wrap">
+                <span class="custom_blackilist_lbl">WHITE LIST</span>
+                <tag-input [(ngModel)]="whitelist" [ngClass]="'tag-label'" name="whitelist">
+                </tag-input>
+                <!--<span *ngIf="errorwhitelist == '' && f.submitted" class="text-area-subdes">Enter the domains seperated by comma</span>-->
+                <span *ngIf="errorwhitelist  && f.submitted" class="text-danger"> Please enter the valid domain !</span>
+            </div>
+            
+            <div class="left-bttn-blue text-center">
+                <button class="btn btn-blue btn-full" type="submit">SAVE</button>
+            </div>
+        </form>
+            <!-- left-bttn-blue -->
+
+        </div></div>
+        <!-- right-content-wrap -->
+<app-footer></app-footer>

@@ -1,0 +1,120 @@
+<app-header *ngIf="roleId == '3'"></app-header>
+<app-admin-header *ngIf="roleId != '3'"></app-admin-header>
+<div class="main-wraper">
+    <div class="left-sidebar-wrap">
+      <app-sidebar [meetingStatus]="meetingStatus" [isRescheduled]="isRescheduled"></app-sidebar>
+    </div>
+    <div class="right-content-wrap right-content-wrap-minHeight">
+        <h2 class="h2-heading"><span class="first-text-light"><!-- Location --> Lobby Screen</span> Settings</h2>
+        <!-- Changed - 17/04/2018  -->
+        <form *ngIf="allDataFetched && (1 > 2)" (ngSubmit)="saveStandBySettings($event, g)" #g="ngForm">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="checkbox">
+                  <label>
+                      <input type="checkbox" [(ngModel)]="location_status" name="location_status" #meetingLocation = ngModel (change)="saveLocationStatus()" /><i class="helper"></i> 
+                      <div class="chkbox-text-and-sub">
+                          <span class="helper-text">Disable location</span>
+                      </div> 
+                  </label>
+              </div>
+              <!-- checkbox -->
+            </div>
+          </div>
+          <div *ngIf="location_status == 0">
+            <!-- <div id="map">
+            </div> -->
+          </div>
+          <div *ngIf="location_status == 1">
+            <div class="form-radio form-radio-listed" [ngClass]="{'has-error': (!contentType.valid && g.submitted)}">
+              <div class="radio">
+                  <label>
+                        <span><input type="radio" name="content_type" [value]="2" [(ngModel)]="content_type" #contentType=ngModel  [checked]="content_type === 2" [required]="location_status == 1"><i class="helper"></i><span class="radio-btn-label">Generic image</span></span>
+                  </label>
+                  <span class="radio-sub-head">Generic image will be displayed instead of map.</span>
+              </div>
+              <div class="radio">
+                  <label>
+                        <span><input type="radio" name="content_type" [value]="4" [(ngModel)]="content_type" #contentType=ngModel  [checked]="content_type === 4" [required]="location_status == 1"><i class="helper"></i><span class="radio-btn-label">Agenda</span></span>
+                  </label>
+                  <span class="radio-sub-head">Agenda will be displayed instead of map.</span>
+              </div>
+              <div class="radio">
+                  <label>
+                        <span><input type="radio" name="content_type" [value]="3" [(ngModel)]="content_type" #contentType=ngModel [checked]="content_type === 3" [required]="location_status == 1"><i class="helper"></i><span class="radio-btn-label">Custom image</span></span>
+                  </label>
+                  <span class="radio-sub-head">Custom image will be displayed instead of map.</span>
+              </div>
+            </div>
+            <div *ngIf="((content_type == 3) && (uploadedFileName != ''))">
+              <img src="{{imagePath+uploadedFileName}}" width="200" class="custom-img" />
+            </div>
+            <div *ngIf="content_type == 3">
+              <div class="btn btn-blue btn-alignedupdate btn-browse file-browse-btn">
+                <input type="file" name="file" id="customImage" [ngModel]="file" #customImage (change)="getFiles($event)" accept="image/x-png,image/gif,image/jpeg" />
+                <span>UPLOAD IMAGE</span>
+              </div>
+              <span>{{imageFileName}}</span><span *ngIf="imageFileError > 0" class="text-danger">Invalid File</span>
+              <span *ngIf="(fileReq)" class="text-danger">
+                Please choose file
+              </span>
+              <p><span class="text-danger" *ngIf="(filesizeError == 1)">File size exceeds 2 MB</span></p>
+            </div>
+          </div>
+          <div class="left-bttn-blue text-center">
+            <button class="btn btn-blue btn-full" type="submit">SAVE</button> 
+          </div>
+        </form>
+
+
+        <!-- Added - 17/04/2018  -->
+        <form *ngIf="allDataFetched" (ngSubmit)="saveStandBySettings($event, g)" #g="ngForm">
+          <div class="form-radio form-radio-listed" [ngClass]="{'has-error': (!contentType.valid && g.submitted)}">
+            <div class="radio">
+                <label>
+                      <span><input type="radio" name="content_type" [value]="1" [(ngModel)]="content_type" #contentType=ngModel [checked]="content_type === 1" [required]="location_status == 1"><i class="helper"></i><span class="radio-btn-label">Show location map</span></span>
+                </label>
+                <span class="radio-sub-head">Location map will be displayed.</span>
+            </div>
+            <div class="radio">
+                <label>
+                      <span><input type="radio" name="content_type" [value]="2" [(ngModel)]="content_type" #contentType=ngModel  [checked]="content_type === 2" [required]="location_status == 1"><i class="helper"></i><span class="radio-btn-label">Generic image</span></span>
+                </label>
+                <span class="radio-sub-head">Generic image will be displayed instead of map.</span>
+            </div>
+            <div class="radio">
+                <label>
+                      <span><input type="radio" name="content_type" [value]="4" [(ngModel)]="content_type" #contentType=ngModel  [checked]="content_type === 4" [required]="location_status == 1"><i class="helper"></i><span class="radio-btn-label">Agenda</span></span>
+                </label>
+                <span class="radio-sub-head">Agenda will be displayed instead of map.</span>
+            </div>
+            <div class="radio">
+                <label>
+                      <span><input type="radio" name="content_type" [value]="3" [(ngModel)]="content_type" #contentType=ngModel [checked]="content_type === 3" [required]="location_status == 1"><i class="helper"></i><span class="radio-btn-label">Custom image</span></span>
+                </label>
+                <span class="radio-sub-head">Custom image will be displayed instead of map.</span>
+            </div>
+            <div *ngIf="((content_type == 3) && (uploadedFileName != ''))">
+              <img src="{{imagePath+uploadedFileName}}" width="200" class="custom-img" />
+            </div>
+            <div *ngIf="content_type == 3">
+              <div class="btn btn-blue btn-alignedupdate btn-browse file-browse-btn">
+                <input type="file" name="file" id="customImage" [ngModel]="file" #customImage (change)="getFiles($event)" accept="image/x-png,image/gif,image/jpeg" />
+                <span>UPLOAD IMAGE</span>
+              </div>
+              <span>{{imageFileName}}</span><span *ngIf="imageFileError > 0" class="text-danger">Invalid File</span>
+              <span *ngIf="(fileReq)" class="text-danger">
+                Please choose file
+              </span>
+              <p><span class="text-danger" *ngIf="(filesizeError == 1)">File size exceeds 2 MB</span></p>
+            </div>
+          </div>
+          <div class="left-bttn-blue text-center">
+            <button class="btn btn-blue btn-full" type="submit">SAVE</button> 
+          </div>
+        </form>
+    </div>
+    <!-- right-content-wrap -->
+</div>
+<!-- main-wraper -->
+<app-footer></app-footer>

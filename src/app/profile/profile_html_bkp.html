@@ -1,0 +1,454 @@
+<app-header></app-header> 
+    <div class="main-wraper">
+        <div class="left-sidebar-wrap" style="visibility: hidden;"></div>
+        <!-- left-sidebar-wrap -->
+        <div class="right-content-wrap">
+            <div id="l_view" class="tab-pane fade in active">
+                <ul class="nav nav-tabs nav-tabs-modified-two">
+                    <li class="active"><a id="future_meeting" data-toggle="pill" href="#future-meeting">My Profile</a></li>
+                    <li><a id="past_meeting" data-toggle="pill" href="#past-meeting">My Subscription</a></li>
+                </ul>
+
+
+                <div class="search-table-wrapper" id="past_meetings_search">
+                    <form action="#">
+                        <div class="search-table">
+                            <div class="form-group">
+                                <input type="text" required="required" />
+                                <label class="control-label" for="input">SEARCH MEETINGS</label><i class="bar"></i>
+                            </div>
+                        </div>
+                        <!-- search-table -->
+                        <div class="search-btn">
+                            <a class="btn btn-blue serch-btn" href="javascript:void(0)">SEARCH</a>
+                        </div>
+                        <!-- search-btn -->
+                    </form>
+                </div>
+                <!-- search-table-wrapper -->
+
+                <div class="tab-content">
+                    <div id="future-meeting" class="tab-pane fade in active">
+                        
+                        <div class="upload-file-wrap">
+                            <span *ngIf="profile_img"><img src="{{profile_img}}" alt="upload_pic"/></span>
+                            <span *ngIf="!profile_img"><img src="/assets/images/profilepic-upload.svg" alt="upload_pic"></span>
+                            <input type="file" name="profile_image" id="#" (change)="getFiles($event,'image')">
+                        </div>
+                        <span *ngIf="prof_pic_error" class="text-danger image_error">{{prof_pic_error}}</span>
+                        <!-- upload-file-wrap -->
+                        <div class="row">
+                            <div class="col-md-5 col-sm-6 col-xs-12">
+                                <div class="form-group form-group-height-alter">
+                                    <input type="text" required="required" name="us_name" [(ngModel)]="us_name">
+                                    <label class="control-label search-weight upper-case" for="input">Name</label><i class="bar"></i>
+                                    <span *ngIf="nameErrorMsg" class="text-danger">{{nameErrorMsg}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-6 col-xs-12">
+                                <div class="form-group form-group-height-alter">
+                                    <input type="email" required="required" name="email" [(ngModel)]="email">
+                                    <label class="control-label search-weight upper-case" for="input">Email</label><i class="bar"></i>
+                                    <span *ngIf="emailErrorMsg" class="text-danger">{{emailErrorMsg}}</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                       <div class="row">
+                            <div class="col-md-5 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                <select name="timezone" [(ngModel)]="timezone" required>
+                                    <option value="">Choose timezone</option>
+                                    <option *ngFor="let tz of timeZones" value="{{tz.value}}">{{tz.text}}</option>
+                                </select>
+                                <label class="control-label time-zone-text" for="select">TIME ZONE</label><i class="bar"></i>
+                                <span *ngIf="timezoneErrorMsg" class="text-danger">{{timezoneErrorMsg}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!--<div class="col-md-5 col-sm-6 col-xs-12">
+                                <div class="form-group form-group-height-alter">
+                                    <input type="password" required="required">
+                                    <label class="control-label search-weight upper-case" for="input">PASSWORD</label><i class="bar"></i>
+                                </div>
+                            </div>-->
+                            <div class="col-md-3 col-md-4 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <button (click)="changePassword()" data-toggle="modal" data-target="#chng_pwd" class="btn btn-grey change-passord-alter  btn-full" type="button">CHANGE PASSWORD</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="left-bttn-blue text-center">
+                            <a class="btn btn-blue btn-full" (click)="saveProfile()">SAVE</a>
+                        </div>
+                    </div>
+                    <!-- future-meeting -->
+                    <div id="past-meeting" class="tab-pane fade">
+                        <div class="free-ir-paid-wrap">
+                            <div class="currentpan-wrap">
+                                <div class="current_plan">Current Plan</div>
+                                <div *ngIf="current_plan ==1" class="freeOrpaid">Free</div>
+                                <div *ngIf="current_plan ==2" class="freeOrpaid">Basic</div>
+                                <div *ngIf="current_plan ==3" class="freeOrpaid">Plus</div>
+                                <div *ngIf="current_plan ==4" class="freeOrpaid">Corporate</div>
+                            </div>
+                            <div *ngIf="current_plan == 4">
+                            <div class="currentpan-wrap">
+                                <div class="current_plan">Expiration date</div>
+                                <div class="freeOrpaid">12 Jul. 2017</div>
+                            </div>
+                            <div class="subscription-wrap">
+                                Your subscription will be automatically renewed. <a href="javascript:void(0)" class="subscription-cancelLink">cancel</a> my subscription
+                            </div>
+                            </div>
+                        </div>
+                        <!-- free-ir-paid-wrap -->
+                        <div class="plan-wrap">
+                            <div class="row">
+                                <div  *ngFor="let plan of planDetails"  class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="pln-block-wrap">
+                                        <div class="pan-price-wrap">
+                                            <span *ngIf="plan['id'] == 1" class="plan-method plan-color">{{plan['plan_name']}}</span>
+                                            <span *ngIf="plan['id'] == 2" class="plan-method plan-color-pink">{{plan['plan_name']}}</span>
+                                            <span *ngIf="plan['id'] == 3" class="plan-method plan-color">{{plan['plan_name']}}</span>
+                                            <span *ngIf="plan['id'] == 4" class="plan-method plan-color-green">{{plan['plan_name']}}</span>
+                                            <div class="dollarAndText">
+                                                <div *ngIf="plan['id'] != 4" class="dollar-num">
+                                                    <img src="/assets/images/dollar.svg" alt="Dollar_symbol">
+                                                    <span *ngIf="plan['id'] == 1" class="doller-price">0</span>
+                                                    <span *ngIf="plan['id'] != 1 && plan['id'] != 4" class="doller-price">{{plan['yearly_rate']}}</span>
+                                                    <span *ngIf="plan['id'] == 4" class="doller-price"></span>
+                                                </div>
+                                                <!-- dollar-num -->
+                                                <div *ngIf="plan['id'] == 1" class="validity">forever</div>
+                                                <div *ngIf="plan['id'] != 1 && plan['id'] != 4" class="validity">Yearly</div>
+                                                <div *ngIf="plan['id'] == 4" class="validity"></div>
+                                            </div>
+                                            <!-- dollarAndText -->
+                                        </div>
+                                        <!-- pan-price-wrap -->
+                                        <div class="pln-bttm-block">
+                                            <div *ngIf="plan['id'] != 4" class="attendies-wrap">{{plan['attendees_count']}} Attendees</div>
+                                            <div class="attendies-wrap"  *ngIf="plan['id'] == 4">
+                                            <div class="attendees-wrap">
+                                              <span class="corp-text">Up to {{plan['attendees_count']}} Attendees</span>
+                                                  <ul class="meeting-list">
+                                                      <li><a href="#">Meeting Customization</a></li>
+                                                      <li><a href="#">Templates</a></li>
+                                                      <li><a href="#">Facilitator in Meeting</a></li>
+                                                      <li><a href="#">Reports</a></li>
+                                                  </ul>
+                                            </div>
+                                            </div>
+                                            <div class="chnge-paln-wrap" *ngIf="plan['id'] != 4 && current_plan != plan['id']"><button (click)="openChangePlanModal()" data-toggle="modal" data-target="#chng_plan" class="btn btn-blue changeplan-btn" type="button">change plan</button></div>
+                                            <div class="chnge-paln-wrap" *ngIf="plan['id'] == 4 && current_plan != plan['id']">
+                                              <span class="chnge-lan-text">
+                                                <button (click)="corporatePlan()" class="btn btn-blue changeplan-btn" type="button" data-toggle="modal" data-target="#contactUs">CONTACT US</button>
+                                              </span>
+                                            </div>
+                                            <div class="chnge-paln-wrap" *ngIf="current_plan==plan['id']"><span class="chnge-lan-text">Current Plan</span></div>
+                                           
+                                        </div>
+                                        <!-- pln-bttm-block -->
+
+                                    </div>
+                                    <!-- pln-block-wrap -->
+                                </div>
+                            </div>
+                            <!-- row -->
+                        </div>
+                        <!-- plan-wrap -->
+                    </div>
+                    <!-- past-meeting -->
+                </div>
+            </div>
+
+        </div>
+        <!-- right-content-wrap -->
+    </div>
+    <div class="modal tokbird-modal fade" data-backdrop="static" id="chng_plan" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+        <div class="modal-dialog register-modal plan-modal-alter" role="document">
+            <div class="modal-content">
+                <div class="change-sub-wrap">
+                    <!-- change-sub-wrap -->
+                   <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav" (ngSubmit)="onSubmit($event,f)" #f="ngForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 ptb10">
+                                <h2 class="h2-heading"><span class="first-text-light">Change&nbsp;</span>Subscription</h2>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <select  name="subscription" [(ngModel)]="subscription" (change)="onPlanChange($event.target.value)">
+                                            <option value="">Select</option>
+                                            <ng-container *ngFor="let plan of planDetails">
+                                              <option value="{{plan['id']}}" *ngIf="plan['id'] != 4" >{{plan['plan_name']}}</option>
+                                            </ng-container>
+                                            </select>
+                                            <label class="control-label time-zone-text" for="select">SUBSCRIPTION</label><i class="bar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <select name="subscription_plan" [(ngModel)]="subscription_plan" (change)="getCharge($event.target.value)">
+                                              <option value="">Select</option>
+                                                <option *ngFor="let payment of paymentOptions" value="{{payment['id']}}">{{payment['time_period']}}</option>                  
+                                            </select>
+                                            <label class="control-label time-zone-text" for="select">PAYMENT OPTION</label><i class="bar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span *ngIf="charge_text" class="willbecharged">You will be charged ${{charge_text}} </span>
+
+                            </div>
+
+                        </div>
+                        <div class="sub-can-btn-wrap sub-can-btn-margin">
+                            <!--  <a class="btn btn-blue" data-dismiss="modal" href="javascript:void(0)">CLOSE</a> -->
+
+                            <a class="btn btn-blue" (click)="changePlan()" id="change_subscription" href="javascript:void(0)">CONTINUE</a>
+                            <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</a>
+                        </div>
+                    </div>
+                   </form>
+                </div>
+                <!-- change-sub-wrap -->
+
+
+                <div class="sub-wrap-updated">
+                    <!-- change-sub-wrap -->
+                    <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav" (ngSubmit)="onSubmit($event,g)" #g="ngForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 ptb10">
+                                <h2 class="h2-heading"><span class="first-text-light">Pay for &nbsp;</span>Subscription</h2>
+
+                                <div class="cardDigitWrap">
+                                    <span class="card-number-head">Card Number</span>
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <input type="text" class="cards-digits-enter" placeholder="0000" onfocus="this.placeholder=''" onblur="this.placeholder='0000'" name="">
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <input type="text" class="cards-digits-enter" placeholder="0000" onfocus="this.placeholder=''" onblur="this.placeholder='0000'" name="">
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <input type="text" class="cards-digits-enter" placeholder="0000" onfocus="this.placeholder=''" onblur="this.placeholder='0000'" name="">
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <input type="text" class="cards-digits-enter" placeholder="0000" onfocus="this.placeholder=''" onblur="this.placeholder='0000'" name="">
+                                        </div>
+                                    </div>
+                                    <!-- row -->
+                                    <div class="card-expirysection">
+                                        <span class="willbecharged">You will be charged $588 yearly</span>
+                                        <div class="row">
+                                            <div class="col-md-5 col-sm-5 col-xs-5">
+                                                <div class="form-group">
+                                                    <select name="Months">
+                                                            <option value=''>--Select Month--</option>
+                                                            <option selected value='1'>Janaury</option>
+                                                            <option value='2'>February</option>
+                                                            <option value='3'>March</option>
+                                                            <option value='4'>April</option>
+                                                            <option value='5'>May</option>
+                                                            <option value='6'>June</option>
+                                                            <option value='7'>July</option>
+                                                            <option value='8'>August</option>
+                                                            <option value='9'>September</option>
+                                                            <option value='10'>October</option>
+                                                            <option value='11'>November</option>
+                                                            <option value='12'>December</option>
+                                                                </select>
+                                                    <label class="control-label time-zone-text" for="select">MONTHS</label><i class="bar"></i>
+                                                </div>
+                                            </div>
+                                            <!-- columns -->
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                <div class="form-group">
+                                                    <select name="Months">
+                                                        <option value=''>--Select Month--</option>
+                                                        <option selected value='2017'>2017</option>
+                                                        <option value='2018'>2018</option>
+                                                        <option value='2019'>2019</option>
+                                                        <option value='2020'>2020</option>
+                                                        <option value='2021'>2021</option>
+                                                        <option value='2022'>2022</option>
+                                                        <option value='2023'>2023</option>
+                                                        <option value='2024'>2024</option>
+                                                        <option value='2025'>2025</option>
+                                                        <option value='2026'>2026</option>
+                                                        <option value='2027'>2027</option>
+                                                        <option value='2028'>2028</option>
+                                                        <option value='2029'>2029</option>
+                                                        <option value='2030'>2030</option>
+                                                        <option value='2031'>2031</option>
+                                                        <option value='2032'>2032</option>
+                                                        <option value='2033'>2033</option>
+                                                        <option value='2034'>2034</option>
+                                                        <option value='2035'>2035</option>
+                                                        <option value='2036'>2036</option>
+                                                        <option value='2037'>2037</option>
+                                                        <option value='2038'>2038</option>
+                                                        <option value='2039'>2039</option>
+                                                        <option value='2040'>2040</option>
+                                                                        </select>
+                                                    <label class="control-label time-zone-text" for="select">MONTHS</label><i class="bar"></i>
+                                                </div>
+                                            </div>
+                                            <!-- columns -->
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                <div class="form-group">
+                                                    <input type="text" class="card-cvv" required="required">
+                                                    <label class="control-label search-weight upper-case" for="input">CVV</label><i class="bar"></i>
+                                                </div>
+                                            </div>
+                                            <!-- columns -->
+                                        </div>
+
+                                    </div>
+                                    <!-- card-expirysection -->
+
+                                </div>
+                                <!-- cardDigitWrap -->
+
+
+                            </div>
+
+                        </div>
+                        <div class="sub-can-btn-wrap sub-can-btn-margin">
+                            <!--  <a class="btn btn-blue" data-dismiss="modal" href="javascript:void(0)">CLOSE</a> -->
+                            <a id="payment" (click)="receivePayment()" class="btn btn-blue" href="javascript:void(0)">PAY ${{payment_amount}}</a>
+
+                            <a class="btn btn-grey" id="close_subscription" data-dismiss="modal" href="javascript:void(0)">CLOSE</a>
+                            <!--   <a class="btn btn-grey"  href="javascript:void(0)">CANCEL</a> -->
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <!-- change-sub-wrap -->
+
+
+                <div class="subscription-updated-wrap">
+                    <!-- change-sub-wrap -->
+                    <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav" (ngSubmit)="onSubmit($event,h)" #h="ngForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 ptb10">
+                                <h2 class="h2-heading"><span class="first-text-light">Subscription&nbsp;</span>Updated</h2>
+
+
+                                <span class="plan_sucess">Your subscription plan was successfully changed!</span>
+
+
+                            </div>
+
+                        </div>
+                        <div class="sub-can-btn-wrap sub-can-btn-margin">
+                            <!--  <a class="btn btn-blue" data-dismiss="modal" href="javascript:void(0)">CLOSE</a> -->
+
+                            <a class="btn btn-blue" id="payment_close" (click)="reset_subcription_modal()" data-dismiss="modal" href="javascript:void(0)">CLOSE</a>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+            <!-- modal-content -->
+        </div>
+        <!-- modal-dialog -->
+    </div>
+    <!-- modal -->
+
+    <div class="modal tokbird-modal fade" id="contactUs" tabindex="-1" role="dialog" aria-labelledby="contactUs">
+  <div class="modal-dialog register-modal plan-modal-alter" role="document">
+   <div class="modal-content">
+    <div class="modal-body">
+     <div class="row">
+            <div class="col-md-12 ptb10">
+                <h2 class="h2-heading"><span class="first-text-light">Contact&nbsp;</span>Us</h2>
+                 <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" (ngSubmit)="onSubmit($event,i)" #i="ngForm">
+                        <div class="form-group mt20 " [ngClass]="{'has-error': !name.valid && i.submitted}">
+                            <input type="text" required="required" name="name" ngModel #name="ngModel"/>
+                            <label class="control-label" for="input">NAME</label><i class="bar"></i>
+                        </div>  
+                        <div class="form-group mt20" [ngClass]="{'has-error': !message.valid && i.submitted}">
+                          <textarea required="required" name="message" ngModel #message="ngModel"></textarea>
+                          <label class="control-label" for="textarea">MESSAGE</label><i class="bar"></i>
+                        </div>                    
+                                
+                        <div class="sub-can-btn-wrap sub-can-btn-margin">
+                            <!--  <a class="btn btn-blue" data-dismiss="modal" href="javascript:void(0)">CLOSE</a> -->
+
+                            <button type="submit" class="btn btn-blue" id="change_subscription" href="javascript:void(0)">CONTINUE</button>
+                            <button class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</button>
+                        </div>
+
+
+                 </form>
+            </div>
+
+     </div>
+    </div>
+   </div>
+   <!-- modal-content -->
+  </div>
+  <!-- modal-dialog -->
+ </div>
+ <!-- modal --> 
+
+<div class="modal tokbird-modal fade" id="chng_pwd" tabindex="-1" role="dialog" aria-labelledby="ChangePassword">
+  <div class="modal-dialog register-modal plan-modal-alter" role="document">
+   <div class="modal-content">
+    <div class="modal-body">
+     <div class="row">
+            <div class="col-md-12 ptb10">
+                <h2 class="h2-heading"><span class="first-text-light">Change&nbsp;</span>Password</h2>
+                 <form class="form" role="form" method="post" action="change_pwd" accept-charset="UTF-8" (ngSubmit)="updatePassword($event,j)" #j="ngForm">
+                        <div *ngIf="errorMsg" class="error-msg">{{errorMsg}}</div>
+                        <div *ngIf="SuccessMsg" class="success-msg">{{SuccessMsg}}</div>
+                        <div class="form-group mt20 " [ngClass]="{'has-error': !current_pwd.valid && j.submitted}">
+                            <input type="password" required="required" name="current_pwd" ngModel #current_pwd="ngModel"/>
+                            <label class="control-label" for="input">Current Password</label><i class="bar"></i>
+                        </div>  
+                        <div class="form-group mt20 " [ngClass]="{'has-error': !new_pwd.valid && j.submitted}">
+                            <input type="password" required="required" name="new_pwd" ngModel #new_pwd="ngModel"/>
+                            <label class="control-label" for="input">New Password</label><i class="bar"></i>
+                        </div> 
+                        <div class="form-group mt20 " [ngClass]="{'has-error': !confirm_pwd.valid && j.submitted}">
+                            <input type="text" required="required" name="confirm_pwd" ngModel #confirm_pwd="ngModel"/>
+                            <label class="control-label" for="input">Confirm Password</label><i class="bar"></i>
+                        </div>                    
+                                
+                        <div class="sub-can-btn-wrap sub-can-btn-margin">
+                            <!--  <a class="btn btn-blue" data-dismiss="modal" href="javascript:void(0)">CLOSE</a> -->
+
+                            <button type="submit" class="btn btn-blue" id="change_password">SAVE</button>
+                            <button class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</button>
+                        </div>
+
+
+                 </form>
+            </div>
+
+     </div>
+    </div>
+   </div>
+   <!-- modal-content -->
+  </div>
+  <!-- modal-dialog -->
+ </div>
+ <!-- modal --> 
+
+
+<app-footer></app-footer>

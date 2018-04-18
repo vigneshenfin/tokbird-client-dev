@@ -1,0 +1,64 @@
+<app-header></app-header> 
+<div class="main-wraper">
+<app-meeting-sidebar></app-meeting-sidebar>  
+        <div class="right-content-wrap">
+            <h2 class="h2-heading"><span class="first-text-light">Security</span> Settings</h2>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 col-xxs">
+                    <span class="calander-title">User role</span>
+
+                </div>
+            </div>
+            <!-- row -->
+
+        <form class="form" role="form" method="post" id="meeting-content" (ngSubmit)="onSubmit($event,f)" #f="ngForm">
+            <div class="form-radio form-radio-listed">
+                <div class="radio">
+                    <label>
+                         <input type="radio" name="security_type" [value]="1" [(ngModel)]="security_type"  [checked]="security_type === 1"><i class="helper"></i><span class="radio-btn-label">No security</span>
+                    </label>
+                    <span class="radio-sub-head">Users will be able to enter the Meeting by following public link</span>
+                </div>
+                <div class="radio">
+                    <label>
+                         <input type="radio" name="security_type" [value]="2" [(ngModel)]="security_type" [checked]="security_type === 2"><i class="helper"></i><span class="radio-btn-label">One time use URL</span>
+                    </label>
+                    <span class="radio-sub-head">Link to the meeting becomes expired once some user enter the meeting by that link</span>
+                </div>
+
+                <div class="radio">
+                    <label>
+                          <input type="radio" name="security_type" [value]="3" [(ngModel)]="security_type" [checked]="security_type === 3"><i class="helper"></i><span class="radio-btn-label">One time user URL with password</span>
+                    </label>
+                </div>
+            </div>
+            <div class="dashed-seprator"></div>
+            <span class="allow-labeled">Allow or deny attendee by email domain name</span>
+            
+            <div class="form-group form-group-bttm-margin">
+                <textarea required="required" [(ngModel)]="blacklist" name="blacklist" ></textarea>
+                <label class="control-label" for="textarea">BLACK LIST</label><i class="bar"></i>
+                <span *ngIf="!errorMsg" class="text-area-subdes">Enter the domains seperated by comma</span>
+                <span *ngIf="errorblacklist && f.submitted" class="text-danger">Please enter the valid domains seperated by comma !</span>
+                <span *ngIf="repeated_domain_err && f.submitted && !errorblacklist" class="text-danger">{{repeated_domain_err}}</span>
+                <span *ngIf="blacklist_duplicate_domain_err && f.submitted && !errorblacklist && !repeated_domain_err " class="text-danger">{{blacklist_duplicate_domain_err}}</span>
+            </div>
+           
+            <div class="form-group form-group-bttm-margin">
+                <textarea required="required" [(ngModel)]="whitelist" name="whitelist"></textarea>
+                <label class="control-label" for="textarea">WHITELIST</label><i class="bar"></i>
+                <span *ngIf="!errorMsg" class="text-area-subdes">Enter the domains seperated by comma</span>
+                <span *ngIf="errorwhitelist  && f.submitted" class="text-danger"> Please enter the valid domain names seperated by comma!</span>
+                <span *ngIf="repeated_domain_err && f.submitted && !errorwhitelist" class="text-danger">{{repeated_domain_err}}</span>
+                <span *ngIf="whitelist_duplicate_domain_err && f.submitted && !errorwhitelist && !repeated_domain_err " class="text-danger">{{whitelist_duplicate_domain_err}}</span>
+            </div>
+            
+            <div class="left-bttn-blue text-center">
+                <button class="btn btn-blue btn-full" type="submit">SAVE</button>
+            </div>
+        </form>
+            <!-- left-bttn-blue -->
+
+        </div></div>
+        <!-- right-content-wrap -->
+<app-footer></app-footer>

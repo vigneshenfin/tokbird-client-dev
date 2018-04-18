@@ -1,0 +1,331 @@
+
+<app-header *ngIf="roleId == '3'"></app-header>
+<app-admin-header *ngIf="roleId != '3'"></app-admin-header>
+<div class="dataTable-wraper">
+      <div class="dataTable-sub-wrap">
+          <ul class="nav nav-tabs nav-tabs-modified">
+              <li>
+                  <a class="dataTable-Tabbed" data-toggle="tab" href="#calender_view">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="21.697" height="20.402" viewBox="0 0 21.697 20.402">
+                              <g fill="#B2B2B2">
+                                <path d="M18.307 1.358H15.61v-.68c0-.362-.284-.67-.645-.678-.408-.008-.682.265-.682.68v.678h-6.79v-.68c0-.362-.283-.67-.645-.678-.41-.008-.682.265-.682.68v.678h-2.77C1.52 1.358 0 2.878 0 4.754v12.253c0 1.875 1.52 3.395 3.395 3.395h14.907c1.875 0 3.395-1.52 3.395-3.395V4.76c0-1.906-1.49-3.402-3.39-3.402zM1.327 4.792c0-1.082.952-2.03 2.04-2.03h2.8v.68c0 .363.282.672.644.68.41.008.687-.266.687-.68v-.68h6.79v.68c0 .363.284.672.645.68.408.007.68-.266.68-.68v-.68h2.726c1.12 0 2.037.918 2.037 2.038v2.02H1.328V4.793zm17.006 14.205H3.363c-1.12 0-2.036-.917-2.036-2.037V8.148H20.37v8.812c0 1.12-.916 2.037-2.037 2.037z"/>
+                                <path d="M4.762 16.99c.407 0 .68-.137.95-.408.273-.272.408-.68.408-.95 0-.273-.136-.68-.407-.952-.543-.543-1.358-.543-1.9 0-.273.272-.408.543-.408.95 0 .273.136.68.407.952s.543.407.95.407zm0-4.076c.407 0 .68-.136.95-.407.273-.272.408-.68.408-.95 0-.273-.136-.68-.407-.952-.543-.543-1.358-.543-1.9 0-.273.272-.408.543-.408.95s.136.68.407.952c.27.272.543.407.95.407zm4.075 4.076c.407 0 .68-.137.95-.408.273-.272.408-.68.408-.95 0-.273-.136-.68-.407-.952-.543-.543-1.358-.543-1.9 0-.273.272-.408.68-.408.95 0 .273.136.68.407.952.27.27.542.407.95.407zm0-4.076c.407 0 .68-.136.95-.407.273-.272.408-.68.408-.95 0-.273-.136-.68-.407-.952-.543-.543-1.358-.543-1.9 0-.273.272-.408.68-.408.95 0 .273.136.68.407.952.27.272.542.407.95.407zm4.073 4.076c.408 0 .68-.137.952-.408.272-.272.407-.543.407-.95s-.14-.68-.41-.952c-.545-.543-1.36-.543-1.9 0-.275.272-.41.68-.41.95 0 .273.136.68.407.952.27.27.543.407.95.407zm0-4.076c.408 0 .68-.136.952-.407.272-.272.407-.543.407-.95 0-.273-.14-.68-.41-.952-.545-.543-1.36-.543-1.9 0-.275.272-.41.68-.41.95 0 .273.136.68.407.952.27.272.543.407.95.407zm4.075 4.076c.407 0 .68-.137.95-.408.273-.272.408-.68.408-.95 0-.273-.136-.68-.407-.952-.543-.543-1.358-.543-1.9 0-.273.272-.408.543-.408.95 0 .273.136.68.407.952.27.27.543.407.95.407zm0-4.076c.407 0 .68-.136.95-.407.273-.272.408-.543.408-.95 0-.273-.136-.68-.407-.952-.543-.543-1.358-.543-1.9 0-.273.272-.408.68-.408.95 0 .273.136.68.407.952.27.272.543.407.95.407z"/>
+                              </g>
+                            </svg>
+                      <span class="calander-text">Calendar View</span>
+                  </a>
+              </li>
+              <li class="active">
+                  <a class="dataTable-Tabbed" data-toggle="tab" href="#l_view">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="12.46" viewBox="0 0 16 12.46">
+                              <g fill="#B2B2B2">
+                                <path d="M15.202 12.114H4.542c-.392 0-.754-.273-.824-.672-.09-.524.295-.98.785-.98h10.66c.392 0 .754.273.824.672.09.524-.295.98-.785.98zm0-4.956H4.542c-.392 0-.754-.273-.824-.672-.09-.524.295-.98.785-.98h10.675c.348 0 .678.216.782.56.172.57-.234 1.092-.758 1.092zm0-5.23H4.542c-.392 0-.754-.274-.824-.673-.09-.524.295-.98.785-.98h10.66c.392 0 .754.273.824.672.09.524-.295.98-.785.98z"/>
+                                <ellipse cx="1.072" cy="1.109" rx="1.072" ry="1.109"/>
+                                <ellipse cx="1.072" cy="6.23" rx="1.072" ry="1.109"/>
+                                <ellipse cx="1.072" cy="11.351" rx="1.072" ry="1.109"/>
+                              </g>
+                            </svg>
+                      <span class="list-view-text">List view</span>
+                  </a>
+              </li>
+          </ul>
+          <a *ngIf="roleId == '3'" class="btn btn-blue  serch-btn schedule-mmet-btn" [routerLink]="['/schedule-meeting']">SCHEDULE MEETING</a>
+      </div>
+      <!-- dataTable-sub-wrap -->
+      <div class="tab-content sp60">
+          <div id="l_view" class="tab-pane fade in active">
+              <ul class="nav nav-tabs nav-tabs-modified-two">
+                  <li class="active"><a id="future_meeting" (click)="selectTab('future_meetings')" data-toggle="pill" href="#future-meeting">Future Meetings</a></li>
+                  <li><a id="past_meeting" data-toggle="pill" (click)="selectTab('past_meetings')" href="#past-meeting">Past Meetings</a></li>
+              </ul>
+              <div class="search-table-wrapper" id="future_meetings_search">
+                    <form (ngSubmit)="searchMeeting()">
+                        <div class="search-table">
+                            <div class="form-group">
+                                <input type="text" required="required" name="keyword" [(ngModel)]="keyword" />
+                                <label class="control-label" for="input">SEARCH MEETINGS</label><i class="bar"></i>
+                            </div>
+                        </div>
+                        <!-- search-table -->
+                        <div class="search-btn">
+                            <input type="submit" class="btn btn-blue serch-btn" value="SEARCH" />
+                        </div>
+                        <!-- search-btn -->
+                    </form>
+                </div>
+                <!-- search-table-wrapper -->
+                <div class="search-table-wrapper" id="past_meetings_search">
+                    <form (ngSubmit)="searchPastMeeting()">
+                        <div class="search-table">
+                            <div class="form-group">
+                                <input type="text" required="required" name="pastKeyword" [(ngModel)]="pastKeyword" />
+                                <label class="control-label" for="input">SEARCH MEETINGS</label><i class="bar"></i>
+                            </div>
+                        </div>
+                        <!-- search-table -->
+                        <div class="search-btn">
+                            <!-- <a class="btn btn-blue serch-btn" href="javascript:void(0)" (click)="searchPastMeeting()">SEARCH</a> -->
+                            <input type="submit" class="btn btn-blue serch-btn" value="SEARCH" />
+                        </div>
+                        <!-- search-btn -->
+                    </form>
+                </div>
+                <!-- search-table-wrapper -->
+
+                <div class="tab-content">
+                  <div id="future-meeting" class="tab-pane fade in active">
+                    <!-- FUTURE MEETINGS STARTS  -->
+                    <div class="table-responsive table-not-overflow" style="position:relative;">
+                    <div [ngBusy]="busy"></div>
+                    <table id="datatable-responsive" class="table dt-responsive nowrap" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Meeting Title</th>
+                                <!-- <th>Meeting Access Code</th>
+                                <th>Meeting ID</th> -->
+                                <th>Meeting ID</th>
+                                <th>Meeting Access Code</th>
+                                <th>Date & Time</th>
+                                <th class="paddigng-l-r-rm text-right">Registered /</th>
+                                <th class="paddigng-l-r-rm text-center">Attended /</th>
+                                <th class="paddigng-l-r-rm text-left">Watched recordings</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let meeting of meetings | paginate: {'id': 'meetings-list', itemsPerPage: limit, currentPage: p, totalItems: recordDetails.recordsTotal }" [ngClass]="{'resch-meeting': (meeting.is_rescheduled == 1)}">
+                                <td>
+                                    <!-- RESCHEDULE ICON -->
+                                    <img class="rev-icn" *ngIf="(meeting.is_rescheduled == 1)" src="/assets/images/rev-icon.png">  
+                                    
+                                    <a [routerLink]="[urlPrefix + '/meetings/general-info', meeting?.id]" [attr.title]="((meeting?.meeting_title).length > 30) ? (meeting?.meeting_title) : ''">{{transform(meeting?.meeting_title)}}</a></td>
+                                <!-- <td>{{meeting?.access_code}}</td>
+                                <td>{{meeting?.m_id}}</td> -->
+                                <td>{{meeting?.m_id}}</td>
+                                <td>{{meeting?.access_code}}</td>
+                                <td>{{formatDate(meeting?.meeting_date_time)}} {{formatTimezone(meeting?.timezone)}}</td>
+                                <td class="text-center"><a class="users-link" [routerLink]="[urlPrefix + '/meetings/registered', meeting?.id]">{{meeting?.reg_users_count}}</a></td>
+                                <td class="text-center"><a class="users-link" [routerLink]="[urlPrefix + '/meetings/attended', meeting?.id]">{{meeting?.attendees_count}}</a></td>
+                                <td class="text-center"><a class="users-link" [routerLink]="[urlPrefix + '/meetings/watched', meeting?.id]">{{meeting?.recordings_view}}</a></td>
+                                <td>
+                                    <a class="emeeting" *ngIf="(meeting?.allow_entry == 1)" href="javascript:void(0)" (click)="generateHostLink(meeting?.id)"><span *ngIf="(meeting?.in_progress == 1)" class="meeting-progress-green"></span>Enter the Meeting</a>
+                                    <div class="edit-delete-wrap" *ngIf="(meeting?.allow_entry != 1)">
+                                        <div class="edit">
+                                            <div class="dropdown">
+                                                <button class="btn btn-drops-trans dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="15.571" height="15.5" viewBox="0 0 14.571 14.5">
+                                                        <path fill="#B2B2B2" d="M9.06 2.42l2.965 2.964-7.503 7.503L1.56 9.923l7.5-7.503zm5.214-.715L12.952.383c-.51-.51-1.34-.51-1.853 0L9.83 1.65l2.964 2.963 1.477-1.477c.397-.396.397-1.035 0-1.43zM.008 14.09c-.054.242.165.46.408.4l3.303-.8-2.965-2.965-.75 3.364z"/>
+                                                    </svg>
+                                                </button>
+                                                <ul class="dropdown-menu drops-trans drop-left-aligned" role="menu" aria-labelledby="menu1">
+                                                    <!-- Changed - 16/04/2018  -->
+                                                    <!-- <li *ngIf="meeting.is_rescheduled == 0" role="presentation"><a role="menuitem" tabindex="-1" [routerLink]="[urlPrefix + '/meeting/edit', meeting?.id]">General Info</a></li> -->
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" [routerLink]="[urlPrefix + '/meeting/edit', meeting?.id]">General Info</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" [routerLink]="[urlPrefix + '/meetings/invite-users/', meeting?.id]">Invite users</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" [routerLink]="[urlPrefix + '/meetings/send-notifications/', meeting?.id]">Send notifications</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" [routerLink]="[urlPrefix + '/meetings/pre-registration-form/', meeting?.id]">Pre-registration form</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" [routerLink]="[urlPrefix + '/meetings/security-settings/', meeting?.id]">Security settings</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" [routerLink]="[urlPrefix + '/meetings/meeting-content/', meeting?.id]">Meeting content</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" [routerLink]="[urlPrefix + '/meetings/assign-polls/', meeting?.id]">Assign polls</a></li>
+                                                    <li role="presentation"><a role="menuitem" tabindex="-1" [routerLink]="[urlPrefix + '/meetings/location-settings/', meeting?.id]"><!-- Location --> Lobby Screen settings</a></li>
+                                                    <li *ngIf="(meeting.is_rescheduled == 1)" role="presentation"><a role="menuitem" tabindex="-1" [routerLink]="[urlPrefix + '/meetings/recordings/', meeting?.id]">Meeting recordings</a></li>
+                                                    <li *ngIf="(meeting.is_rescheduled == 1)" role="presentation"><a role="menuitem" tabindex="-1" [routerLink]="[urlPrefix + '/meetings/reports/', meeting?.id]">Reports</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- edit -->
+                                        <div *ngIf="(roleId == '3')" class="delete" (click)="cancelMeeting(meeting?.id)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12.641" height="16" viewBox="0 0 11.641 15">
+                                                <path fill="#B2B2B2" d="M2.51 15h6.653c.915 0 1.663-.748 1.663-1.663V3.36H.848v9.977c0 .915.748 1.663 1.663 1.663zM11.64.848H8.73L7.9 0H3.74l-.83.848H0V2.51h11.64V.85z"/>
+                                            </svg>
+                                        </div>
+                                        <!-- delete -->
+                                        <a class="emeeting" href="javascript:void(0)" (click)="generateHostLink(meeting?.id)">Enter the Meeting</a>
+                                    </div>
+                                    <!-- edit-delete-wrap -->
+                                </td>
+                            </tr>
+                            <tr *ngIf="isDataAvailable && (meetings == '')"><td colspan="8">No meetings found.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <pagination-controls class="my-pagination" id="meetings-list"
+                        (pageChange)="pageChanged($event)"
+                        maxSize="5"
+                        directionLinks="true"
+                        autoHide="true"
+                        previousLabel="Previous"
+                        nextLabel="Next"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="You're on page">
+                </pagination-controls>
+                <!-- FUTURE MEETINGS ENDS  -->
+                </div>
+                <!-- future-meeting -->
+                <div id="past-meeting" class="tab-pane fade">
+                    <!-- PAST MEETINGS STARTS  -->
+                    <div class="table-responsive table-not-overflow" style="position:relative;">
+                        <div [ngBusy]="pastBusy"></div>
+                        <table id="datatable-responsive2" class="table  dt-responsive nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Meeting Title</th>
+                                    <!-- <th>Meeting Access Code</th>
+                                    <th>Meeting ID</th> -->
+                                    <th>Meeting ID</th>
+                                    <th>Meeting Access Code</th>
+                                    <th>Date & Time</th>
+                                    <th class="paddigng-l-r-rm text-right">Registered /</th>
+                                    <th class="paddigng-l-r-rm text-center">Attended /</th>
+                                    <th class="paddigng-l-r-rm text-left">Watched recordings</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pastMeeting of pastMeetings | paginate: {'id': 'pastMeetings-list', itemsPerPage: pastLimit, currentPage: pastP, totalItems: pastRecordDetails.recordsTotal }">
+                                    <td><a [routerLink]="[urlPrefix + '/meetings/general-info/', pastMeeting?.id]" [attr.title]="((pastMeeting?.meeting_title).length > 30) ? (pastMeeting?.meeting_title) : ''">{{transform(pastMeeting?.meeting_title)}}</a></td>
+                                    <!-- <td>{{pastMeeting?.access_code}}</td>
+                                    <td>{{pastMeeting?.m_id}}</td> -->
+                                    <td>{{pastMeeting?.m_id}}</td>
+                                    <td>{{pastMeeting?.access_code}}</td>
+                                    <td>{{formatDate(pastMeeting?.meeting_date_time)}} {{formatTimezone(pastMeeting?.timezone)}}</td>
+                                    <td class="text-center"><a class="users-link" [routerLink]="[urlPrefix + '/meetings/registered', pastMeeting?.id]">{{pastMeeting?.reg_users_count}}</a></td>
+                                    <td class="text-center"><a class="users-link" [routerLink]="[urlPrefix + '/meetings/attended', pastMeeting?.id]">{{pastMeeting?.attendees_count}}</a></td>
+                                    <td class="text-center"><a class="users-link" [routerLink]="[urlPrefix + '/meetings/watched', pastMeeting?.id]">{{pastMeeting?.recordings_view}}</a></td>
+                                    <td>
+                                        <a class="emeeting" href="javascript:void(0)" (click)="meetingReJoin(pastMeeting?.id)"><span class=""></span>Reschedule</a>
+                                        <a class="emeeting" href="javascript:void(0)" (click)="generatePastHostLink(pastMeeting?.id)"><span class=""></span>Enter the Meeting</a>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="pastIsDataAvailable && (pastMeetings == '')"><td colspan="8">No meetings found.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <pagination-controls class="my-pagination" id="pastMeetings-list"
+                            (pageChange)="pastPageChanged($event)"
+                            maxSize="5"
+                            directionLinks="true"
+                            autoHide="true"
+                            previousLabel="Previous"
+                            nextLabel="Next"
+                            screenReaderPaginationLabel="Pagination"
+                            screenReaderPageLabel="page"
+                            screenReaderCurrentLabel="You're on page">
+                    </pagination-controls>
+                    <!-- PAST MEETINGS ENDS  -->
+                  </div>
+                  <!-- past-meeting -->
+              </div>
+          </div>
+          <div id="calender_view" class="tab-pane fade">
+               <app-meetings-calendar-view></app-meetings-calendar-view>   
+          </div>
+      </div>
+  </div>
+  <!-- dataTable-wraper -->
+<app-footer></app-footer>
+
+<div class="modal tokbird-modal fade" id="delete-pop1" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading text-center"><span class="first-text-light">Cancel</span> Meeting</h2>
+                        <div class="deletion-msg">
+                            Are you sure you want to cancel this Meeting?<br/> We send email notifications to all invited users about this.<br/>This cannot be undone
+                        </div>
+                        <!-- deletion-msg -->
+                    </div>
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a *ngIf="!disableCancel" class="btn btn-blue" href="javascript:void(0)" (click)="cancelScheduledMeeting(cancelMeetingId)">YES</a>
+                    <a *ngIf="disableCancel" class="btn btn-blue disabled" href="javascript:void(0)">YES</a>
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">NO</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->
+<div class="modal tokbird-modal fade" id="meetingRejoin" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading"><span class="first-text-light">Re</span>Schedule</h2>
+                        <form (ngSubmit)="reInvite($event, g)" #g="ngForm">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group" [ngClass]="{'has-error': !meetingTitle.valid && g.submitted}">
+                                        <input type="text" name="title" [(ngModel)]="title" #meetingTitle="ngModel" required="required" maxlength="200" />
+                                        <label class="control-label" for="input">MEETING TITLE</label><i class="bar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="calander-and-time-wrap">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 col-xxs">
+                                        <span class="calander-title">MEETING DATE</span>
+                                        <div class="form-group" [ngClass]="{'has-error': dateError && g.submitted}" id="date-picker-fg">
+                                            <input type="text" id="datetimepicker" class="form-control datepicker" name="schedule_date" [(ngModel)]="schedule_date" #datePicker (blur)="schedule_date = datePicker.value" required (click)="changeSchedule()"/>
+                                            <i class="bar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 col-xxs">
+                                        <span class="calander-title">TIME ZONE</span>
+                                        <div class="form-group common-drops">
+                                            <select name="timezone" [(ngModel)]="timezone" #meetingTimezone required (change)="changeTimezone($event.target.value)">
+                                                 <optgroup label="US Zones">
+                                                    <option *ngFor="let tz of usZones" value="{{tz.value}}">{{tz.text}}</option>
+                                                </optgroup>
+                                                <optgroup label="International Zones">
+                                                    <option *ngFor="let tz of intlZones" value="{{tz.value}}">{{tz.text}}</option>
+                                                </optgroup> 
+                                            </select>
+                                            <label class="control-label" for="select"></label><i class="bar" style="padding-top: 4px;"></i> 
+                                            <span *ngIf="timezoneErrorMsg" class="text-danger">{{timezoneErrorMsg}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" [(ngModel)]="invite_users" name="invite_users" #inviteUsers = ngModel /><i class="helper"></i> 
+                                            <div class="chkbox-text-and-sub">
+                                                <span class="helper-text">Notify users</span>
+                                            </div> 
+                                        </label>
+                                    </div>
+                                    <!-- checkbox -->
+                                </div>
+                            </div>
+                            <div *ngIf="invite_users == 1">
+                                <span class="calander-title top-bottom-label-space">Notification email content</span>
+                                <div class="redactor-wrap bottom-margin">
+                                    <app-tinymce [(ngModel)]="invitationContent" name="invitationContent" id="invitationContent"></app-tinymce>  
+                                    <div *ngIf="invitationContentError > 0 && g.submitted" class="text-danger">
+                                        Please enter invitation content.
+                                    </div>
+                                </div>
+                                <!-- redactor-wrap -->
+                            </div>
+                            <div class="sub-can-btn-wrap sub-can-btn-margin">
+                                <input type="submit" class="btn btn-blue rejoin_button" href="javascript:void(0)" value="RESCHEDULE">
+                                <a class="btn btn-grey rejoin_button" data-dismiss="modal" href="javascript:void(0)">CANCEL</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>

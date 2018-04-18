@@ -1,0 +1,19 @@
+.drag-wrap-img{
+    max-height: 100px;
+}
+.image_error{
+    margin-top:10px;
+}
+.drop_file_element{
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    top: 0px;
+    left: 0px;
+
+}
+.drag-wrap {
+    position: relative;
+}

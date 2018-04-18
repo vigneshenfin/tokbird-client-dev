@@ -1,0 +1,166 @@
+<div id="l_view" class="tab-pane fade in active">
+  <ul class="nav nav-tabs nav-tabs-modified-two">
+      <!-- (click)="loadMeetings('future')" -->
+      <li class="active" (click) = "loadFutureMeetings()"><a id="future_meeting" data-toggle="pill" href="#future-meeting">Future Meetings</a></li>
+      <!-- loadMeetings('past') -->
+      <li (click)="loadPastMeetings()"><a id="past_meeting" data-toggle="pill" href="#past-meeting">Past Meetings</a></li>
+  </ul>
+  <div class="search-table-wrapper" id="future_meetings_search">
+      <form action="#">
+          <div class="search-table">
+              <div class="form-group">
+                  <input type="text" required="required" name="keyword" [(ngModel)]="keyword" (keyup)="searchMeet($event)" #searchKeyword />
+                  <label class="control-label" for="input">SEARCH MEETINGS</label><i class="bar"></i>
+              </div>
+          </div>
+          <!-- search-table -->
+          <div class="search-btn">
+              <a class="btn btn-blue serch-btn" (click)="searchMeeting()">SEARCH</a>
+          </div>
+          <!-- search-btn -->
+      </form>
+  </div>
+  <!-- search-table-wrapper -->
+
+  <div class="search-table-wrapper" id="past_meetings_search">
+      <form action="#">
+          <div class="search-table">
+              <div class="form-group">
+                  <input type="text" required="required" name="pastKeyword" [(ngModel)]="pastKeyword" #pastSearchKeyword />
+                  <label class="control-label" for="input">SEARCH MEETINGS</label><i class="bar"></i>
+              </div>
+          </div>
+          <!-- search-table -->
+          <div class="search-btn">
+              <a class="btn btn-blue serch-btn" (click)="searchPastMeeting()">SEARCH</a>
+          </div>
+          <!-- search-btn -->
+      </form>
+  </div>
+  <!-- search-table-wrapper -->
+
+  <div class="tab-content">
+      <div id="future-meeting" class="tab-pane fade in active">
+          <table id="datatable-responsive" class="table  dt-responsive nowrap" cellspacing="0" width="100%">
+              <thead>
+                  <tr>
+                      <th>Meeting Title</th>
+                      <th>Meeting Access Code</th>
+                      <th>Meeting ID</th>
+                      <th>Date & Time</th>
+                      <th class="paddigng-l-r-rm text-right">Registered &nbsp;/&nbsp;</th>
+                      <th class="paddigng-l-r-rm text-center">Attended &nbsp;/&nbsp;</th>
+                      <th class="paddigng-l-r-rm text-left">Watched recordings</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let meeting of meetings; let last = last">
+                    <td><a [routerLink]="['/meeting/edit/', meeting.id]">{{meeting.meeting_title}}</a></td>
+                    <td><a [routerLink]="['/meeting/edit/', meeting.id]">{{meeting.access_code}}</a></td>
+                    <td><a [routerLink]="['/meeting/edit/', meeting.id]">{{meeting.meeting_code}}</a></td>
+                    <td><a [routerLink]="['/meeting/edit/', meeting.id]">{{meeting.meeting_date_time}} {{meeting.timezone}}</a></td>
+                    <!-- {{last ? loadTable() : ''}} -->
+                    <td calss="text-center">0</td>
+                    <td calss="text-center">0</td>
+                    <td calss="text-center">0</td>
+
+                    <td>
+                        <div class="edit-delete-wrap">
+                            <div class="edit">
+                                <div class="dropdown">
+                                    <button class="btn btn-drops-trans dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                                        
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="15.571" height="15.5" viewBox="0 0 14.571 14.5">
+                                                            <path fill="#B2B2B2" d="M9.06 2.42l2.965 2.964-7.503 7.503L1.56 9.923l7.5-7.503zm5.214-.715L12.952.383c-.51-.51-1.34-.51-1.853 0L9.83 1.65l2.964 2.963 1.477-1.477c.397-.396.397-1.035 0-1.43zM.008 14.09c-.054.242.165.46.408.4l3.303-.8-2.965-2.965-.75 3.364z"/>
+                                                            </svg>
+                                            
+                                        </button>
+                                    <ul class="dropdown-menu drops-trans pull-right" role="menu" aria-labelledby="menu1">
+                                        <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="['/meeting/edit', meeting.id]">General Info</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="['/invite-user/', meeting.id]">Invite users</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="['/meeting/send-notification/', meeting.id]">Send notifications</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="['/meeting/pre-registration-form/', meeting.id]">Pre-registration form</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="['/meeting/security/', meeting.id]">Security settings</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1"  [routerLink]="['/meeting/meeting-content/', meeting.id]">Meeting content</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- edit -->
+
+
+                            <div class="delete" (click)="cancelMeeting(meeting.id)">
+                                <a href="javascript:void(0)" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12.641" height="16" viewBox="0 0 11.641 15">
+                                            <path fill="#B2B2B2" d="M2.51 15h6.653c.915 0 1.663-.748 1.663-1.663V3.36H.848v9.977c0 .915.748 1.663 1.663 1.663zM11.64.848H8.73L7.9 0H3.74l-.83.848H0V2.51h11.64V.85z"/>
+                                            </svg>
+                                </a>
+                            </div>
+                            <!-- delete -->
+                        </div>
+                        <!-- edit-delete-wrap -->
+                    </td>
+                    
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <!-- future-meeting -->
+      <div id="past-meeting" class="tab-pane fade">
+          <table id="datatable-responsive2" class="table  dt-responsive nowrap" cellspacing="0" width="100%">
+              <thead>
+                  <tr>
+                      <th>Meeting Title</th>
+                      <th>Meeting Access Code</th>
+                      <th>Meeting ID</th>
+                      <th>Date & Time</th>
+                      <th class="paddigng-l-r-rm text-right">Registered &nbsp;/&nbsp;</th>
+                      <th class="paddigng-l-r-rm text-center">Attended &nbsp;/&nbsp;</th>
+                      <th class="paddigng-l-r-rm text-left">Watched recordings</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let pastMeeting of pastMeetings">
+                      <td><a [routerLink]="['/meetings/general-info/', pastMeeting.id]">{{pastMeeting.meeting_title}}</a></td>
+                      <td>{{pastMeeting.access_code}}</td>
+                      <td>{{pastMeeting.meeting_code}}</td>
+                      <td>{{pastMeeting.meeting_date_time}}</td>
+                      <td class="text-center">0</td>
+                      <td class="text-center">0</td>
+                      <td class="text-center">0</td>
+                      <td><span class="Meeting_completed">Meeting completed</span></td>
+                      <!-- <td><span class="Meeting_expired">Meeting expired</span></td> -->
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <!-- past-meeting -->
+  </div>
+</div>
+
+<div class="modal tokbird-modal fade" id="delete-pop1" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ptb10">
+                        <h2 class="h2-heading text-center"><span class="first-text-light">Cancel</span> Meeting</h2>
+                        <div class="deletion-msg">
+                            Are you sure you want to cancel this Meeting?<br/> We send email notifications to all invited users about this.<br/>This cannot be undone
+                        </div>
+                        <!-- deletion-msg -->
+                    </div>
+
+                </div>
+                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                    <a class="btn btn-blue" href="javascript:void(0)" (click)="cancelScheduledMeeting(cancelMeetingId)">YES</a>
+                    <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">NO</a>
+                </div>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->

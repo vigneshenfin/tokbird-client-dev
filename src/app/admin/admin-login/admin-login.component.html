@@ -1,0 +1,54 @@
+
+    <div class="meeting-banner-img admin-login-bg" data-stellar-background-ratio="0.5">
+        <div class="bg-overly"></div>
+        <nav class="navbar navbar-custom sp60 navbar-padd-adjust">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <img src="../assets/images/home/logo-alt.svg" alt="Logo">
+                </a>
+                <!-- logo -->
+            </div>
+        </nav>
+    </div>
+    <!-- meeting-banner-img -->
+
+    <div class="enter-meeting-form admin-login-width">
+        <div [ngClass]="errorClass" class="error-msg">{{errorMsg}}</div>
+        <h2 class="h2-heading"><span class="first-text-light">Admin</span> Login</h2>
+         <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav" (ngSubmit)="onSubmit($event,f)" #f="ngForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group form-group-height-alter" [ngClass]="{'has-error': !email.valid && f.submitted}">
+                        <input type="email" name="email" ngModel required="required" #email="ngModel">
+                        <label class="control-label search-weight upper-case" for="input">email</label><i class="bar"></i>
+                    </div>
+                    <div class="form-group form-group-height-alter" [ngClass]="{'has-error': !password.valid && f.submitted}">
+                        <input type="password" name="password" ngModel required="required" #password="ngModel">
+                        <label class="control-label search-weight upper-case" for="input">password</label><i class="bar"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="checkbox">
+                        <label>
+                                  <input type="checkbox" ngModel name="rememberMe" #rememberMe="ngModel"><i class="helper"></i><span class="remember-label">Remember me</span>
+                                </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="sub-can-btn-wrap margin-for-entermeet">
+                        <button class="btn btn-blue btn-full login-btn-width" type="submit">LOG IN</button>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- enter-meeting-form -->
+
+   

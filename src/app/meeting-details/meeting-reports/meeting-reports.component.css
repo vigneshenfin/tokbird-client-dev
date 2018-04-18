@@ -1,0 +1,13 @@
+.input-tags-wrap { border-bottom: none !important; }
+.form-group .control-label { font-size: 1.4rem !important; font-weight: 300 !important; }
+.search-weight { font-weight: 300 !important; }
+.my-tag  /deep/ .tag-wrapper { opacity: 1; padding: 0px 14px; color: #6a6a77; }
+.filter-report { font-weight: 100; }
+.table-striped-tok > thead > tr > th { font-weight: 100 !important; }
+.btn-grey-small-col { font-weight: 200 !important; }
+.btn-blue-tb-align { margin-right: 15px; }
+.nomeeting-svg { position: absolute; top: 50%; width: 230px; transform: translate(-50%, -50%); }
+.bt-margin { margin-bottom: 15px; }
+.filter-label{
+    font-size: 11px;
+}

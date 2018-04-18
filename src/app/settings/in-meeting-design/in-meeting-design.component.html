@@ -1,0 +1,165 @@
+<!-- <div *ngIf="accessDeniedDesign" class="warning-ex-wrap">
+    <img src="assets/images/exclamatory.png" alt="">
+    <span class="warning-text">{{accessMessageDesign}}</span>
+</div> -->
+<div *ngIf="accessDeniedDesign">
+    <div class="text-center"><img class="nomeeting-svg" [ngStyle]="{'min-width': '500px'}" src="assets/images/noaccess.svg" /></div>
+</div>
+                <form *ngIf="allDataFetchedDesign" class="form" role="form" method="post" id="meeting-design" enctype="multipart/form-data" (ngSubmit)="onSubmit($event,f)" #f="ngForm">       
+                        <h3 class="meeting_layout_size">Meeting Layout theme</h3>
+
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-xs-4 col-xxs">
+                                <div class="form-radio">
+                                    <div class="radio">
+                                        <label>
+                                                       <input type="radio" name="theme" [(ngModel)]="theme" [checked]="theme === 1" [value]="1" ><i class="helper"></i><span class="radio-btn-label radio-label-color">Bright</span>
+                                                    </label>
+                                    </div>
+                                </div>
+                                <img (click)="themeSelection(1)" class="template_svg" src="assets/images/bright_template.svg" alt="bright_template">
+                            </div>
+
+                            <div class="col-md-4 col-sm-4 col-xs-4 col-xxs">
+                                <div class="form-radio">
+                                    <div class="radio">
+                                        <label>
+                                           <input type="radio" name="theme" [(ngModel)]="theme" [checked]="theme === 2" [value]="2" ><i class="helper"></i><span class="radio-btn-label radio-label-color">Dark Gray</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <img (click)="themeSelection(2)" class="template_svg" src="assets/images/dark_template.svg" alt="bright_template">
+                            </div>
+
+                            <div class="col-md-4 col-sm-4 col-xs-4 col-xxs">
+                                <div class="form-radio">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="theme" [(ngModel)]="theme" [checked]="theme === 3" [value]="3"><i class="helper"></i><span class="radio-btn-label radio-label-color">Black</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <img (click)="themeSelection(3)" class="template_svg" src="assets/images/black_template.svg" alt="bright_template">
+                            </div>
+                        </div>
+                        <!-- row -->
+                        <div class="section-spacer"></div>
+                        <h3 class="meeting_layout_size">Meeting Layout theme</h3>
+
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-xs-4 col-xxs">
+                                <div class="form-radio">
+                                    <div class="radio">
+                                        <label>
+                                               <input type="radio" name="pallet" [(ngModel)]="pallet" [checked]="pallet === 1" [value]="1"><i class="helper"></i><span class="radio-btn-label radio-label-color">Palette 1</span>
+                                            </label>
+                                    </div>
+                                </div>
+                                <div class="pallete-wrap"  (click)="palletSelection(1)">
+                                    <span class="colors-pallete dark-pink"></span>
+                                    <span class="seperator-trans"></span>
+                                    <span class="colors-pallete base-blue"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4 col-xxs">
+                                <div class="form-radio">
+                                    <div class="radio">
+                                        <label>
+                                               <input type="radio" name="pallet" [(ngModel)]="pallet" [checked]="pallet === 2" [value]="2"><i class="helper"></i><span class="radio-btn-label radio-label-color">Pallete 2</span>
+                                            </label>
+                                    </div>
+                                </div>
+                                <div class="pallete-wrap"  (click)="palletSelection(2)">
+                                    <span class="colors-pallete dark-orange"></span>
+                                    <span class="seperator-trans"></span>.
+                                    <span class="colors-pallete dark-yellow"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4 col-xxs">
+                                <div class="form-radio">
+                                    <div class="radio">
+                                        <label>
+                                                <input  type="radio" name="pallet" [(ngModel)]="pallet" [checked]="pallet === 3" [value]="3"><i class="helper"></i><span class="radio-btn-label radio-label-color">Custom</span>
+                                            </label>
+                                    </div>
+                                </div>
+                                <div class="pallete-wrap" (click)="palletSelection(3)">
+                                    <span class="colors-pallete" id="colorSelector" [colorPicker]="color_one" (colorPickerChange)="color_one=$event" [style.background]="color_one">
+                                            <!--<input type='text' />-->
+                                    </span>
+                                    <span class="seperator-trans"></span>
+                                    <span class="colors-pallete" id="colorSelectortwo" [colorPicker]="color_two" (colorPickerChange)="color_two=$event" [style.background]="color_two">
+                                            <!--<input type='text' />-->
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row -->
+                        <div class="section-spacer"></div>
+                        <h3 class="meeting_layout_size">Meeting Layout theme</h3>
+                        <div class="row">
+                            <div class="col-md-5 col-sm-6 col-xs-12">
+                                <div class="form-radio">
+                                    <div class="radio">
+                                        <label>
+                                            <input (click)="chooseFont()" type="radio" name="font_type" [(ngModel)]="font_type" [checked]="font_type === 1" [value]="1"><i class="helper"></i><span class="radio-btn-label radio-label-color">Choose Font</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                <div class="col-md-8 col-sm-8 col-xs-12 col-xxs" (click)="chooseFont()">
+                                    <button  #myFont class="btn btn-transperant  dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" [fontPicker]="font" [fpWidth]="'auto'" [fpPosition]="'bottom'" [fpPositionOffset]="'0%'" [fpPositionRelativeToArrow]="false" [fpPresetLabel]="'Preset fonts'" [fpPresetFonts]="false" [fpSizeSelect]="sizeSelect" [fpStyleSelect]="styleSelect">
+                                    {{font.family}}  <img src="assets/images/arrow-down.svg" alt="Time">
+                                    </button>
+                                    <span *ngIf="defaultFontError" class="text-danger image_error">{{defaultFontError}}</span>
+                                        <!--<span class="calander-title">Choose Font</span>
+                                        <div class="dropdown">
+                                            <button class="btn btn-transperant  dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">Montserrat
+                                                    <img src="assets/images/arrow-down.svg" alt="Time">
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-full">
+                                                <li><a href="#">Lorem ipsum</a></li>
+                                                <li><a href="#">Lorem ipsum</a></li>
+                                            </ul>
+                                        </div>-->
+                                        
+                                </div>
+                                </div>
+                                <div class="form-radio">
+                                    <div class="radio">
+                                        <label>
+                                            <input (click)="uploadFont()" type="radio" name="font_type" [(ngModel)]="font_type" [checked]="font_type === 2" [value]="2"><i class="helper"></i><span class="radio-btn-label radio-label-color">Upload  Font</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div *ngIf="!disableUploadBtn" class="upload-and-text-wrap">
+                                    <div class="fke-upload fkw-upload-width">
+                                        <span>upload</span>
+                                        <div> <input id="uploaddrag" (change)="getFiles($event,'font')" name="fontFile" class="upload-drag " type="file" value="UPLOAD"></div>
+                                    </div>
+                                    <!-- fke-upload -->
+                                    <span for="uploaddrag" class="upload-text uploaded-font">{{uploaded_font}}</span>
+                                </div>
+                                <span *ngIf="font_error" class="text-danger image_error">{{font_error}}</span>
+                            </div>
+                            <div class="col-md-7 col-sm-6 col-xs-12" [ngStyle]="font.getStyles()">
+                                <div class="preview-fonts">
+                                    <div class="prev-font-parent" [ngClass]="preview_class">
+                                        <span>This is how text will look in the meeting.</span>
+                                    </div>
+                                    <!-- prev-font-parent -->
+                                </div>
+                                <!-- preview-fonts -->
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="sub-can-btn-wrap sub-can-btn-margin">
+                                    <button class="btn btn-blue btn-full" type="submit">SAVE</button>
+                                    <!--<button class="btn btn-grey">CANCEL</button>-->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row -->
+                 </form>

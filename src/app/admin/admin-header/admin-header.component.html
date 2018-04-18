@@ -1,0 +1,69 @@
+<div class="above-headder" *ngIf="meetingId != ''">
+    <h6 *ngIf="meetingAccount != ''">Currently accessing <span>{{meetingAccount}}'s</span> account</h6>
+</div>
+<nav class="navbar navbar-custom sp60 navbar-padd-adjust">
+        <div class="navbar-header">
+            <div class="dropdown dropdown-login-second hidden-lg hidden-sm hidden-md">
+                <button class="btn btn-avatar dropdown-toggle" type="button" data-toggle="dropdown">
+                        <!-- <img src="{{us_image}}" alt=""> -->
+                        <img *ngIf="us_image" src="{{us_image}}" alt="profile-image">
+                        <img *ngIf="us_image == ''" src="{{defaultImgPath}}" alt="profile-image" />
+                </button>
+                <ul class="dropdown-menu dropdown-menu-logout">
+                    <li>
+                        <a *ngIf="us_role_id == '1'" routerLink='/admin/profile'><img class="navbar-icons" src="assets/images/navuser.svg" alt="Cog"><span>Profile</span></a>
+                        <a *ngIf="us_role_id == '2'" routerLink='/facilitator/profile'><img class="navbar-icons" src="assets/images/navuser.svg" alt="Cog"><span>Profile</span></a>
+                    </li>
+                    <li (click)="onLogout()">
+                        <a href="#"><img class="navbar-icons" src="assets/images/logout.svg" alt="Cog"><span>Sign out</span></a>
+                    </li>
+                </ul>
+            </div>
+            <button type="button" class="navbar-toggle navbar-toggle-mofified" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+
+            <a class="navbar-brand" routerLink='/meetings-list'>
+                <img src="assets/images/logo.svg" alt="Logo">
+            </a>
+            <!-- logo -->
+
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-list-custom">
+                <li *ngIf="((us_role_id == '1') && (meetingId == ''))" routerLinkActive="active-head"><a routerLink='/admin/events-calendar'>Events Calendar</a></li>
+                <li *ngIf="((us_role_id == '2') && (meetingId == ''))" routerLinkActive="active-head"><a routerLink='/facilitator/events-calendar'>Events Calendar</a></li>
+                <li *ngIf="((us_role_id == '1') && (meetingId == ''))" routerLinkActive="active-head"><a routerLink='/admin/facilitators'>Facilitators</a></li>
+                <li *ngIf="((us_role_id == '1') && (meetingId == ''))" routerLinkActive="active-head"><a routerLink='/admin/users'>Accounts</a></li>
+                <li *ngIf="((us_role_id == '1') && (meetingId == ''))" routerLinkActive="active-head"><a routerLink='/admin/logs'>Logs</a></li>
+                <li *ngIf="(meetingId != '')" routerLinkActive="active-head" [routerLinkActiveOptions]="{exact:true}"><a routerLink='{{urlPrefix}}/meetings/list/{{meetingId}}'>Meetings</a></li>
+                <li *ngIf="(meetingId != '')" routerLinkActive="active-head"><a routerLink='{{urlPrefix}}/reports/{{meetingId}}'>Reports</a></li>
+                <li *ngIf="(meetingId != '')" routerLinkActive="active-head" [routerLinkActiveOptions]="{exact:false}"><a routerLink='{{urlPrefix}}/meetings/polls/{{meetingId}}'>Polls</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right navbar-list-custom-two">
+                <li routerLinkActive="active-head" *ngIf="(meetingId != '')">
+                    <a routerLink='{{urlPrefix}}/settings/{{meetingId}}'><img class="navbar-icons" src="assets/images/cog.svg" alt="Cog">SETTINGS</a>
+                </li>
+                <li class="hidden-xs">
+                    <div class="dropdown">
+                        <button class="btn btn-avatar dropdown-toggle" type="button" data-toggle="dropdown">
+                                <!-- <img src="{{us_image}}" alt="profile-image"> -->
+                                <img *ngIf="us_image" src="{{us_image}}" alt="profile-image">
+                                <img *ngIf="us_image == ''" src="{{defaultImgPath}}" alt="profile-image" />
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-logout">
+                            <li>
+                                <a *ngIf="us_role_id == '1'" routerLink='/admin/profile'><img class="navbar-icons" src="assets/images/navuser.svg" alt="Cog"><span>Profile</span></a>
+                                <a *ngIf="us_role_id == '2'" routerLink='/facilitator/profile'><img class="navbar-icons" src="assets/images/navuser.svg" alt="Cog"><span>Profile</span></a>
+                            </li>
+                            <li (click)="onLogout()">
+                                <a href="javascript:void(0)"><img class="navbar-icons" src="assets/images/logout.svg" alt="Cog"><span>Sign out</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>

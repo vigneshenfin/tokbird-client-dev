@@ -1,0 +1,304 @@
+   <app-admin-header></app-admin-header> 
+    <div class="main-wraper">
+        <div class="left-sidebar-wrap" style="visibility: hidden;"></div>
+        <!-- left-sidebar-wrap -->
+        <div class="right-content-wrap">
+            <div class="polls-btn-wrap">
+                <div class="polls-head">
+                    <h2 class="h2-heading"><span class="first-text-light">Facilitators</span></h2>
+                </div>
+                <!-- polls-head -->
+                <div class="btn-right-wrap btn-right-auto">
+                    <a class="btn btn-blue create-poll-btn" data-toggle="modal" data-target="#create_facilitator" (click)="openCreateFacilitator()">CREATE FACILITATOR</a>
+                </div>
+                <!-- btn-right-wrap -->
+            </div>
+            <!-- polls-btn-wrap -->
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="search-table-wrapper search-for-meeting-popup facilitator-alignment">
+                        <form (ngSubmit)="searchFacilitator($event, f)" #f="ngForm" class="search-form">
+                            <div class="search-table">
+                                <div class="form-group">
+                                    <input type="text" required="required" name="keyword" [ngModel]="keyword" #searchKeyword="ngModel">
+                                    <label class="control-label" for="input">SEARCH BY NAME OR EMAIL</label><i class="bar"></i>
+                                </div>
+                            </div>
+                            <!-- search-table -->
+                            <div class="search-btn">
+                                <button type="submit" class="btn btn-blue serch-btn" href="javascript:void(0)">SEARCH</button>
+                            </div>
+                            <!-- search-btn -->
+                            <div class="search-btn">
+                                <button type="reset" (click)="resetSearch()" class="btn btn-grey reset-btn" href="javascript:void(0)">RESET</button>
+                            </div>                            
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            
+
+        <div class="table-responsive table-responsive-show" style="position:relative;">
+                <div [ngBusy]="busy"></div>
+                <table class="table table-striped table-striped-tok table-reg-height">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let facilitator of facilitatorsDetails | paginate: {'id': 'facilitators-list', itemsPerPage: limit, currentPage: p, totalItems: recordsCount }" id="row{{facilitator.id}}">
+                          <td id="name{{facilitator.id}}">{{facilitator.us_name}}</td>
+                          <td id="email{{facilitator.id}}">{{facilitator.us_email}}</td>
+                          <td *ngIf="facilitator.us_status == 2 || facilitator.us_status == 0">
+                              <div class="label label-danger">
+                                    Disabled
+                                </div>
+                          </td>
+                          <td *ngIf="facilitator.us_status == 1">
+                              <div class="label label-success">
+                                    Active
+                                </div>
+                          </td>
+                          <td>
+                              <div class="edit-delete-wrap edit-dotts">
+                                <div class="edit">
+                                    <div class="dropdown">
+                            <!--<div class="edit-delete-wrap">
+                                <div *ngIf="facilitator.us_status == 2 || facilitator.us_status == 0" class="enable-facilitator" (click)="changeStatus(facilitator.id,'enable')">
+                                    Enable 
+                                </div>
+                                 <div *ngIf="facilitator.us_status == 1" class="disable-facilitator" (click)="changeStatus(facilitator.id,'disable')">
+                                    Disable
+                                </div>
+                                <div class="edit">
+                                    <div class="dropdown">
+                                        <button class="btn btn-drops-trans dropdown-toggle" type="button" id="menu1" data-toggle="modal" data-target="#edit_facilitator" (click)="getFacilitator(facilitator.id)" aria-expanded="false">
+                                                    
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="15.571" height="15.5" viewBox="0 0 14.571 14.5">
+                                                            <path fill="#B2B2B2" d="M9.06 2.42l2.965 2.964-7.503 7.503L1.56 9.923l7.5-7.503zm5.214-.715L12.952.383c-.51-.51-1.34-.51-1.853 0L9.83 1.65l2.964 2.963 1.477-1.477c.397-.396.397-1.035 0-1.43zM.008 14.09c-.054.242.165.46.408.4l3.303-.8-2.965-2.965-.75 3.364z"></path>
+                                                            </svg>
+                                            
+                                        </button>
+                                         
+                                        <div class="delete"  data-toggle="modal" data-target="#delete_facilitator" (click)="deleteFacilitator(facilitator.id)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12.641" height="16" viewBox="0 0 11.641 15">
+                                                        <path fill="#B2B2B2" d="M2.51 15h6.653c.915 0 1.663-.748 1.663-1.663V3.36H.848v9.977c0 .915.748 1.663 1.663 1.663zM11.64.848H8.73L7.9 0H3.74l-.83.848H0V2.51h11.64V.85z"></path>
+                                                        </svg>
+                                        </div>
+                                         -->
+
+                                        <button class="btn btn-drops-trans dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                       
+                                               <!--  <svg xmlns="http://www.w3.org/2000/svg" width="15.571" height="15.5" viewBox="0 0 14.571 14.5">
+                                                            <path fill="#B2B2B2" d="M9.06 2.42l2.965 2.964-7.503 7.503L1.56 9.923l7.5-7.503zm5.214-.715L12.952.383c-.51-.51-1.34-.51-1.853 0L9.83 1.65l2.964 2.963 1.477-1.477c.397-.396.397-1.035 0-1.43zM.008 14.09c-.054.242.165.46.408.4l3.303-.8-2.965-2.965-.75 3.364z"></path>
+                                                </svg> -->
+
+                                                <svg fill="#B2B2B2" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                                    <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                                                </svg>
+                                            
+                                      </button>
+                                        <ul class="dropdown-menu drops-trans dropup-mobile" role="menu" aria-labelledby="menu1">
+                                            <li class="toggle-enable action_icons" role="presentation" data-toggle="modal" data-target="#edit_facilitator" (click)="getFacilitator(facilitator.id)"><a role="menuitem" tabindex="-1">Edit Facilitator</a></li>
+                                            <li *ngIf="facilitator.us_status == 2 || facilitator.us_status == 0" class="toggle-enable action_icons" role="presentation"><a role="menuitem" tabindex="-1"  (click)="changeStatus(facilitator.id,'enable')">Enable Facilitator</a></li>
+                                            <li *ngIf="facilitator.us_status == 1" class="toggle-enable action_icons" role="presentation" data-toggle="modal" data-target="#disable_facilitator" (click)="disableFacilitator(facilitator.id)"><a role="menuitem" tabindex="-1">Disable Facilitator</a></li>
+                                            <li role="presentation" class="action_icons" data-toggle="modal" data-target="#delete_facilitator" (click)="deleteFacilitator(facilitator.id)"><a role="menuitem" tabindex="-1">Delete Facilitator</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                               
+                                
+                            </div>
+                        </td>
+                        </tr>
+                        <tr *ngIf="recordsCount == 0"><td colspan="4">No results found</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pagination-controls class="my-pagination" id="facilitators-list"
+                    (pageChange)="pageChanged($event)"
+                    maxSize="5"
+                    directionLinks="true"
+                    autoHide="true"
+                    previousLabel="Previous"
+                    nextLabel="Next"
+                    screenReaderPaginationLabel="Pagination"
+                    screenReaderPageLabel="page"
+                    screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+
+            
+
+        </div>
+        <!-- right-content-wrap -->
+    </div>
+    <!-- main-wraper -->
+
+      <div class="modal tokbird-modal fade" id="edit_facilitator" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+        <div class="modal-dialog register-modal plan-modal-alter" role="document">
+            <div class="modal-content">
+                <div class="change-sub-wrap">
+                    <!-- change-sub-wrap -->
+                    <div class="modal-body">
+                        <form class="form" role="form" method="post" action="edit_facilitator" accept-charset="UTF-8" (ngSubmit)="editFacilitator($event,g)" #g="ngForm">
+                            <div class="row">
+                                <div class="col-md-12 ptb10">
+                                    <h2 class="h2-heading"><span class="first-text-light">Edit&nbsp;</span>Facilitator</h2>
+                                    
+                                        <div *ngIf="errorMsg" class="error-msg">{{errorMsg}}</div>
+                                        <div *ngIf="SuccessMsg" class="success-msg">{{SuccessMsg}}</div>
+                                        <div class="form-group form-group-height-alter" [ngClass]="{'has-error': !edited_name.valid && g.submitted}">
+                                            <input type="text" required="required" name="edit_facilitator_name" [(ngModel)]="edit_facilitator_name" #edited_name="ngModel">
+                                            <label class="control-label search-weight upper-case" for="input">Name</label><i class="bar"></i>
+                                        </div>
+                                        <div class="meet-head-des-wrap bandwidth_change">
+                                            <div class="edit-wrap">
+                                                <span class="meeting-head-text">EMAIL</span>
+                                                <span class="meeting-ans-text equalize-font">{{ edit_email }}</span>
+                                            </div>
+                                        </div>
+                                        <!--<div class="form-group form-group-height-alter" [ngClass]="{'has-error': !edited_email.valid && g.submitted}">
+                                            <input type="email" required="required" name="edit_email" [(ngModel)]="edit_email" #edited_email="ngModel">
+                                            <label class="control-label search-weight upper-case" for="input">Email</label><i class="bar"></i>
+                                        </div>-->
+                                    
+                                </div>
+
+                            </div>
+                            <div class="sub-can-btn-wrap sub-can-btn-margin">
+                                <!--  <a class="btn btn-blue" data-dismiss="modal" href="javascript:void(0)">CLOSE</a> -->
+
+                                <button type="submit" class="btn btn-blue">SAVE</button>
+                                <a class="btn btn-grey" data-dismiss="modal" >CANCEL</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- change-sub-wrap -->
+
+            </div>
+            <!-- modal-content -->
+        </div>
+        <!-- modal-dialog -->
+    </div>
+    <!-- modal -->
+
+
+    <div class="modal tokbird-modal fade" id="create_facilitator" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+        <div class="modal-dialog register-modal plan-modal-alter" role="document">
+            <div class="modal-content">
+                <div class="change-sub-wrap">
+                    <!-- change-sub-wrap -->
+                    <div class="modal-body">
+                        <form class="form" role="form" method="post" action="create_facilitator" accept-charset="UTF-8" (ngSubmit)="createFacilitator($event,j)" #j="ngForm">
+                            <div class="row">
+                                <div class="col-md-12 ptb10">
+                                    <h2 class="h2-heading"><span class="first-text-light">Create&nbsp;</span>Facilitator</h2>
+                                    
+                                        <div *ngIf="errorMsg" class="error-msg">{{errorMsg}}</div>
+                                        <div *ngIf="SuccessMsg" class="success-msg">{{SuccessMsg}}</div>
+
+                                        <div class="form-group form-group-height-alter" [ngClass]="{'has-error': !facilitator_name.valid && j.submitted}">
+                                            <input type="text" required="required" name="facilitator_name" ngModel #facilitator_name="ngModel">
+                                            <label class="control-label search-weight upper-case" for="input">Name</label><i class="bar"></i>
+                                        </div>
+                                        <div class="form-group form-group-height-alter" [ngClass]="{'has-error': !email.valid && j.submitted}">
+                                            <input type="email" required="required" name="email" ngModel #email="ngModel">
+                                            <label class="control-label search-weight upper-case" for="input">Email</label><i class="bar"></i>
+                                            <span *ngIf="emailErrorMsg" class="text-danger">{{emailErrorMsg}}</span>
+                                        </div>
+                                    
+                                </div>
+
+                            </div>
+                            <div class="sub-can-btn-wrap sub-can-btn-margin">
+                                <!--  <a class="btn btn-blue" data-dismiss="modal" href="javascript:void(0)">CLOSE</a> -->
+
+                                <button type="submit" class="btn btn-blue">SAVE</button>
+                                <a class="btn btn-grey" data-dismiss="modal">CANCEL</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- change-sub-wrap -->
+
+            </div>
+            <!-- modal-content -->
+        </div>
+        <!-- modal-dialog -->
+    </div>
+    <!-- modal -->
+
+
+    <div class="modal tokbird-modal fade" id="delete_facilitator" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+        <div class="modal-dialog register-modal plan-modal-alter" role="document">
+            <div class="modal-content">
+                <div class="change-sub-wrap">
+                    <!-- change-sub-wrap -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 ptb10">
+                                <h2 class="h2-heading"><span class="first-text-light">Delete&nbsp;</span>Facilitator</h2>
+
+                                <span class="plan_sucess">This facilitator will automatically removed from all the assigned meetings.Are you sure you want to continue ?</span>
+
+                            </div>
+
+                        </div>
+                        <div class="sub-can-btn-wrap sub-can-btn-margin">
+                            <!--  <a class="btn btn-blue" data-dismiss="modal" href="javascript:void(0)">CLOSE</a> -->
+
+                            <a class="btn btn-blue" href="javascript:void(0)" (click)="changeStatus(facilitator_id,'delete')" >DELETE</a>
+                            <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- change-sub-wrap -->
+
+            </div>
+            <!-- modal-content -->
+        </div>
+        <!-- modal-dialog -->
+    </div>
+    <!-- modal -->
+
+    <div class="modal tokbird-modal fade" id="disable_facilitator" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+        <div class="modal-dialog register-modal plan-modal-alter" role="document">
+            <div class="modal-content">
+                <div class="change-sub-wrap">
+                    <!-- change-sub-wrap -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 ptb10">
+                                <h2 class="h2-heading"><span class="first-text-light">Disable&nbsp;</span>Facilitator</h2>
+
+                                <span class="plan_sucess">This facilitator will automatically removed from all the assigned meetings.Are you sure you want to continue ?</span>
+
+                            </div>
+
+                        </div>
+                        <div class="sub-can-btn-wrap sub-can-btn-margin">
+                            <!--  <a class="btn btn-blue" data-dismiss="modal" href="javascript:void(0)">CLOSE</a> -->
+
+                            <a class="btn btn-blue" href="javascript:void(0)"  (click)="changeStatus(facilitator_id,'disable')">DISABLE</a>
+                            <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- change-sub-wrap -->
+
+            </div>
+            <!-- modal-content -->
+        </div>
+        <!-- modal-dialog -->
+    </div>
+    <app-admin-footer></app-admin-footer>

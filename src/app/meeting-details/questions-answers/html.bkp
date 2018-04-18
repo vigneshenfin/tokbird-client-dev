@@ -1,0 +1,106 @@
+<!-- <app-header></app-header> -->
+<app-header *ngIf="roleId == '3'"></app-header>
+<app-admin-header *ngIf="roleId != '3'"></app-admin-header>
+    <div class="main-wraper">
+    <div class="left-sidebar-wrap">
+      <app-sidebar [meetingStatus]="meetingStatus"></app-sidebar>
+    </div>
+        <!-- left-sidebar-wrap -->
+        <div class="right-content-wrap right-content-wrap-minHeight">
+
+            <!-- <div class="text-center"><img class="nomeeting-svg" src="assets/images/noquestions.svg" /></div> -->
+            
+            <!-- <div *ngIf="accessDenied" class="warning-ex-wrap">
+                <img src="assets/images/exclamatory.png" alt="">
+                <span class="warning-text">{{accessMessage}}</span>
+            </div> -->
+            <div class="heading-r-btns-wrap">
+                <h2 class="h2-heading"><span class="first-text-light">Questions &</span> Answers</h2>
+            </div>
+            <div *ngIf="accessDenied">
+                <div class="text-center"><img class="nomeeting-svg" [ngStyle]="{'min-width': '500px'}" src="assets/images/noaccess.svg" /></div>
+            </div>
+
+            <div *ngIf="allDataFetched">
+            <!-- <div class="heading-r-btns-wrap">
+                <h2 class="h2-heading"><span class="first-text-light">Questions &</span> Answers</h2>
+            </div> -->
+            <div class="text-center" *ngIf="(questionsFetched) && (!questionAnswers)"><img class="nomeeting-svg" src="assets/images/noquestions.svg" /></div>
+            <div *ngIf="(questionsFetched) && (questionAnswers)">
+            <!-- heading-r-btns-wrap -->
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-12 col-xxs template-size">
+                    <span class="calander-title">Display results</span>
+                    <div class="dropdown">
+                        <button class="btn btn-transperant  dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{searchText}}
+                                <img src="/assets/images/arrow-down.svg" alt="Time">
+                        </button>
+                        <ul class="dropdown-menu dropdown-full">
+                            <li (click) ="getfilter(1)" value="1" class="list-item"><a>All Questions</a></li>
+                            <li (click) ="getfilter(2)" value="2" class="list-item"><a>Open Questions</a></li>
+                            <li (click) ="getfilter(3)" value="3" class="list-item"><a>Answered Questions</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+
+            <div class="question-answer-wrap">
+                <ul class="questions-ul">
+                  <ng-container *ngFor="let question of questionAnswers">
+                    <li (click)="toggleDropdownClick(question.id)">
+                        <div class="img-name-wrap">
+                            <img class="questioner-img" src="{{question.us_image}}" alt="">
+                            <div class="questioner-name">
+                                {{question.us_name}}
+                            </div>
+                        </div>
+                        <!-- img-name-wrap -->
+                        <div class="question-wrap">
+                            <div class="question-wrap-test">
+                               {{question.question}}
+                            </div>
+                            <div class="answer-count-wrap">
+                                <span *ngIf="question.answers.length < 100" class="answe-count-number">{{question.answers.length}}</span>
+                                <span *ngIf="question.answers.length >= 100" class="answe-count-number">99+</span>
+                                <span class="answer-count-label">answer</span>
+                            </div>
+
+                        </div>
+                        <!-- question-wrap -->
+                        <div class="dateandToogle-wrap">
+                            <span class="dateand-wrap-date">{{question.created_at | date: 'd MMM y'}} at {{question.created_at | date: 'jms'}}</span>
+                            <span *ngIf="question.answers.length != 0" class="toogle-dropdown" id="toogle-dropdown{{question.id}}" >
+                                <img src="/assets/images/question-answe-toggle.svg" alt="">
+                            </span>
+                        </div>
+                        <!-- dateandToogle-wrap -->
+                    </li>
+                    <ul class="questions-answe-ul">
+                        <li *ngFor="let answer of question.answers">
+                            <div class="img-name-wrap">
+                                <img class="questioner-img" src="{{answer.us_image}}" alt="">
+                                <div class="questioner-name">
+                                    {{answer.us_name}}
+                                </div>
+                            </div>
+                            <div class="question-wrap">
+                                <div class="question-wrap-test">
+                                     {{answer.answer}}
+                                </div>
+                            </div>
+                            <div class="dateandToogle-wrap">
+                                <span class="dateand-wrap-date">{{answer.created_at | date: 'd MMM y'}} at {{answer.created_at | date: 'jms'}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                  </ng-container>
+                </ul>
+            </div>
+            <!-- question-answer-wrap -->
+            </div>
+        </div>
+        </div>
+        <!-- right-content-wrap -->
+    </div>
+<app-footer></app-footer>

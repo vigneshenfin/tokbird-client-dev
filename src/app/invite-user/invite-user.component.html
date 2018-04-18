@@ -1,0 +1,98 @@
+<app-header></app-header>
+<div class="main-wraper">
+    <app-meeting-sidebar></app-meeting-sidebar>
+    <div class="right-content-wrap">
+        <h2 class="h2-heading"><span class="first-text-light">Invite</span> User</h2>
+        <form (ngSubmit)="saveInvitationContent($event, g)" #g="ngForm">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-12 col-xxs">
+                    <span class="calander-title">User role</span>
+                    <div class="dropdown">
+                        <button class="btn btn-transperant  dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{selectedRole!='' ? selectedRole : 'Select'}}
+                            <img src="assets/images/arrow-down.svg" alt="Time">
+                        </button>
+                        <ul class="dropdown-menu dropdown-full">
+                            <li *ngFor="let role of userRoles" (click)="getInvitationContent($event, role.value, role.name)"><a href="javascript:void(0)">{{role.name}}</a></li>
+                        </ul>
+                        <div *ngIf="selectedRole == '' && g.submitted" class="text-danger">
+                            Please choose user role.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+            <span class="calander-title top-bottom-label-space">Invitation email content</span>
+            <div class="redactor-wrap bottom-margin">
+                <app-tinymce [(ngModel)]="invitationContent" name="invitationContent"></app-tinymce>
+                <!-- <div *ngIf="invitationContent == '' && g.submitted" class="text-danger"> -->
+                <div *ngIf="invitationContentError > 0" class="text-danger">
+                    Please enter invitation content.
+                </div>
+            </div>
+            <!-- redactor-wrap -->
+
+            <div class="left-bttn-blue text-center">
+                <input type="submit" name="submit" class="btn btn-blue btn-full" value="UPDATE" />
+            </div>
+            <!-- left-bttn-blue -->
+        </form>
+        <div class="dashed-seprator full-width"></div>
+
+        <form (ngSubmit)="sendInvitation($event, f)" #f="ngForm" enctype="multipart/form-data">
+          <div class="row">
+              <div class="col-md-3 col-sm-4 col-xs-12 col-xxs">
+                  <span class="calander-title">User role</span>
+                  <div class="dropdown">
+                      <button class="btn btn-transperant  dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{selectedUserRoleName!='' ? selectedUserRoleName : 'Select'}}
+                              <img src="assets/images/arrow-down.svg" alt="Time">
+                      </button>
+                      <ul class="dropdown-menu dropdown-full">
+                          <li *ngFor="let role of userRoles" (click)="selectUserRole($event, role.value, role.name)"><a href="javascript:void(0)">{{role.name}}</a></li>
+                      </ul>
+                      <div *ngIf="selectedUserRole == '' && f.submitted" class="text-danger">
+                        Please choose user role.
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="cvs">
+              <div class="log-text-warp">
+                  <span class="log-text">USERS EMAILS:</span>
+                  <span class="logo-des">(emails should be separated by comma)</span>
+              </div>
+                <div class="button-download-sample-wrap">
+                    <div class="csv-wrap">
+                        <div class="btn btn-blue btn-alignedupdate btn-browse file-browse-btn">
+                            <input type="file" name="file" id="invitaionFile" [ngModel]="file" #csvFile (change)="getFiles($event)" />
+                            <span>IMPORT.CSV</span>
+                        </div>
+                        <a class="download-sample-btn" href="{{uploadPath}}sample.csv">Download sample CSV</a>
+                    </div>
+                    <!-- csv-wrap -->
+                    <span>{{csvFilename}}</span><span *ngIf="invitationCsvError > 0" class="text-danger">Invalid File</span>
+                </div>
+          </div>
+          <!-- CVS -->
+
+          <div class="redactor-wrap">
+              <!-- required -->
+              <textarea name="userEmails" [ngModel]="userEmails" #invitationEmails="ngModel"></textarea>
+              <div *ngIf="(invitationEmails.invalid && f.submitted && fileExists==0)" class="text-danger">
+                <div *ngIf="invitationEmails.errors.required">
+                  Emails is required.
+                </div>
+              </div>
+              <div *ngIf="(invitationParamsError == 1)" class="text-danger">
+                  Email or csv file required
+              </div>
+
+          </div>
+          <div class="left-bttn-blue text-center">
+              <input type="submit" name="submit" class="btn btn-blue btn-full" value="SEND INVITATION" />
+          </div>
+        </form>
+    </div>
+    <!-- right-content-wrap -->
+</div>
+<!-- main-wraper -->
+<app-footer></app-footer>

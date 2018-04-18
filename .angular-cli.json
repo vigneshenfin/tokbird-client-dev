@@ -1,0 +1,88 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "tokbird-client"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "../node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css",
+        "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
+        "../node_modules/angular2-busy/build/style/busy.css",
+        "styles.css",
+        "custom.css"
+      ],
+      "scripts": [
+        "../node_modules/moment/moment.js",
+        "../node_modules/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js",
+        "vendors/datatables.net/js/jquery.dataTables.min.js",
+        "vendors/datatables.net-bs/js/dataTables.bootstrap.min.js",
+        "vendors/datatables.net-responsive/js/dataTables.responsive.min.js",
+        "vendors/calender/moment.js",
+        "vendors/calender/fullcalendar.min.js",
+        "js/jquery.nicescroll.js",
+        "js/clipboard.min.js",
+        "js/dropzone.min.js",
+        "js/bootstrap-datepicker.js",
+        "js/markerclusterer.js",
+        "js/oms.min.js",
+        "js/jquery.inputmask.bundle.min.js",
+        "../node_modules/tinymce/tinymce.js", 
+        "../node_modules/tinymce/themes/modern/theme.js", 
+        "../node_modules/tinymce/plugins/link/plugin.js", 
+        "../node_modules/tinymce/plugins/paste/plugin.js", 
+        "../node_modules/tinymce/plugins/table/plugin.js", 
+        "../node_modules/tinymce/plugins/advlist/plugin.js", 
+        "../node_modules/tinymce/plugins/autoresize/plugin.js", 
+        "../node_modules/tinymce/plugins/lists/plugin.js", 
+        "../node_modules/tinymce/plugins/code/plugin.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json"
+    },
+    {
+      "project": "src/tsconfig.spec.json"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "component": {},
+    "serve": {
+      "port": 4202
+    }
+  }
+}
