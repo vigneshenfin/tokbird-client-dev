@@ -32,6 +32,9 @@ export class UsersComponent implements OnInit {
   public recordsTotal:any = [];
   public sortDir = 1; // Asc, 2-Desc
   public sortColumn = 1; // Name
+  // Added - 23/04/2018
+  public subscriptionPlans:any = [{"id":'', "value": "All Plans"}, {"id":1, "value": "Free"}, {"id":2, "value":"Basic"}, {"id":3, "value":"Plus"}, {"id":4, "value":"Corporate"}];
+  public planId = '';
 
   constructor(private router:Router, private activatedRoute:ActivatedRoute,private user:User, public toastr: ToastsManager, vcr: ViewContainerRef,private usersService:UsersService) {
     this.userDetails   = user.getUser();
@@ -58,6 +61,8 @@ export class UsersComponent implements OnInit {
     params.keyword =  this.search;
     params.sort_column = this.sortColumn;
     params.sort_dir = this.sortDir;
+    // Added - 23/04/2018
+    params.plan_id = this.planId;
     this.busy = this.usersService.getUsersDetails(params)
           .subscribe(
           (response:any) => {
@@ -103,6 +108,14 @@ export class UsersComponent implements OnInit {
 
   resetSearch(){
     this.search = "";
+    this.getUsers();
+  }
+
+  /**
+   * Filter accounts by plan id
+   * @param planId 
+   */
+  selectPlan(planId = ''){
     this.getUsers();
   }
 

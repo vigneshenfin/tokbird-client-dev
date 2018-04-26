@@ -115,7 +115,9 @@
                 </svg> <!-- Location --> Lobby Screen Settings
             </a>
         </li>
-        <li *ngIf="(isRescheduled)" routerLinkActive="active-side">
+        <!-- Changed - 23/04/2018 - Recordings available for future meetings - without start meeting  -->
+        <!-- <li *ngIf="(isRescheduled)" routerLinkActive="active-side"> -->
+        <li routerLinkActive="active-side">
             <a [routerLink]="[urlPrefix + '/meetings/recordings', meetingId]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.707 20.707">
                     <g fill="#AAB2BD">

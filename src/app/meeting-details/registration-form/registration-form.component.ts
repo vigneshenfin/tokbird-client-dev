@@ -389,6 +389,8 @@ export class RegistrationFormComponent implements OnInit {
   validateNewFieldName(name) {
     let newFieldNameErrorCount = 0;
     let newFieldNameErrors = 0;
+    // Added - 23/04/2018
+    let nameExists = 0;
     if(this.fieldType == '1' || this.fieldType == '2' || this.fieldType == '3' || this.fieldType == '4'){
       // No name checking for country, state, terms and conditions
       if(name!=''){
@@ -400,6 +402,8 @@ export class RegistrationFormComponent implements OnInit {
             let newName = name.replace(/\s/g, '');
             if(newName == fname){
               newFieldNameErrorCount++;
+              // Added - 23/04/2018
+              nameExists++;
             }else{
               // this.newFieldNameError = 0;
               let newFieldName = newName.toLowerCase();
@@ -421,6 +425,10 @@ export class RegistrationFormComponent implements OnInit {
     }
     if(newFieldNameErrorCount > 0) {
       this.newFieldNameError = 1;
+      // Added - 23/04/2018
+      if(nameExists > 0){
+        this.showError('Field name already exists');
+      }
     }else{
       this.newFieldNameError = 0;
     }
@@ -563,6 +571,8 @@ export class RegistrationFormComponent implements OnInit {
 
   validateFieldName(name) {
     let fieldNameErrorCount = 0;
+    // Added - 23/04/2018
+    let nameExists = 0;
     if(name!=''){
       var letters = /^[0-9a-zA-Z ]+$/;
       if (letters.test(name)){
@@ -573,6 +583,8 @@ export class RegistrationFormComponent implements OnInit {
           if(i != this.rowToEdit){
             if(newName == fname){
               fieldNameErrorCount++;
+              // Added - 23/04/2018
+              nameExists++;
             }else{
             }
           }
@@ -585,6 +597,10 @@ export class RegistrationFormComponent implements OnInit {
     }
     if(fieldNameErrorCount > 0){
       this.editNameError = 1;
+      // Added - 23/04/2018
+      if(nameExists > 0){
+        this.showError('Field name already exists');
+      }
     }else{
       this.editNameError = 0;
     }

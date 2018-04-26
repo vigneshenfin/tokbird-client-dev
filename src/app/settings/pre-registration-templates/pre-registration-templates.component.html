@@ -81,6 +81,8 @@
                                         <th class="min-width-100">Required</th>
                                         <th class="min-width-150">Field Type</th>
                                         <th class="min-width-150">Field Name</th>
+                                        <!-- Added - 23/04/2018  -->
+                                        <th>Field Description</th>
                                         <th>Field Value</th>
                                         <th class="min-width-100">Action</th>
                                     </tr>
@@ -112,6 +114,14 @@
                                             <div class="form-group" [ngClass]="{'has-error': editNameError !=0}" *ngIf="rowToEdit == i">
                                                 <input type="text" name="editName" [(ngModel)]="editName" #editFieldName="ngModel" required="required">
                                                 <label class="control-label" for="input">ENTER FIELD NAME</label><i class="bar"></i>
+                                            </div>
+                                        </td>
+                                        <!-- Added - 23/04/2018  -->
+                                        <td>
+                                            <span class="text_value" *ngIf="rowToEdit != i">{{templateField.fieldDescription}}</span>
+                                            <div class="form-group" *ngIf="rowToEdit == i">
+                                                <input type="text" name="editDescription" [(ngModel)]="editDescription" required="required">
+                                                <label class="control-label" for="input">ENTER FIELD DESCRIPTION</label><i class="bar"></i>
                                             </div>
                                         </td>
                                         <td>
@@ -189,6 +199,17 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Added - 23/04/2018  -->
+                                <div *ngIf="(fieldType != 5 && fieldType != 6 && fieldType != 7)">
+                                    <div class="search-table search-table-in-preReg">
+                                        <div class="form-group">
+                                            <input type="text" name="fieldDescription" [(ngModel)]="fieldDescription">
+                                            <label class="control-label" for="input">ENTER FIELD DESCRIPTION</label><i class="bar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div *ngIf="(fieldType != 5 && fieldType != 6 && fieldType != 7)">
                                     <div class="search-table search-table-in-preReg">
                                         <div class="form-group" [ngClass]="{'has-error': (!newFieldValues.valid && f.submitted) || (newFieldValuesError == 1)}">

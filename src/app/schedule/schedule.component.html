@@ -39,9 +39,13 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xxs">
                         <span class="calander-title">MEETING DATE</span>
-                        <div class="form-group" [ngClass]="{'has-error': dateError && f.submitted}" id="date-picker-fg">
+                        <div class="form-group date" [ngClass]="{'has-error': dateError && f.submitted}" id="date-picker-fg">
                             <input type="text" id="datetimepicker" class="form-control datepicker" name="schedule_date" [(ngModel)]="schedule_date" #datePicker (blur)="schedule_date = datePicker.value" required/>
                             <i class="bar"></i>
+
+                            <div class="input-group-addon">
+                                <img alt="Calander" src="assets/images/calander.svg">
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xxs">

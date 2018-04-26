@@ -1,0 +1,113 @@
+<app-header></app-header> 
+    <div class="main-wraper">
+        <div class="left-sidebar-wrap" style="visibility: hidden;"></div>
+        <!-- left-sidebar-wrap -->
+        <div class="right-content-wrap right-content-wrap-minHeight">
+          <div class="heading-r-btns-wrap">
+            <h2 class="h2-heading"><span class="first-text-light">Learners</span> </h2>
+          </div>
+ 
+          <!-- <form (ngSubmit)="uploadLearners($event, g)" #g="ngForm"> -->
+            <div class="cvs">
+              <div class="button-download-sample-wrap">
+                  <div class="csv-wrap">
+                      <div class="btn btn-blue btn-alignedupdate btn-browse file-browse-btn">
+                        <input type="file" name="file" id="learnerFile" [ngModel]="file" #csvFile (change)="getFiles($event)" accept=".csv" />
+                        <span>IMPORT.CSV</span>
+                      </div> 
+                      <a class="download-sample-btn" href="{{uploadPath}}sample_learner.csv">Download sample CSV</a>
+                  </div>
+                  <!-- csv-wrap -->
+                  <span>{{csvFilename}}</span><span *ngIf="learnersCsvError > 0" class="text-danger">Invalid File</span>
+              </div>
+            </div>
+            <!-- CVS -->
+          <!-- </form> -->
+
+          <div class="table-responsive" style="position:relative;">
+            <div [ngBusy]="busy"></div>
+            <table class="table table-striped table-striped-tok table-reg-height">
+                <thead>
+                    <tr>
+                        <th>Learner ID</th>
+                        <th>Name</th>
+                        <th>Email Address</th>
+                        <th class="text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let learner of learners | paginate: {'id': 'learners-list', itemsPerPage: limit, currentPage: p, totalItems: recordDetails.recordsTotal }">
+                      <td>{{learner.learner_id}}</td>
+                      <td>{{learner.name}}</td>
+                      <td>{{learner.email_address}}</td>
+                      <td>
+                        <a class="edit" href="javascript:void(0)" (click)="editLearner(learner.id)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15.571" height="15.5" viewBox="0 0 14.571 14.5">
+                                            <path fill="#B2B2B2" d="M9.06 2.42l2.965 2.964-7.503 7.503L1.56 9.923l7.5-7.503zm5.214-.715L12.952.383c-.51-.51-1.34-.51-1.853 0L9.83 1.65l2.964 2.963 1.477-1.477c.397-.396.397-1.035 0-1.43zM.008 14.09c-.054.242.165.46.408.4l3.303-.8-2.965-2.965-.75 3.364z"></path>
+                                            </svg>
+                        </a>
+                        <!-- edit -->
+                        <a class="delete" (click)="confirmDelete(learner.id)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12.641" height="16" viewBox="0 0 11.641 15">
+                                            <path fill="#B2B2B2" d="M2.51 15h6.653c.915 0 1.663-.748 1.663-1.663V3.36H.848v9.977c0 .915.748 1.663 1.663 1.663zM11.64.848H8.73L7.9 0H3.74l-.83.848H0V2.51h11.64V.85z"></path>
+                                            </svg>
+                        </a>
+                        <!-- delete -->
+                      </td>
+                    </tr>
+                    <tr *ngIf="learners.length == 0"><td colspan="4">No results found</td></tr>
+                </tbody>
+            </table>
+          </div>
+
+          <pagination-controls class="my-pagination" id="learners-list"
+                  (pageChange)="pageChanged($event)"
+                  maxSize="5"
+                  directionLinks="true"
+                  autoHide="true"
+                  previousLabel="Previous"
+                  nextLabel="Next"
+                  screenReaderPaginationLabel="Pagination"
+                  screenReaderPageLabel="page"
+                  screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+
+        </div>
+    </div>
+<app-footer></app-footer>
+
+<!-- EDIT LEARNER MODAL  -->
+<div class="modal tokbird-modal fade" id="edit-learner" tabindex="-1" role="dialog" aria-labelledby="basicRegister">
+    <div class="modal-dialog register-modal register-modal-alter modal-reg-full" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form #f="ngForm" ngSubmit="saveLearner($event, f)">
+                    <div class="row">
+                        <div class="col-md-12 ptb10">
+                            <h2 class="h2-heading"><span class="first-text-light">Edit</span> Learner</h2>
+                            <div class="form-group" [ngClass]="{'has-error': (!editLearnerId.valid && f.submitted)}">
+                                <input type="text" name="learnerId" [(ngModel)]="learnerId" #editLearnerId=ngModel required="required">
+                                <label class="control-label" for="input">ENTER LEARNER ID</label><i class="bar"></i>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="name" [(ngModel)]="name" #editName=ngModel>
+                                <label class="control-label" for="input">ENTER NAME</label><i class="bar"></i>
+                            </div>
+                            <div class="form-group" [ngClass]="{'has-error': (!editEmailAddress.valid && f.submitted)}">
+                                <input type="text" name="emailAddress" [(ngModel)]="emailAddress" #editEmailAddress=ngModel required="required">
+                                <label class="control-label" for="input">ENTER EMAIL ADDRESS</label><i class="bar"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sub-can-btn-wrap sub-can-btn-margin">
+                        <input type="submit" class="btn btn-blue" name="submit" value="SAVE" />
+                        <a class="btn btn-grey" data-dismiss="modal" href="javascript:void(0)">CANCEL</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->

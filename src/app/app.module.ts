@@ -115,6 +115,7 @@ import { AllEventsListComponent } from './admin/all-events-list/all-events-list.
 import { MeetingUsersComponent } from './meeting-details/meeting-users/meeting-users.component';
 
 import { MainPipe } from 'app/shared/main-pipe.module';
+import { LearnersComponent } from './learners/learners.component';
 // import {A2Edatetimepicker} from 'ng2-eonasdan-datetimepicker';
 // import { DateTimePickerDirective } from 'ng2-eonasdan-datetimepicker';
 // import { DateTimePickerDirective } from 'ng2-eonasdan-datetimepicker/dist/datetimepicker.directive';
@@ -192,6 +193,7 @@ const tokRoutes: Routes = [
  {path:'meetings/registered/:meetingId', component: MeetingUsersComponent, canActivate:[AuthGuard]},
  {path:'meetings/attended/:meetingId', component: MeetingUsersComponent, canActivate:[AuthGuard]},
  {path:'meetings/watched/:meetingId', component: MeetingUsersComponent, canActivate:[AuthGuard]},
+ {path:'learners', component: LearnersComponent, canActivate:[AuthGuard]},
 
  //Admin Routes HEAD
   {path:'admin/login', component: AdminLoginComponent,canActivate:[SessionCheck]},
@@ -347,6 +349,7 @@ const tokRoutes: Routes = [
     AllEventsCalendarComponent,
     AllEventsListComponent,
     MeetingUsersComponent,
+    LearnersComponent,
     // TruncatePipe
     // DateTimePickerDirective
   ],

@@ -61,6 +61,9 @@ export class PreRegistrationTemplatesComponent implements OnInit {
   public accessMessage = '';
   public disableSaveReg:boolean = false;
   public disableDeleteReg:boolean = false;
+  // Added - 23/04/2018
+  public fieldDescription;
+  public editDescription;
 
   constructor(private user:User, private preRegistrationTemplatesService: PreRegistrationTemplatesService, public toastr: ToastsManager, vcr: ViewContainerRef, private toastrService: ToastrService, private router:Router) {
     this.userDetails = user.getUser();
@@ -202,6 +205,8 @@ export class PreRegistrationTemplatesComponent implements OnInit {
       let obj:any = {};
       obj.fieldType = templateDetails[i].field_type,
       obj.fieldName = templateDetails[i].field_name,
+      // Added - 23/04/2018
+      obj.fieldDescription = templateDetails[i].field_description,
       obj.fieldValues = templateDetails[i].field_values,
       obj.isRequired = templateDetails[i].is_required,
       obj.isEditable = templateDetails[i].is_editable
@@ -266,6 +271,8 @@ export class PreRegistrationTemplatesComponent implements OnInit {
           let obj:any = {};
           obj.fieldType = fieldDetails.value.fieldType;
           obj.fieldName = (fieldDetails.value.fieldName) ? fieldDetails.value.fieldName : '';
+          // Added - 23/04/2018
+          obj.fieldDescription = (fieldDetails.value.fieldDescription) ? fieldDetails.value.fieldDescription : '';
           obj.fieldValues = (fieldDetails.value.fieldValues) ? fieldDetails.value.fieldValues : '';
           obj.fieldValuesHtml = (fieldDetails.value.fieldValues) ? fieldDetails.value.fieldValues : '';
           if(fieldDetails.value.isRequired == true){
@@ -385,6 +392,8 @@ export class PreRegistrationTemplatesComponent implements OnInit {
     this.rowToEdit = rowId;
     this.editType = this.fieldsArray[rowId].fieldType;
     this.editName = this.fieldsArray[rowId].fieldName;
+    // Added - 23/04/2018
+    this.editDescription = this.fieldsArray[rowId].fieldDescription;
     this.editValues = this.fieldsArray[rowId].fieldValues;
   }
 
@@ -396,6 +405,8 @@ export class PreRegistrationTemplatesComponent implements OnInit {
     this.rowToEdit = -1;
     this.editType = '';
     this.editName = '';
+    // Added - 23/04/2018
+    this.editDescription = '';
     this.editValues = '';
     this.editNameError = 0;
     this.editTypeError = 0;
@@ -414,12 +425,16 @@ export class PreRegistrationTemplatesComponent implements OnInit {
       if(this.editNameError == 0 && this.editTypeError == 0 && this.editValuesError == 0){
         this.fieldsArray[rowId].fieldType = this.editType;
         this.fieldsArray[rowId].fieldName = this.editName;
+        // Added - 23/04/2018
+        this.fieldsArray[rowId].fieldDescription = this.editDescription;
         this.fieldsArray[rowId].fieldValues = this.editValues;
         // Added - 01/03/2018
         this.fieldsArray[rowId].fieldValuesHtml = this.editValues;
         this.rowToEdit = -1;
         this.editType = '';
         this.editName = '';
+        // Added - 23/04/2018
+        this.editDescription = '';
         this.editValues = '';
       }
     }
@@ -500,6 +515,8 @@ export class PreRegistrationTemplatesComponent implements OnInit {
    */
   validateFieldName(name) {
     let fieldNameErrorCount = 0;
+    // Added - 23/04/2018
+    let nameExists = 0;
     if(name!=''){
       var letters = /^[0-9a-zA-Z ]+$/;
       if (letters.test(name)){
@@ -510,6 +527,8 @@ export class PreRegistrationTemplatesComponent implements OnInit {
           if(i != this.rowToEdit){
             if(newName.toUpperCase() == fname.toUpperCase()){
               fieldNameErrorCount++;
+              // Added - 23/04/2018
+              nameExists++;
             }else{
             }
           }
@@ -522,6 +541,10 @@ export class PreRegistrationTemplatesComponent implements OnInit {
     }
     if(fieldNameErrorCount > 0){
       this.editNameError = 1;
+      // Added - 23/04/2018
+      if(nameExists > 0){
+        this.showError('Field name already exists');
+      }
     }else{
       this.editNameError = 0;
     }
@@ -534,6 +557,8 @@ export class PreRegistrationTemplatesComponent implements OnInit {
   validateNewFieldName(name) {
     let newFieldNameErrorCount = 0;
     let newFieldNameErrors = 0;
+    // Added - 23/04/2018
+    let nameExists = 0;
     if(this.fieldType == '1' || this.fieldType == '2' || this.fieldType == '3' || this.fieldType == '4'){
       // No name checking for country, state, terms and conditions
       if(name!=''){
@@ -546,6 +571,8 @@ export class PreRegistrationTemplatesComponent implements OnInit {
             let newName = name.replace(/\s/g, '');
             if(newName.toUpperCase() == fname.toUpperCase()){
               newFieldNameErrorCount++;
+              // Added - 23/04/2018
+              nameExists++;
             }else{
               let newFieldName = newName.toLowerCase();
               if(newFieldName === 'country' || newFieldName === 'state'){
@@ -566,6 +593,10 @@ export class PreRegistrationTemplatesComponent implements OnInit {
     }
     if(newFieldNameErrorCount > 0) {
       this.newFieldNameError = 1;
+      // Added - 23/04/2018
+      if(nameExists > 0){
+        this.showError('Field name already exists');
+      }
     }else{
       this.newFieldNameError = 0;
     }
@@ -698,6 +729,8 @@ export class PreRegistrationTemplatesComponent implements OnInit {
           let field = this.fieldsArray[i];
           obj.field_type = field.fieldType;
           obj.field_name = field.fieldName;
+          // Added - 23/04/2018
+          obj.field_description = field.fieldDescription;
           obj.field_values = field.fieldValues;
           obj.is_required = field.isRequired;
           obj.is_editable = field.isEditable;
@@ -767,6 +800,8 @@ export class PreRegistrationTemplatesComponent implements OnInit {
     this.fieldType = '';
     this.fieldValues = '';
     this.fieldName = '';
+    // Added - 23/04/2018
+    this.fieldDescription = '';
     this.newFieldNameError = 0;
     this.newFieldTypeError = 0;
     this.newFieldValuesError = 0;
@@ -802,6 +837,8 @@ export class PreRegistrationTemplatesComponent implements OnInit {
             let obj:any = {};
             obj.fieldName = templateDetails[i].field_name;
             obj.fieldType = templateDetails[i].field_type;
+            // Added - 23/04/2018
+            obj.fieldDescription = templateDetails[i].field_description;
             if(templateDetails[i].field_type == '7'){ // Terms and conditions
               obj.fieldValues = templateDetails[i].field_values;
               obj.fieldValuesHtml = '<a href="'+this.termsPath + templateDetails[i].field_values +'" download>' + templateDetails[i].field_values + '</a>';

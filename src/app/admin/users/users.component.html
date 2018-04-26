@@ -30,9 +30,18 @@
                             <div class="search-btn">
                                 <button type="reset" (click)="resetSearch()" class="btn btn-grey reset-btn" href="javascript:void(0)">RESET</button>
                             </div>
-                            <!-- search-btn -->                            
-                            
+                            <!-- search-btn -->                          
                         </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <select name="planId" [(ngModel)]="planId" (change)="selectPlan($event.target.value)">
+                            <option *ngFor="let subscriptionPlan of subscriptionPlans" value="{{subscriptionPlan.id}}">{{subscriptionPlan.value}}</option>
+                        </select>  
+                        <label class="control-label" for="planId"><span class="filter-label">FILTER BY SUBSCRIPTION PLAN</span></label><i class="bar"></i>
                     </div>
                 </div>
             </div>
